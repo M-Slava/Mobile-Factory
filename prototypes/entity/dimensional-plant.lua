@@ -8,7 +8,8 @@ dpE.icon_size = 32
 dpE.icon_mipmaps = 1
 dpE.minable = {mining_time = 0.3, result = "DimensionalPlant"}
 dpE.crafting_categories = {"Elements"}
-dpE.animation = make_4way_animation_from_spritesheet({
+dpE.graphics_set = {
+  animation = make_4way_animation_from_spritesheet({
 	layers =
 		{
 		{
@@ -21,7 +22,7 @@ dpE.animation = make_4way_animation_from_spritesheet({
           scale = 0.5
 		},
 		{
-          filename = "__base__/graphics/entity/chemical-plant/hr-chemical-plant-shadow.png",
+          filename = "__base__/graphics/entity/chemical-plant/chemical-plant-shadow.png",
           width = 312,
           height = 222,
           repeat_count = 24,
@@ -31,6 +32,7 @@ dpE.animation = make_4way_animation_from_spritesheet({
           scale = 0.5
 		}
 	}})
+}
 data:extend{dpE}
 
 -- Item --
@@ -53,10 +55,13 @@ dpR.energy_required = 5
 dpR.enabled = false
 dpR.ingredients =
     {
-      {"DimensionalCircuit", 10},
-      {"MachineFrame2", 6},
+      {type="item", name="DimensionalCircuit", amount=10},
+      {type="item", name="MachineFrame2", amount=6},
     }
-dpR.result = "DimensionalPlant"
+dpR.results = 
+  {
+    {type="item", name="DimensionalPlant", amount=1}
+  }
 data:extend{dpR}
 
 -- Technologie --

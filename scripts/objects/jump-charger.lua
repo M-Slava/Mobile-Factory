@@ -6,7 +6,7 @@ JC = {
 	player = "",
 	MF = nil,
 	entID = 0,
-	lightID = 0,
+	light = nil,
 	updateTick = 240,
 	lastUpdate = 0
 }
@@ -40,7 +40,9 @@ end
 -- Destructor --
 function JC:remove()
     -- Destroy the Light --
-    rendering.destroy(self.lightID)
+    if self.light then
+        self.light.destroy()
+    end
     -- Remove from the Jump Drive Table --
     self.MF.jumpDriveObj.jumpChargerTable[self.ent.unit_number] = nil
     -- Remove from the Update System --

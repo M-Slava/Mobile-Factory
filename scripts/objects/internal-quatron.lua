@@ -6,7 +6,7 @@ IQC = {
 	player = "",
 	MF = nil,
 	entID = 0,
-	spriteID = 0,
+	sprite = nil,
 	updateTick = 60,
 	lastUpdate = 0,
 	energyLevel = 1
@@ -79,8 +79,10 @@ function IQC:update()
 
 	-- Update the Sprite --
 	local spriteNumber = math.ceil(EI.energy(self)/EI.maxEnergy(self)*16)
-	rendering.destroy(self.spriteID)
-	self.spriteID = rendering.draw_sprite{sprite="CubeChargeSprite" .. spriteNumber, x_scale=1/2.25, y_scale=1/2.25, target=self.ent, surface=self.ent.surface, render_layer=130}
+	if (self.sprite) then
+		self.sprite.destroy()
+	end
+	self.sprite = rendering.draw_sprite{sprite="CubeChargeSprite" .. spriteNumber, x_scale=1/2.25, y_scale=1/2.25, target=self.ent, surface=self.ent.surface, render_layer=130}
 
 	-- Balance the Quatron with neighboring Quatron Users --
 	EI.shareEnergy(self)

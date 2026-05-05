@@ -13,7 +13,7 @@ ltI.place_as_tile =
     {
       result = "tutorial-grid",
       condition_size = 1,
-      condition = {}
+      condition = {layers = {}}
     }
 data:extend{ltI}
 
@@ -25,9 +25,12 @@ lbR.energy_required = 1
 lbR.enabled = false
 lbR.ingredients =
     {
-		{"DimensionalOre", 4}
+		{type="item", name="DimensionalOre", amount=4}
     }
-lbR.result = "LabTile"
+lbR.results = 
+  {
+    {type="item", name="LabTile", amount=1}
+  }
 data:extend{lbR}
 
 -- Technology --

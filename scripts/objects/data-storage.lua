@@ -6,7 +6,7 @@ DS = {
 	player = "",
 	MF = nil,
 	entID = 0,
-	animID = 0,
+	anim = 0,
 	updateTick = 150,
 	lastUpdate = 0,
 	dataNetwork = nil
@@ -26,7 +26,7 @@ function DS:new(object)
 	t.entID = object.unit_number
 	t.dataNetwork = t.MF.dataNetwork
 	t.dataNetwork.dataStorageTable[object.unit_number] = t
-	t.animID = rendering.draw_animation{animation="DataStorageA", target={object.position.x, object.position.y-1.2}, surface=object.surface, render_layer=131}
+	t.anim = rendering.draw_animation{animation="DataStorageA", target={object.position.x, object.position.y-1.2}, surface=object.surface, render_layer=131}
 	UpSys.addObj(t)
 	return t
 end
@@ -42,7 +42,9 @@ end
 -- Destructor --
 function DS:remove()
 	-- Destroy the Animation --
-	rendering.destroy(self.animID)
+	if (self.anim) then
+		self.anim.destroy()
+	end
 	-- Remove from the Update System --
 	UpSys.removeObj(self)
 	-- Remove from the Data Network --
@@ -68,8 +70,8 @@ function DS:update()
 	end
 
 	-- Check the Animation --
-	if rendering.is_valid(self.animID) == false then
-		self.animID = rendering.draw_animation{animation="DataStorageA", target={self.ent.position.x,self.ent.position.y-1.2}, surface=self.ent.surface, render_layer=131}
+	if self.anim.valid == false then
+		self.anim = rendering.draw_animation{animation="DataStorageA", target={self.ent.position.x,self.ent.position.y-1.2}, surface=self.ent.surface, render_layer=131}
 	end
 	
 end

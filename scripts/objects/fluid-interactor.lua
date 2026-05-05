@@ -48,8 +48,12 @@ end
 -- Destructor --
 function FI:remove()
 	-- Destroy the Sprites --
-	rendering.destroy(self.stateSprite)
-	rendering.destroy(self.levelSprite)
+	if (self.stateSprite) then
+		self.stateSprite.destroy()
+	end
+	if (self.levelSprite) then
+		self.levelSprite.destroy()
+	end
 	-- Remove from the Update System --
 	UpSys.removeObj(self)
 	-- Remove from the Network Access Point --
@@ -92,11 +96,15 @@ function FI:update()
     for _, i in pairs(self.ent.get_fluid_contents()) do
         amount = math.floor(i)
     end
-    rendering.destroy(self.levelSprite)
+	if (self.levelSprite) then
+		self.levelSprite.destroy()
+	end
     if amount ~= nil then
         local spriteNumber = math.floor(amount/capacity*10)
         if spriteNumber == 0 then
-            rendering.destroy(self.levelSprite)
+			if (self.levelSprite) then
+				self.levelSprite.destroy()
+			end
         else
             self.levelSprite = rendering.draw_sprite{sprite="FluidInteractorSprite3" .. spriteNumber, target=self.ent, surface=self.ent.surface, render_layer=131}
         end
@@ -195,7 +203,7 @@ function FI:getTooltipInfos(GUITable, mainFrame, justCreated)
 				end
 
 				if fluid then
-					invs[k+1] = {"", "[img=fluid/"..fluid.."] ", game.fluid_prototypes[fluid].localised_name, " - ", deepTank.ID}
+					invs[k+1] = {"", "[img=fluid/"..fluid.."] ", prototypes.fluid[fluid].localised_name, " - ", deepTank.ID}
 				else
 					invs[k+1] = {"", "", {"gui-description.Empty"}, "", " - ", deepTank.ID}
 				end
@@ -275,11 +283,15 @@ function FI:setActive(set)
     self.active = set
     if set == true then
         -- Create the Active Sprite --
-        rendering.destroy(self.stateSprite)
+		if (self.stateSprite) then
+			self.stateSprite.destroy()
+		end
         self.stateSprite = rendering.draw_sprite{sprite="FluidInteractorSprite2", target=self.ent, surface=self.ent.surface, render_layer=131}
     else
         -- Create the Inactive Sprite --
-        rendering.destroy(self.stateSprite)
+		if (self.stateSprite) then
+			self.stateSprite.destroy()
+		end
         self.stateSprite = rendering.draw_sprite{sprite="FluidInteractorSprite1", target=self.ent, surface=self.ent.surface, render_layer=131}
     end
 end
@@ -367,7 +379,7 @@ function FI.interaction(event)
 	-- Change the Mode --
 	if string.match(event.element.name, "F.I.ModeSwitch") then
 		local objId = event.element.tags.ID
-		local obj = global.fluidInteractorTable[objId]
+		local obj = storage.fluidInteractorTable[objId]
 		if obj == nil then return end
 		obj:changeMode(event.element.switch_state)
 	end
@@ -375,7 +387,7 @@ function FI.interaction(event)
 	-- Change the Target --
 	if string.match(event.element.name, "F.I.TargetDD") then
 		local objId = event.element.tags.ID
-		local obj = global.fluidInteractorTable[objId]
+		local obj = storage.fluidInteractorTable[objId]
 		if obj == nil then return end
 		obj:changeInventory(tonumber(event.element.items[event.element.selected_index][5]))
 		return

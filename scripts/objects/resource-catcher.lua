@@ -10,8 +10,8 @@ RC = {
 	player = "",
 	MF = nil,
 	entID = 0,
-	lightID = 0,
-	spriteID = 0,
+	light = nil,
+	sprite = nil,
 	updateTick = 100,
 	justCreated = true,
 	filled = false,
@@ -34,7 +34,7 @@ function RC:new(object)
 	t.MF = getMF(t.player)
 	t.entID = object.unit_number
 	-- Draw the Light Sprite --
-	t.lightID = rendering.draw_light{sprite="ResourceCatcher", target=object, surface=object.surface, minimum_darkness=0}
+	t.light = rendering.draw_light{sprite="ResourceCatcher", target=object, surface=object.surface, minimum_darkness=0}
 	UpSys.addObj(t)
 	return t
 end
@@ -50,8 +50,12 @@ end
 -- Destructor --
 function RC:remove()
     -- Destroy the Light --
-    rendering.destroy(self.lightID)
-    rendering.destroy(self.spriteID)
+    if (self.light) then
+        self.light.destroy()
+    end
+    if (self.sprite) then
+        self.sprite.destroy()
+    end
     -- Remove from the Update System --
 	UpSys.removeObj(self)
 end
@@ -75,7 +79,7 @@ function RC:update()
 
     -- Draw the Green Sprite if needed --
     if self.haveResource == true then
-        self.spriteID = rendering.draw_sprite{sprite="ResourceCatcher", target=self.ent, surface=self.ent.surface}
+        self.sprite = rendering.draw_sprite{sprite="ResourceCatcher", target=self.ent, surface=self.ent.surface}
     end
 
     -- Allow to Update next time --
@@ -89,12 +93,12 @@ function RC:update()
         -- Check if there is a Dimensionnal Tile below --
         local tile = self.ent.surface.get_tile(self.ent.position.x, self.ent.position.y)
         if tile ~= nil and tile.valid == true and tile.name == "DimensionalTile" then
-            if game.tile_prototypes[self.resourceName] ~= nil then
+            if prototypes.tile[self.resourceName] ~= nil then
                 -- If this is a Tile --
                 self.ent.surface.set_tiles({{name=self.resourceName, position=self.ent.position}})
                 self.ent.destroy()
                 return
-            elseif game.entity_prototypes[self.resourceName] ~= nil then
+            elseif prototypes.entity[self.resourceName] ~= nil then
                 -- If this is a Resource, check if the Position is valid --
                 if self.ent.surface.can_place_entity{name=self.resourceName, position=self.ent.position} then
                     -- Create the Entity --
@@ -137,17 +141,17 @@ function RC:update()
     end
 
     -- Check the Ressource --
-    if resource ~= nil and (game.tile_prototypes[resource.name] ~= nil or game.entity_prototypes[resource.name] ~= nil) then
+    if resource ~= nil and (prototypes.tile[resource.name] ~= nil or prototypes.entity[resource.name] ~= nil) then
         if game.players[self.player] ~= nil then
             -- Create the Text and remove the Resource (Exept Water) --
             local text = ""
             if isTile == true or resource.amount == nil or resource.amount <= 0 then
                 self.resourceName = resource.name
-                text = {"", game.tile_prototypes[resource.name].localised_name, " ", {"info.Caught"}}
+                text = {"", prototypes.tile[resource.name].localised_name, " ", {"info.Caught"}}
             else
                 self.resourceName = resource.name
                 self.resourceAmount = resource.amount
-                text = {"", resource.amount, " ", game.entity_prototypes[resource.name].localised_name, " ", {"info.Caught"}}
+                text = {"", resource.amount, " ", prototypes.entity[resource.name].localised_name, " ", {"info.Caught"}}
                 resource.destroy()
             end
             game.players[self.player].create_local_flying_text{text=text, position=self.ent.position}
@@ -164,7 +168,7 @@ function RC:update()
     self.ent.surface.create_trivial_smoke{name="nuclear-smoke", position=self.ent.position}
 
     -- Draw the Green Sprite --
-    self.spriteID = rendering.draw_sprite{sprite="ResourceCatcher", target=self.ent, surface=self.ent.surface}
+    self.sprite = rendering.draw_sprite{sprite="ResourceCatcher", target=self.ent, surface=self.ent.surface}
 
     -- Set the Resource Catcher filled --
     self.filled = true
@@ -175,6 +179,7 @@ end
 function RC:itemTagsToContent(tags)
     self.resourceName = tags.resourceName
     self.resourceAmount = tags.resourceAmount
+    helpers.write_file("ResourceCatcher.txt", self.resourceName .. " - " .. tostring(self.resourceAmount))
     if self.resourceName ~= nil then
         self.haveResource = true
         self.filled = true
@@ -185,16 +190,17 @@ end
 function RC:contentToItemTags(tags)
     -- Get the Resource Localized Name --
     local locResourceName = ""
-    if game.tile_prototypes[self.resourceName] ~= nil then
+    if prototypes.tile[self.resourceName] ~= nil then
         -- Get the Tile Name --
-        locResourceName = game.tile_prototypes[self.resourceName].localised_name
-    elseif game.entity_prototypes[self.resourceName] ~= nil then
+        locResourceName = prototypes.tile[self.resourceName].localised_name
+    elseif prototypes.entity[self.resourceName] ~= nil then
         -- Get the Resource Name --
-        locResourceName = game.entity_prototypes[self.resourceName].localised_name
+        locResourceName = prototypes.entity[self.resourceName].localised_name
     else
         -- The Prototype doesn't exist anymore --
         return
     end
+    
     -- Create the Tooltips --
     if self.resourceAmount == nil then
         tags.set_tag("Infos", {resourceName=self.resourceName})

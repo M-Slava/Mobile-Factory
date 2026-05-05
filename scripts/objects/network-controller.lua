@@ -7,7 +7,7 @@ NC = {
 	MF = nil,
 	dataNetwork = nil,
     invObj = nil,
-	animID = 0,
+	anim = nil,
 	updateTick = 300,
 	lastUpdate = 0
 }
@@ -28,7 +28,7 @@ function NC:new(ent)
     t.MF.dataNetwork.networkController = t
 	t.MF.II.networkController = t
     UpSys.addObj(t)
-    t.animID = rendering.draw_animation{animation="NetworkControllerAn", target={ent.position.x,ent.position.y}, surface=ent.surface, render_layer=131}
+    t.anim = rendering.draw_animation{animation="NetworkControllerAn", target={ent.position.x,ent.position.y}, surface=ent.surface, render_layer=131}
 	return t
 end
 
@@ -55,8 +55,8 @@ function NC:update()
 	self.lastUpdate = game.tick
 
     -- Create the Animation if Needed --
-    if self.animID == 0 or rendering.is_valid(self.animID) == false then
-        self.animID = rendering.draw_animation{animation="NetworkControllerAn", target={self.ent.position.x,self.ent.position.y}, surface=self.ent.surface, render_layer=131}
+    if self.anim == nil or self.anim.valid == false then
+        self.anim = rendering.draw_animation{animation="NetworkControllerAn", target={self.ent.position.x,self.ent.position.y}, surface=self.ent.surface, render_layer=131}
 	end
 	
 end

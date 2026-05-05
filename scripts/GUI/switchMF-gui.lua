@@ -61,7 +61,7 @@ function GUI.updateMFSwitchMFGUI(GUITable, justCreated)
     local listTable = GAPI.addTable(GUITable, "ListTable", listFrame, 1)
 
     -- Create the List --
-    for k, MF2 in pairs(global.MFTable) do
+    for k, MF2 in pairs(storage.MFTable) do
 
         -- Create the Frame and the Flow --
         local frame = GAPI.addFrame(GUITable, "", listTable, "horizontal")
@@ -116,8 +116,8 @@ function GUI.updateMFSwitchMFGUI(GUITable, justCreated)
         local mfJumpDriveText = {"", {"gui-description.mfJumpCharge"}, ": ", {"gui-description.Unknow"}}
 
         if MF2.ent ~= nil and MF2.ent.valid == true then
-            mfHealthValue = MF2.ent.health / MF2.ent.prototype.max_health
-            mfHealthText = {"", {"gui-description.mfHealth"}, ": ", math.floor(MF2.ent.health), "/", MF2.ent.prototype.max_health}
+            mfHealthValue = MF2.ent.health / MF2.ent.max_health
+            mfHealthText = {"", {"gui-description.mfHealth"}, ": ", math.floor(MF2.ent.health), "/", MF2.ent.max_health}
             mfShielValue = 0
             mfShieldText = {"", {"gui-description.mfShield"}, ": ", 0}
             if MF2:maxShield() > 0 then
@@ -165,7 +165,7 @@ function GUI.switchMFGUIInteraction(event, player, MFPlayer)
             return
         end
         -- Check if the Name is not already used --
-        for _, MF2 in pairs(global.MFTable) do
+        for _, MF2 in pairs(storage.MFTable) do
             if MF2.name == text then
                 player.print({"gui-description.ChangeNameAlreadyUsed"})
                 return
@@ -182,17 +182,21 @@ function GUI.switchMFGUIInteraction(event, player, MFPlayer)
         -- Get the Mobile Factory ID --
 		local ID = event.element.tags.ID
         -- Check if the Player is allowed to use this Mobile Factory --
-		if canUse(MFPlayer, global.MFTable[ID]) == false then
+		if canUse(MFPlayer, storage.MFTable[ID]) == false then
 			player.print({"gui-description.NotAllowedMF"})
 			return
 		end
+
+        if storage.MFTable[ID].ent == nil or storage.MFTable[ID].ent.valid == false then
+            return
+        end
         -- Check if another Camera have to be closed --
         if MFPlayer.GUI[_mfGUIName.CameraGUI] ~= nil and MFPlayer.GUI[_mfGUIName.CameraGUI].gui ~= nil and MFPlayer.GUI[_mfGUIName.CameraGUI].gui.valid == true then
             MFPlayer.GUI[_mfGUIName.CameraGUI].gui.destroy()
             MFPlayer.GUI[_mfGUIName.CameraGUI] = nil
         end
         -- Create the Camera Windows --
-        MFPlayer.GUI[_mfGUIName.CameraGUI] = GAPI.createCamera(MFPlayer, _mfGUIName.CameraGUI, global.MFTable[ID].name, global.MFTable[ID].ent, 300, 0.5)
+        MFPlayer.GUI[_mfGUIName.CameraGUI] = GAPI.createCamera(MFPlayer, _mfGUIName.CameraGUI, storage.MFTable[ID].name, storage.MFTable[ID].ent, 300, 0.5)
         return
     end
 
@@ -201,12 +205,12 @@ function GUI.switchMFGUIInteraction(event, player, MFPlayer)
 		-- Get the Mobile Factory ID --
 		local ID = event.element.tags.ID
 		-- Check if the Player is allowed to use this Mobile Factory --
-		if canUse(MFPlayer, global.MFTable[ID]) == false then
+		if canUse(MFPlayer, storage.MFTable[ID]) == false then
 			player.print({"gui-description.NotAllowedMF"})
 			return
 		end
 		-- Change the Current Mobile Factory --
-		MFPlayer.currentMF = global.MFTable[ID]
+		MFPlayer.currentMF = storage.MFTable[ID]
 		-- Display the Message --
 		player.print({"", {"gui-description.CurrentMFChanged"}, " ", MFPlayer.currentMF.name})
         return

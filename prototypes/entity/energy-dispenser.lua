@@ -12,7 +12,15 @@ edE.track_coverage_during_build_by_moving = true
 edE.collision_box = {{0, 0}, {0, 0}}
 edE.selection_box = {{-1, -1}, {1, 1}}
 edE.selection_priority = 51
-edE.collision_mask = {"item-layer", "object-layer", "player-layer", "water-tile", "layer-37", "not-colliding-with-itself"}
+edE.collision_mask = {
+  layers = {
+    item = true,
+    is_object = true,
+    water_tile = true,
+    layer_37 = true
+  },
+  not_colliding_with_itself = true
+}
 edE.maximum_wire_distance = 0
 edE.supply_area_distance = 64
 edE.draw_copper_wires = false
@@ -82,10 +90,13 @@ edC.energy_required = 5
 edC.enabled = false
 edC.ingredients =
     {
-		{"CrystalizedCircuit", 6},
-		{"MachineFrame3", 5}
+		{type="item", name="CrystalizedCircuit", amount=6},
+		{type="item", name="MachineFrame3", amount=5}
     }
-edC.result = "EnergyDispenser"
+edC.results = 
+  {
+    {type="item", name="EnergyDispenser", amount=1}
+  }
 data:extend{edC}
 
 -- Technologie --
@@ -117,7 +128,16 @@ fedE.max_health = 150
 fedE.corpse = "accumulator-remnants"
 fedE.collision_box = {{-2, -2}, {2, 2}}
 fedE.selection_box = {{-2, -2}, {2, 2}}
-fedE.collision_mask = {"item-layer", "object-layer", "player-layer", "water-tile", "layer-37", "not-colliding-with-itself"}
+fedE.collision_mask = {
+  layers = {
+    item = true,
+    is_object = true,
+    water_tile = true,
+    layer_37 = true
+  },
+  not_colliding_with_itself = true
+  --"item-layer", "object-layer", "player-layer", "water-tile", "layer-37", "not-colliding-with-itself"
+}
 fedE.circuit_wire_max_distance = 0
 fedE.energy_source =
 {

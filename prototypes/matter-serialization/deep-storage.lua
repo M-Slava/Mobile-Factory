@@ -67,10 +67,13 @@ dsR.energy_required = 2
 dsR.enabled = false
 dsR.ingredients =
     {
-      {"CrystalizedCircuit", 8},
-      {"MachineFrame3", 2}
+      {type="item", name="CrystalizedCircuit", amount=8},
+      {type="item", name="MachineFrame3", amount=2}
     }
-dsR.result = "DeepStorage"
+dsR.results = 
+  {
+    {type="item", name="DeepStorage", amount=1}
+  }
 data:extend{dsR}
 
 -- Technologie --

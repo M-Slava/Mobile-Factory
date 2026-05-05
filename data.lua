@@ -1,3 +1,11 @@
+data:extend{{
+	type = "collision-layer",
+	name = "layer_52"
+}}
+data:extend{{
+	type = "collision-layer",
+	name = "layer_37"
+}}
 require("prototypes/entity/mobile-factory.lua")
 require("prototypes/entity/dimensional-substation.lua")
 require("prototypes/entity/dimensional-plant.lua")
@@ -60,7 +68,7 @@ data:extend{
 		type="item-group",
 		name="MobileFactory",
 		icon="__Mobile_Factory_Graphics__/graphics/icons/MFIcon.png",
-		icon_size="32",
+		icon_size=32,
 		order="x"
 	}
 }
@@ -70,7 +78,7 @@ data:extend{
 		type="item-group",
 		name="Elements",
 		icon="__Mobile_Factory_Graphics__/graphics/icons/Elements.png",
-		icon_size="32",
+		icon_size=32,
 		order="z"
 	}
 }
@@ -1031,10 +1039,10 @@ data.raw["gui-style"].default.MF_Fake_Button_Purple =
 	}
 }
 
-data.raw["gui-style"].default.filter_group_button_tab_selectable =
+data.raw["gui-style"].default.filter_group_tab_selectable =
 {
 	type = "button_style",
-	parent = "filter_group_button_tab",
+	parent = "filter_group_button_tab_slightly_larger",
 	disabled_graphical_set =
 	{
 		base = {position = {363, 744}, corner_size = 8},
@@ -1096,9 +1104,16 @@ data.raw["gui-style"].default.MF_Options_Tabbed_Pane =
 	},
 	tab_container =
 	{
-		type = "horizontal_flow_style",
+		type = "table_style",
 		left_padding = 12,
 		right_padding = 12,
 		horizontal_spacing = 0
 	}
+}
+
+data.raw["gui-style"].default.MF_Yellow_Label = 
+{
+	type = "label_style",
+	font = "default",
+	font_color = _mfYellow,
 }

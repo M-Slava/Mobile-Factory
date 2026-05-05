@@ -67,10 +67,13 @@ dtR.energy_required = 2
 dtR.enabled = false
 dtR.ingredients =
     {
-      {"CrystalizedCircuit", 8},
-      {"MachineFrame3", 2}
+      {type="item", name="CrystalizedCircuit", amount=8},
+      {type="item", name="MachineFrame3", amount=2}
     }
-dtR.result = "DeepTank"
+dtR.results = 
+  {
+    {type="item", name="DeepTank", amount=1}
+  }
 data:extend{dtR}
 
 -- Technologie --

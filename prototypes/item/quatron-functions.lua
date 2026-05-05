@@ -63,7 +63,10 @@ qcR.subgroup = "QuatronsToCell"
 qcR.energy_required = 2
 qcR.enabled = false
 qcR.ingredients = {{type="fluid", name="LiquidQuatron" .. tonumber(level), amount=1000}}
-qcR.result = "Quatron" .. tonumber(level)
+qcR.results = 
+  {
+    {type="item", name="Quatron" .. tonumber(level), amount=1}
+  }
 data:extend{qcR}
 
 -- Cell to Quatron Recipe --
@@ -101,7 +104,7 @@ function createQuatronTechnology()
 	qT.unit = {
 		count=5,
 		time=60,
-		ingredients={{"DimensionalCrystal", 1},{"DimensionalSample",200}}
+		ingredients={{"DimensionalCrystal", 1}, {"DimensionalSample", 200}}
 		}
 	qT.effects = quatronTable
 	data:extend{qT}

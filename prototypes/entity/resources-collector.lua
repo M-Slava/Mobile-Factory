@@ -10,6 +10,10 @@ rcE.flags = {"placeable-neutral", "player-creation", "not-rotatable"}
 rcE.minable = {mining_time = 1, result = "ResourcesCollector"}
 rcE.max_health = 500
 rcE.inventory_size = 50
+rcE.inventory_properties = {
+	stack_size_multiplier = 20,
+}
+rcE.inventory_type = "with_custom_stack_size"
 rcE.picture = {
 	layers = {
 		{
@@ -57,43 +61,37 @@ rctE.energy_usage = "1J"
 rctE.crafting_speed = 1
 rctE.crafting_categories = {"crafting"}
 rctE.energy_source = {type="void"}
-rctE.animation = {filename="__Mobile_Factory_Graphics__/graphics/Alpha.png", size=1}
+rctE.graphics_set = {
+    animation = {filename="__Mobile_Factory_Graphics__/graphics/Alpha.png", size=1}
+}
 rctE.idle_animation = {filename="__Mobile_Factory_Graphics__/graphics/Alpha.png", size=1}
 rctE.squeak_behaviour = false
 rctE.fluid_boxes = {
 	{
 		production_type = "output",
-		base_area = 100,
-		height = 1,
-		base_level = 10,
-		pipe_connections = {{ type="output", position = {-3.6, 0} }},
+		volume = 100,
+		pipe_connections = {{ flow_direction="output", position = {-2.85, 0}, direction=defines.direction.west }},
 		pipe_picture = assembler2pipepictures(),
         pipe_covers = pipecoverspictures()
 	},
 	{
 		production_type = "output",
-		base_area = 100,
-		height = 1,
-		base_level = 10,
-		pipe_connections = {{ type="output", position = {3.6, 0} }},
+		volume = 100,
+		pipe_connections = {{ flow_direction="output", position = {2.85, 0}, direction=defines.direction.east }},
 		pipe_picture = assembler2pipepictures(),
         pipe_covers = pipecoverspictures()
 	},
 	{
 		production_type = "output",
-		base_area = 100,
-		height = 1,
-		base_level = 10,
-		pipe_connections = {{ type="output", position = {-3.6, 1.90} }},
+		volume = 100,
+		pipe_connections = {{ flow_direction="output", position = {-2.85, 1.90}, direction=defines.direction.west }},
 		pipe_picture = assembler2pipepictures(),
         pipe_covers = pipecoverspictures()
 	},
 	{
 		production_type = "output",
-		base_area = 100,
-		height = 1,
-		base_level = 10,
-		pipe_connections = {{ type="output", position = {3.6, 1.90} }},
+		volume = 100,
+		pipe_connections = {{ flow_direction="output", position = {2.85, 1.90}, direction=defines.direction.east }},
 		pipe_picture = assembler2pipepictures(),
         pipe_covers = pipecoverspictures()
 	}
@@ -123,10 +121,13 @@ rcR.energy_required = 10
 rcR.enabled = false
 rcR.ingredients =
     {
-	  {"CrystalizedCircuit", 12},
-      {"MachineFrame3", 10}
+	  {type="item", name="CrystalizedCircuit", amount=12},
+      {type="item", name="MachineFrame3", amount=10}
     }
-rcR.result = "ResourcesCollector"
+rcR.results = 
+  {
+    {type="item", name="ResourcesCollector", amount=1}
+  }
 data:extend{rcR}
 
 -- Technology --

@@ -6,7 +6,7 @@ QR = {
 	player = "",
 	MF = nil,
 	entID = 0,
-	spriteID = 0,
+	sprite = 0,
 	updateTick = 60,
 	lastUpdate = 0,
 	energyCharge = 0,
@@ -41,7 +41,9 @@ end
 -- Destructor --
 function QR:remove()
 	-- Destroy the Sprite --
-	rendering.destroy(self.spriteID)
+	if (self.sprite) then
+		self.sprite.destroy()
+	end
 	self.ent = nil
 end
 
@@ -71,8 +73,10 @@ function QR:update()
 
 	-- Update the Sprite --
 	local spriteNumber = math.ceil(EI.energy(self)/EI.maxEnergy(self)*9)
-	rendering.destroy(self.spriteID)
-	self.spriteID = rendering.draw_sprite{sprite="QuatronReactorSprite" .. spriteNumber, target=self.ent, surface=self.ent.surface, render_layer=129}
+	if (self.sprite) then
+		self.sprite.destroy()
+	end
+	self.sprite = rendering.draw_sprite{sprite="QuatronReactorSprite" .. spriteNumber, target=self.ent, surface=self.ent.surface, render_layer=129}
 
 end
 

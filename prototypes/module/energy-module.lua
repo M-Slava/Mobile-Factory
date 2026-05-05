@@ -2,7 +2,7 @@
 local pMI = {}
 pMI.type = "item"
 pMI.name = "EnergyPowerModule"
-pMI.placed_as_equipment_result = "EnergyPowerModule"
+pMI.place_as_equipment_result = "EnergyPowerModule"
 pMI.icon = "__Mobile_Factory_Graphics__/graphics/icons/MFEnergyPowerModule.png"
 pMI.icon_size = 64
 pMI.subgroup = "Modules1"
@@ -35,11 +35,12 @@ pMR.energy_required = 3
 pMR.enabled = false
 pMR.ingredients =
     {
-      {"DimensionalWire", 3},
-	  {"DimensionalCircuit", 8}
+      {type="item", name="DimensionalWire", amount=3},
+	  {type="item", name="DimensionalCircuit", amount=8}
     }
-pMR.result = "EnergyPowerModule"
-pMR.result_count = 1
+pMR.results = {
+	{type="item", name="EnergyPowerModule", amount=1}
+}
 data:extend{pMR}
 
 
@@ -47,7 +48,7 @@ data:extend{pMR}
 local eMI = {}
 eMI.type = "item"
 eMI.name = "EnergyEfficiencyModule"
-eMI.placed_as_equipment_result = "EnergyEfficiencyModule"
+eMI.place_as_equipment_result = "EnergyEfficiencyModule"
 eMI.icon = "__Mobile_Factory_Graphics__/graphics/icons/MFLaserEfficiencyModule.png"
 eMI.icon_size = 64
 eMI.subgroup = "Modules1"
@@ -80,11 +81,13 @@ eMR.energy_required = 3
 eMR.enabled = false
 eMR.ingredients =
     {
-      {"DimensionalWire", 3},
-	  {"DimensionalCircuit", 8}
+      {type="item", name="DimensionalWire", amount=3},
+	  {type="item", name="DimensionalCircuit", amount=8}
     }
-eMR.result = "EnergyEfficiencyModule"
-eMR.result_count = 1
+eMR.results = 
+  {
+    {type="item", name="EnergyEfficiencyModule", amount=1}
+  }
 data:extend{eMR}
 
 
@@ -92,7 +95,7 @@ data:extend{eMR}
 local fMI = {}
 fMI.type = "item"
 fMI.name = "EnergyFocusModule"
-fMI.placed_as_equipment_result = "EnergyFocusModule"
+fMI.place_as_equipment_result = "EnergyFocusModule"
 fMI.icon = "__Mobile_Factory_Graphics__/graphics/icons/MFLaserFocusModule.png"
 fMI.icon_size = 64
 fMI.subgroup = "Modules1"
@@ -125,11 +128,12 @@ fMR.energy_required = 3
 fMR.enabled = false
 fMR.ingredients =
     {
-      {"DimensionalWire", 3},
-	  {"DimensionalCircuit", 8}
+      {type="item", name="DimensionalWire", amount=3},
+	  {type="item", name="DimensionalCircuit", amount=8}
     }
-fMR.result = "EnergyFocusModule"
-fMR.result_count = 1
+fMR.results = {
+	{type="item", name="EnergyFocusModule", amount=1}
+}
 data:extend{fMR}
 
 

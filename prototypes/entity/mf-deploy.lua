@@ -1,5 +1,4 @@
 -- This is the fake Entity used to Deploy the Mobile Factory --
-
 -- Entity --
 local mfDE = {}
 mfDE.type = "simple-entity-with-owner"
@@ -7,7 +6,6 @@ mfDE.name = "MFDeploy"
 mfDE.icone = "__Mobile_Factory_Graphics__/graphics/icons/MFDeployI.png"
 mfDE.icon_size = 32
 mfDE.minable = {mining_time=1}
-mfDE.collision_mask = {} -- mask copied from MobileFactory in DFF
 mfDE.collision_box = {{-3.5, -3.5}, {2.5, 4.5}}
 mfDE.selection_box = mfDE.collision_box
 mfDE.flags = {"not-rotatable"}
@@ -28,7 +26,8 @@ mfdI.icon = "__Mobile_Factory_Graphics__/graphics/icons/MFDeployI.png"
 mfdI.place_result = "MFDeploy"
 mfdI.icon_size = 32
 mfdI.stack_size = 1
-mfdI.flags = {"hidden", "only-in-cursor"}
+mfdI.hidden = true
+mfdI.flags = {"only-in-cursor"}
 data:extend{mfdI}
 
 -- Technology --

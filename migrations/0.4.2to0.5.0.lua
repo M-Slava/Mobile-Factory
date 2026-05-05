@@ -1,10 +1,14 @@
-if global.allowMigration == false then return end
+if storage.allowMigration == false then return end
 -- Remove the SyncArea -- (Unclone all Entities like Chests, Tanks or Accumulors means to much work - they have to be empty, I consider these as a gift)
 game.print("Mobile Factory: The SyncArea has been replaced by the Mobile Factory Deployment. This can be unlocked through its corresponding Technology")
-for _, MF in pairs(global.MFTable or {}) do
+for _, MF in pairs(storage.MFTable or {}) do
     -- Destroy the Cercle Render --
-    rendering.destroy(MF.syncAreaID or 0)
-	rendering.destroy(MF.syncAreaInsideID or 0)
+    if (MF.syncArea ~= nil) then
+        MF.syncArea.destroy()
+    end
+    if (MF.syncAreaInside ~= nil) then
+        MF.syncAreaInside.destroy()
+    end
     -- Unclone all Resources --
     for _, ents in pairs(MF.clonedResourcesTable) do
         local ent = ents.cloned
@@ -13,8 +17,8 @@ for _, MF in pairs(global.MFTable or {}) do
         end
     end
     -- Set unused values to nil --
-    MF.syncAreaID = nil
-	MF.syncAreaInsideID = nil
+    MF.syncArea = nil
+	MF.syncAreaInside = nil
 	MF.syncAreaScanned = nil
     MF.clonedResourcesTable = nil
     -- Remove the Area inside the Factory --
