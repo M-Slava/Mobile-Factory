@@ -4,7 +4,7 @@
 local ltI = {}
 ltI.type = "item"
 ltI.name = "LabTile"
-ltI.icon = "__Mobile_Factory_Graphics__/graphics/icons/labTileI.png"
+ltI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/labTileI.png"
 ltI.icon_size = 128
 ltI.subgroup = "Tiles"
 ltI.order = "a"
@@ -13,7 +13,7 @@ ltI.place_as_tile =
     {
       result = "tutorial-grid",
       condition_size = 1,
-      condition = {}
+      condition = {layers = {}}
     }
 data:extend{ltI}
 
@@ -25,16 +25,19 @@ lbR.energy_required = 1
 lbR.enabled = false
 lbR.ingredients =
     {
-		{"DimensionalOre", 4}
+		{type="item", name="DimensionalOre", amount=4}
     }
-lbR.result = "LabTile"
+lbR.results = 
+  {
+    {type="item", name="LabTile", amount=1}
+  }
 data:extend{lbR}
 
 -- Technology --
 local lbT = {}
 lbT.name = "LabTile"
 lbT.type = "technology"
-lbT.icon = "__Mobile_Factory_Graphics__/graphics/icons/labTileI.png"
+lbT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/labTileI.png"
 lbT.icon_size = 128
 lbT.unit = {
 	count=350,
@@ -53,6 +56,6 @@ data:extend{lbT}
 local btE = table.deepcopy(data.raw.tile["tutorial-grid"])
 btE.name = "BuildTile"
 btE.tint = {32,165,3}
-btE.icon = "__Mobile_Factory_Graphics__/graphics/icons/CAreaTileI.png"
+btE.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/CAreaTileI.png"
 btE.icon_size = 128
 data:extend{btE}

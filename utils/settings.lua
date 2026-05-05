@@ -218,7 +218,7 @@ _mfYellow = {244, 208, 63}
 -- Table of Label Style --
 _mfLabelType =
 {
-	yellowTitle = "yellow_label"
+	yellowTitle = "MF_Yellow_Label",
 }
 
 -- Table of Recipes Unlocked by Initial Research --

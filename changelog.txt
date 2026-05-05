@@ -1,4 +1,19 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.6.1
+Date: 05/05/2026
+  Changes:
+    - Rename main folder
+---------------------------------------------------------------------------------------------------
+Version 0.12.0
+Date: 05/05/2026
+  Changes:
+    - Updated to Game Version 2.0
+---------------------------------------------------------------------------------------------------
+Version: 0.11.5
+Date: 01/06/2024
+  Bugfixes:
+    - Fixed starting crash
+---------------------------------------------------------------------------------------------------
 Version: 0.11.4
 Date: 06/05/2021
   Bugfixes:
@@ -802,7 +817,7 @@ Date: 15/05/2020
     - Added Lights inside the Mobile Factory, but they will turn off if there are no more Internal Energy
     - Changed the Fluid Interactor Pipe Connections for better interaction with the other Structures (Honktown)
   Scripting:
-    - Deep Tank and Deep Storage Objects are now placed inside its corresponding MF Object (But still exist in global for object update reasons)
+    - Deep Tank and Deep Storage Objects are now placed inside its corresponding MF Object (But still exist in storage for object update reasons)
     - Added the MF Object and the PlayerIndex to all Data Network Objects
     - Objects are now automatically created, stored and updated
     - Full rewrite of all place-and-remove Functions
@@ -895,7 +910,7 @@ Date: 11/05/2020
     - Fixed a crash related to the Network Explorer
   Scripting:
     - Rewrite of the Multiplayer Code (Permissions)
-    - Now, the global.entsTable keys are the "unit numbers" of the Structure associated when there is one (global.entsTable[obj.unit_number] = obj)
+    - Now, the storage.entsTable keys are the "unit numbers" of the Structure associated when there is one (storage.entsTable[obj.unit_number] = obj)
 ---------------------------------------------------------------------------------------------------
 Version: 0.0.155
 Date: 10/05/2020
@@ -1054,7 +1069,7 @@ Date: 28/04/2020
     - "too many ghosts" is a localized string that prints only to MF owner that places ghosts
   Scripting:
     - use ghost.revive() instead of destroying and creating a thing for construction jets
-    - the construction ghost table is global at present (but size option is not).
+    - the construction ghost table is storage at present (but size option is not).
                   This is bad. Will try to get to it by next version. (ghosts should be stored per-player / MF)
   Bugfixes:
     - input/output would not be set on copy/pasting with Matter Interactor and Fluid Interactor

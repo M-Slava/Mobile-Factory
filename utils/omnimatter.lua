@@ -8,9 +8,12 @@ doR.energy_required = 0.3
 doR.enabled = true
 doR.ingredients =
     {
-		{"omnite", 1}
+		{type="item", name="omnite", amount=1}
     }
-doR.result = "DimensionalOre"
+doR.results = 
+  {
+    {type="item", name="DimensionalOre", amount=1}
+  }
 data:extend{doR}
 
 -- Omnite to Dimensional Fluid --

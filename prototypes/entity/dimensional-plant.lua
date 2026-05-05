@@ -3,16 +3,17 @@
 -- Entity --
 dpE = table.deepcopy(data.raw["assembling-machine"]["chemical-plant"])
 dpE.name = "DimensionalPlant"
-dpE.icon = "__Mobile_Factory_Graphics__/graphics/icons/DimensionalPlant.png"
+dpE.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/DimensionalPlant.png"
 dpE.icon_size = 32
 dpE.icon_mipmaps = 1
 dpE.minable = {mining_time = 0.3, result = "DimensionalPlant"}
 dpE.crafting_categories = {"Elements"}
-dpE.animation = make_4way_animation_from_spritesheet({
+dpE.graphics_set = {
+  animation = make_4way_animation_from_spritesheet({
 	layers =
 		{
 		{
-          filename = "__Mobile_Factory_Graphics__/graphics/entity/DimensionalPlant.png",
+          filename = "__Mobile_Factory_Graphics_zoms__/graphics/entity/DimensionalPlant.png",
           width = 220,
           height = 292,
           frame_count = 24,
@@ -21,7 +22,7 @@ dpE.animation = make_4way_animation_from_spritesheet({
           scale = 0.5
 		},
 		{
-          filename = "__base__/graphics/entity/chemical-plant/hr-chemical-plant-shadow.png",
+          filename = "__base__/graphics/entity/chemical-plant/chemical-plant-shadow.png",
           width = 312,
           height = 222,
           repeat_count = 24,
@@ -31,13 +32,14 @@ dpE.animation = make_4way_animation_from_spritesheet({
           scale = 0.5
 		}
 	}})
+}
 data:extend{dpE}
 
 -- Item --
 local dpI = {}
 dpI.type = "item"
 dpI.name = "DimensionalPlant"
-dpI.icon = "__Mobile_Factory_Graphics__/graphics/icons/DimensionalPlant.png"
+dpI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/DimensionalPlant.png"
 dpI.icon_size = 32
 dpI.place_result = "DimensionalPlant"
 dpI.subgroup = "DimensionalStuff"
@@ -53,17 +55,20 @@ dpR.energy_required = 5
 dpR.enabled = false
 dpR.ingredients =
     {
-      {"DimensionalCircuit", 10},
-      {"MachineFrame2", 6},
+      {type="item", name="DimensionalCircuit", amount=10},
+      {type="item", name="MachineFrame2", amount=6},
     }
-dpR.result = "DimensionalPlant"
+dpR.results = 
+  {
+    {type="item", name="DimensionalPlant", amount=1}
+  }
 data:extend{dpR}
 
 -- Technologie --
 local dpT = {}
 dpT.name = "DimensionalPlant"
 dpT.type = "technology"
-dpT.icon = "__Mobile_Factory_Graphics__/graphics/icons/DimensionalPlant.png"
+dpT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/DimensionalPlant.png"
 dpT.icon_size = 32
 dpT.unit = {
 	count=1200,

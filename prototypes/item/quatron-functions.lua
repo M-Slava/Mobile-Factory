@@ -9,7 +9,7 @@ qI = {}
 qI.name = "Quatron" .. tonumber(level)
 qI.type = "item"
 qI.stack_size = 50
-qI.icon = "__Mobile_Factory_Graphics__/graphics/icons/QuatronCell.png"
+qI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/QuatronCell.png"
 qI.icon_size = 64
 qI.subgroup = "Quatrons"
 qI.fuel_category = "chemical"
@@ -24,7 +24,7 @@ local qF = {}
 qF.name = "LiquidQuatron" .. tonumber(level)
 qF.type = "fluid"
 qF.auto_barrel = false
-qF.icon = "__Mobile_Factory_Graphics__/graphics/icons/FluidQuatron.png"
+qF.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/FluidQuatron.png"
 qF.icon_size = 32
 qF.default_temperature = 20
 qF.max_temperature = 100
@@ -39,7 +39,7 @@ lqR = {}
 lqR.name = "LiquidQuatron" .. tonumber(level)
 lqR.type = "recipe"
 -- lqR.order = "b"
-lqR.icon = "__Mobile_Factory_Graphics__/graphics/icons/FluidQuatron.png"
+lqR.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/FluidQuatron.png"
 lqR.icon_size = 32
 lqR.category = "Elements"
 lqR.subgroup = "Quatrons"
@@ -56,21 +56,24 @@ data:extend{lqR}
 qcR = {}
 qcR.name = "Quatron" .. tonumber(level)
 qcR.type = "recipe"
-qcR.icon = "__Mobile_Factory_Graphics__/graphics/icons/QuatronCell.png"
+qcR.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/QuatronCell.png"
 qcR.icon_size = 64
 qcR.category = "Elements"
 qcR.subgroup = "QuatronsToCell"
 qcR.energy_required = 2
 qcR.enabled = false
 qcR.ingredients = {{type="fluid", name="LiquidQuatron" .. tonumber(level), amount=1000}}
-qcR.result = "Quatron" .. tonumber(level)
+qcR.results = 
+  {
+    {type="item", name="Quatron" .. tonumber(level), amount=1}
+  }
 data:extend{qcR}
 
 -- Cell to Quatron Recipe --
 clqR = {}
 clqR.name = "CellToLiquidQuatron" .. tonumber(level)
 clqR.type = "recipe"
-clqR.icon = "__Mobile_Factory_Graphics__/graphics/icons/CellToFluidQuatron.png"
+clqR.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/CellToFluidQuatron.png"
 clqR.icon_size = 32
 clqR.category = "Elements"
 clqR.subgroup = "CellToQuatrons"
@@ -95,13 +98,13 @@ function createQuatronTechnology()
 	qT = {}
 	qT.name = "Quatron"
 	qT.type = "technology"
-	qT.icon = "__Mobile_Factory_Graphics__/graphics/icons/QuatronCell.png"
+	qT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/QuatronCell.png"
 	qT.icon_size = 64
 	qT.prerequisites = {"DimensionalPlant", "DimensionalCrystal"}
 	qT.unit = {
 		count=5,
 		time=60,
-		ingredients={{"DimensionalCrystal", 1},{"DimensionalSample",200}}
+		ingredients={{"DimensionalCrystal", 1}, {"DimensionalSample", 200}}
 		}
 	qT.effects = quatronTable
 	data:extend{qT}

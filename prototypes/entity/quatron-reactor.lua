@@ -4,7 +4,7 @@
 local qrE = {}
 qrE.name = "QuatronReactor"
 qrE.type = "generator"
-qrE.icon = "__Mobile_Factory_Graphics__/graphics/energy/QuatronReactorI.png"
+qrE.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/QuatronReactorI.png"
 qrE.icon_size = 128
 qrE.flags = {"placeable-neutral", "player-creation"}
 qrE.minable = {mining_time = 1, result = "QuatronReactor"}
@@ -25,14 +25,12 @@ qrE.energy_source =
 }
 qrE.fluid_box =
 {
-    base_area = 100,
-    height = 1,
-    base_level = -1,
+    volume = 100,
     production_type = "input",
     pipe_connections =
     {
-        {position={-2.2,0.5}},
-        {position={2.2,0.5}}
+        {position={-1,0.5}, direction=defines.direction.west},
+        {position={1,0.5}, direction=defines.direction.east}
     }
 }
 qrE.horizontal_animation =
@@ -41,7 +39,7 @@ qrE.horizontal_animation =
     {
         {
             frame_count = 1,
-            filename = "__Mobile_Factory_Graphics__/graphics/energy/QuatronReactorE.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/energy/QuatronReactorE.png",
             priority = "extra-high",
             width = 600,
             height = 600,
@@ -53,7 +51,7 @@ qrE.horizontal_animation =
         },
         {
             frame_count = 1,
-            filename = "__Mobile_Factory_Graphics__/graphics/energy/QuatronReactorE.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/energy/QuatronReactorE.png",
             priority = "extra-high",
             width = 600,
             height = 600,
@@ -64,7 +62,7 @@ qrE.horizontal_animation =
         },
         {
             frame_count = 1,
-            filename = "__Mobile_Factory_Graphics__/graphics/energy/QuatronReactorS.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/energy/QuatronReactorS.png",
             priority = "extra-high",
             width = 600,
             height = 600,
@@ -87,7 +85,7 @@ local qrI = {}
 qrI.type = "item"
 qrI.name = "QuatronReactor"
 qrI.place_result = "QuatronReactor"
-qrI.icon = "__Mobile_Factory_Graphics__/graphics/energy/QuatronReactorI.png"
+qrI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/QuatronReactorI.png"
 qrI.icon_size = 128
 qrI.subgroup = "QuatronLogistic"
 qrI.order = "d"
@@ -102,10 +100,13 @@ ec1R.energy_required = 5
 ec1R.enabled = false
 ec1R.ingredients =
 {
-    {"DimensionalCircuit", 60},
-    {"MachineFrame2", 30}
+    {type="item", name="DimensionalCircuit", amount=60},
+    {type="item", name="MachineFrame2", amount=30}
 }
-ec1R.result = "QuatronReactor"
+ec1R.results = 
+  {
+    {type="item", name="QuatronReactor", amount=1}
+  }
 data:extend{ec1R}
 
 -- Create all Sprites --
@@ -115,7 +116,7 @@ for i = 0, 9 do
 	local qrS = {}
 	qrS.type = "sprite"
 	qrS.name = "QuatronReactorSprite" .. i
-	qrS.filename = "__Mobile_Factory_Graphics__/graphics/energy/QuatronReactorSprite.png"
+	qrS.filename = "__Mobile_Factory_Graphics_zoms__/graphics/energy/QuatronReactorSprite.png"
     qrS.size = 600
     qrS.scale = 0.30
     qrS.x = x

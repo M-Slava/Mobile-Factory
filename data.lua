@@ -1,3 +1,11 @@
+data:extend{{
+	type = "collision-layer",
+	name = "layer_52"
+}}
+data:extend{{
+	type = "collision-layer",
+	name = "layer_37"
+}}
 require("prototypes/entity/mobile-factory.lua")
 require("prototypes/entity/dimensional-substation.lua")
 require("prototypes/entity/dimensional-plant.lua")
@@ -59,8 +67,8 @@ data:extend{
 	{
 		type="item-group",
 		name="MobileFactory",
-		icon="__Mobile_Factory_Graphics__/graphics/icons/MFIcon.png",
-		icon_size="32",
+		icon="__Mobile_Factory_Graphics_zoms__/graphics/icons/MFIcon.png",
+		icon_size=32,
 		order="x"
 	}
 }
@@ -69,8 +77,8 @@ data:extend{
 	{
 		type="item-group",
 		name="Elements",
-		icon="__Mobile_Factory_Graphics__/graphics/icons/Elements.png",
-		icon_size="32",
+		icon="__Mobile_Factory_Graphics_zoms__/graphics/icons/Elements.png",
+		icon_size=32,
 		order="z"
 	}
 }
@@ -80,7 +88,7 @@ data:extend{
 -- 		{
 -- 			type="item-group",
 -- 			name="Erya",
--- 			icon="__Mobile_Factory_Graphics__/graphics/Erya/EryaPowder.png",
+-- 			icon="__Mobile_Factory_Graphics_zoms__/graphics/Erya/EryaPowder.png",
 -- 			icon_size="256",
 -- 			order="y"
 -- 		}
@@ -303,7 +311,7 @@ data:extend{
     {
         type = "sprite",
         name = "ArrowIconUp",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/ArrowIconUp.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/ArrowIconUp.png",
         size = 32,
         flags = {"icon"}
     }
@@ -313,7 +321,7 @@ data:extend{
     {
         type = "sprite",
         name = "ArrowIconDown",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/ArrowIconDown.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/ArrowIconDown.png",
         size = 32,
         flags = {"icon"}
     }
@@ -323,7 +331,7 @@ data:extend{
     {
         type = "sprite",
         name = "PlusIcon",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/PlusIcon.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/PlusIcon.png",
         size = 32,
         flags = {"icon"}
     }
@@ -333,7 +341,7 @@ data:extend{
     {
         type = "sprite",
         name = "OptionIcon",
-        filename = "__Mobile_Factory_Graphics__/graphics/icons/OptionIcon.png",
+        filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/OptionIcon.png",
         size = 32,
         flags = {"icon"}
     }
@@ -343,7 +351,7 @@ data:extend{
     {
         type = "sprite",
         name = "CloseIcon",
-        filename = "__Mobile_Factory_Graphics__/graphics/icons/CloseIcon.png",
+        filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/CloseIcon.png",
         size = 32,
         flags = {"icon"}
     }
@@ -353,7 +361,7 @@ data:extend{
     {
         type = "sprite",
         name = "SwitchIcon",
-        filename = "__Mobile_Factory_Graphics__/graphics/icons/SwtichArrows.png",
+        filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/SwtichArrows.png",
         size = 32,
         flags = {"icon"}
     }
@@ -363,7 +371,7 @@ data:extend{
     {
         type = "sprite",
         name = "MFJDIcon",
-        filename = "__Mobile_Factory_Graphics__/graphics/entity/JumpDriveI.png",
+        filename = "__Mobile_Factory_Graphics_zoms__/graphics/entity/JumpDriveI.png",
         size = 128,
         flags = {"icon"}
     }
@@ -373,7 +381,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "MFIconExc",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/MFIconExc.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/MFIconExc.png",
 		size = 32,
 		flags = {"icon"}
 	}
@@ -383,7 +391,7 @@ data:extend{
     {
         type = "sprite",
         name = "MFDeploy",
-        filename = "__Mobile_Factory_Graphics__/graphics/icons/MFDeployI.png",
+        filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/MFDeployI.png",
         size = 32,
         flags = {"icon"}
     }
@@ -393,7 +401,7 @@ data:extend{
     {
         type = "sprite",
         name = "MFDeployE",
-        filename = "__Mobile_Factory_Graphics__/graphics/icons/MobileFactoryE.png",
+        filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/MobileFactoryE.png",
         width = 400,
 		height = 600,
         flags = {"icon"}
@@ -404,7 +412,7 @@ data:extend{
 --     {
 --         type = "sprite",
 --         name = "SyncAreaIcon",
---         filename = "__Mobile_Factory_Graphics__/graphics/icons/MFIconSyncArea.png",
+--         filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/MFIconSyncArea.png",
 --         size = 32,
 --         flags = {"icon"}
 --     }
@@ -414,7 +422,7 @@ data:extend{
 -- 	{
 -- 		type = "sprite",
 -- 		name = "SyncAreaIconDisabled",
--- 		filename = "__Mobile_Factory_Graphics__/graphics/icons/MFIconSyncAreaDisabled.png",
+-- 		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/MFIconSyncAreaDisabled.png",
 -- 		size = 32,
 -- 		flags = {"icon"}
 -- 	}
@@ -424,7 +432,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "MFTPIcon",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/MFTPIcon.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/MFTPIcon.png",
 		size = 32,
 		flags = {"icon"}
 	}
@@ -434,7 +442,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "MFTPIconDisabled",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/MFTPIconDisabled.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/MFTPIconDisabled.png",
 		size = 32,
 		flags = {"icon"}
 	}
@@ -444,7 +452,7 @@ data:extend{
     {
         type = "sprite",
         name = "MFIconI",
-        filename = "__Mobile_Factory_Graphics__/graphics/icons/MFIconI.png",
+        filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/MFIconI.png",
         size = 32,
         flags = {"icon"}
     }
@@ -454,7 +462,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "PortIcon",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/PortIcon.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/PortIcon.png",
 		size = 32,
 		flags = {"icon"}
 	}
@@ -464,7 +472,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "LockMFCIcon",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/LockMFC.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/LockMFC.png",
 		size = 32,
 		flags = {"icon"}
 	}
@@ -474,7 +482,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "LockMFOIcon",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/LockMFO.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/LockMFO.png",
 		size = 32,
 		flags = {"icon"}
 	}
@@ -484,7 +492,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "EnergyDrainIcon",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/EnergyLaserE.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/EnergyLaserE.png",
 		size = 256,
 		flags = {"icon"}
 	}
@@ -494,7 +502,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "EnergyDrainIconDisabled",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/EnergyLaserD.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/EnergyLaserD.png",
 		size = 256,
 		flags = {"icon"}
 	}
@@ -504,7 +512,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "FluidDrainIcon",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/FluidLaserE.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/FluidLaserE.png",
 		size = 256,
 		flags = {"icon"}
 	}
@@ -514,7 +522,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "FluidDrainIconDisabled",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/FluidLaserD.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/FluidLaserD.png",
 		size = 256,
 		flags = {"icon"}
 	}
@@ -524,7 +532,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "ItemDrainIcon",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/LogisticLaserE.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/LogisticLaserE.png",
 		size = 256,
 		flags = {"icon"}
 	}
@@ -534,7 +542,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "ItemDrainIconDisabled",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/LogisticLaserD.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/LogisticLaserD.png",
 		size = 256,
 		flags = {"icon"}
 	}
@@ -544,7 +552,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "QuatronIcon",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/QuatronLaserE.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/QuatronLaserE.png",
 		size = 256,
 		flags = {"icon"}
 	}
@@ -554,7 +562,7 @@ data:extend{
 	{
 		type = "sprite",
 		name = "QuatronIconDisabled",
-		filename = "__Mobile_Factory_Graphics__/graphics/icons/QuatronLaserD.png",
+		filename = "__Mobile_Factory_Graphics_zoms__/graphics/icons/QuatronLaserD.png",
 		size = 256,
 		flags = {"icon"}
 	}
@@ -566,7 +574,7 @@ data:extend{
 	type = "sound",
 	name = "MFEnter",
 	category = "game-effect",
-	filename = "__Mobile_Factory_Graphics__/sounds/EnterMF.ogg",
+	filename = "__Mobile_Factory_Graphics_zoms__/sounds/EnterMF.ogg",
 	preload = true
 	}
 }
@@ -575,7 +583,7 @@ data:extend{
 	type = "sound",
 	name = "MFLeave",
 	category = "game-effect",
-	filename = "__Mobile_Factory_Graphics__/sounds/LeaveMF.ogg",
+	filename = "__Mobile_Factory_Graphics_zoms__/sounds/LeaveMF.ogg",
 	preload = true
 	}
 }
@@ -584,7 +592,7 @@ data:extend{
 	type = "sound",
 	name = "MFSimpleTP",
 	category = "game-effect",
-	filename = "__Mobile_Factory_Graphics__/sounds/SimpleTP.ogg",
+	filename = "__Mobile_Factory_Graphics_zoms__/sounds/SimpleTP.ogg",
 	preload = true
 	}
 }
@@ -1031,10 +1039,10 @@ data.raw["gui-style"].default.MF_Fake_Button_Purple =
 	}
 }
 
-data.raw["gui-style"].default.filter_group_button_tab_selectable =
+data.raw["gui-style"].default.filter_group_tab_selectable =
 {
 	type = "button_style",
-	parent = "filter_group_button_tab",
+	parent = "filter_group_button_tab_slightly_larger",
 	disabled_graphical_set =
 	{
 		base = {position = {363, 744}, corner_size = 8},
@@ -1096,9 +1104,16 @@ data.raw["gui-style"].default.MF_Options_Tabbed_Pane =
 	},
 	tab_container =
 	{
-		type = "horizontal_flow_style",
+		type = "table_style",
 		left_padding = 12,
 		right_padding = 12,
 		horizontal_spacing = 0
 	}
+}
+
+data.raw["gui-style"].default.MF_Yellow_Label = 
+{
+	type = "label_style",
+	font = "default",
+	font_color = _mfYellow,
 }

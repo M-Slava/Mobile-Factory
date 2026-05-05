@@ -15,7 +15,7 @@ miE.picture =
       layers =
       {
         {
-            filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/MatterInteractorE.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/MatterInteractorE.png",
             priority = "extra-high",
             width = 300,
             height = 300,
@@ -23,7 +23,7 @@ miE.picture =
             scale = 1/6.20
         },
         {
-            filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/MatterInteractorS.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/MatterInteractorS.png",
             priority = "high",
             width = 300,
             height = 300,
@@ -41,7 +41,7 @@ data:extend{miE}
 local miI = {}
 miI.type = "item"
 miI.name = "MatterInteractor"
-miI.icon = "__Mobile_Factory_Graphics__/graphics/matter-serialization/MatterInteractorI.png"
+miI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/MatterInteractorI.png"
 miI.icon_size = 128
 miI.place_result = "MatterInteractor"
 miI.subgroup = "DataSerialization"
@@ -57,17 +57,20 @@ miR.energy_required = 4
 miR.enabled = false
 miR.ingredients =
     {
-        {"CrystalizedCircuit", 8},
-        {"MachineFrame3", 2}
+        {type="item", name="CrystalizedCircuit", amount=8},
+        {type="item", name="MachineFrame3", amount=2}
     }
-miR.result = "MatterInteractor"
+miR.results = 
+  {
+    {type="item", name="MatterInteractor", amount=1}
+  }
 data:extend{miR}
 
 -- Create all Sprites --
 local miS1 = {}
 miS1.type = "sprite"
 miS1.name = "MatterInteractorSprite1"
-miS1.filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/MatterInteractorSprite1.png"
+miS1.filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/MatterInteractorSprite1.png"
 miS1.size = 300
 miS1.shift = {0,-0.2}
 miS1.scale = 1/6.20
@@ -76,7 +79,7 @@ data:extend{miS1}
 local miS2 = {}
 miS2.type = "sprite"
 miS2.name = "MatterInteractorSprite2"
-miS2.filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/MatterInteractorSprite2.png"
+miS2.filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/MatterInteractorSprite2.png"
 miS2.size = 300
 miS2.shift = {0,-0.2}
 miS2.scale = 1/6.20

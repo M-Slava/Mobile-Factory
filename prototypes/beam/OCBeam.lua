@@ -10,31 +10,31 @@ ocB.random_target_offset = false
 ocB.action_triggered_automatically = false
 ocB.width = 2
 ocB.direction_count = 1
-
-ocB.head =
+ocB.graphics_set = {
+  beam = {
+    head =
     {
-      filename = "__Mobile_Factory_Graphics__/graphics/Alpha.png",
+      filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
       width = 1,
       height = 1,
 	  line_length = 10,
       frame_count = 10,
 	  animation_speed = 1/15,
 	  scale = 2
-    }
-ocB.tail =
+    },
+    tail =
     {
-      filename = "__Mobile_Factory_Graphics__/graphics/Alpha.png",
+      filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
       width = 1,
       height = 1,
 	  line_length = 10,
       frame_count = 10,
 	  animation_speed = 1/15,
 	  scale = 2
-    }
-ocB.body =
-    {
+    },
+    body = {
       {
-      filename = "__Mobile_Factory_Graphics__/graphics/beams/OCbeam.png",
+      filename = "__Mobile_Factory_Graphics_zoms__/graphics/beams/OCbeam.png",
       width = 10,
       height = 10,
 	  line_length = 10,
@@ -43,6 +43,9 @@ ocB.body =
 	  scale = 2
       }
     }
+  }
+}
+
 data:extend{ocB}
 
 
@@ -56,37 +59,41 @@ ocBB.random_target_offset = false
 ocBB.action_triggered_automatically = false
 ocBB.width = 5
 ocBB.direction_count = 1
-
-ocBB.head =
+ocBB.graphics_set = {
+  beam = {
+    head =
     {
-      filename = "__Mobile_Factory_Graphics__/graphics/Alpha.png",
+      filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
       width = 1,
       height = 1,
-	  line_length = 16,
+    line_length = 16,
       frame_count = 16,
-	  animation_speed = 1,
-	  scale = 2
-    }
-ocBB.tail =
+    animation_speed = 1,
+    scale = 2
+    },
+    tail =
     {
-      filename = "__Mobile_Factory_Graphics__/graphics/Alpha.png",
+      filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
       width = 1,
       height = 1,
-	  line_length = 16,
+    line_length = 16,
       frame_count = 16,
-	  animation_speed = 1,
-	  scale = 2
-    }
-ocBB.body =
+    animation_speed = 1,
+    scale = 2
+    },
+    body =
     {
       {
-      filename = "__Mobile_Factory_Graphics__/graphics/beams/OCBigBeam.png",
+      filename = "__Mobile_Factory_Graphics_zoms__/graphics/beams/OCBigBeam.png",
       width = 8,
       height = 12,
-	  line_length = 16,
+    line_length = 16,
       frame_count = 16,
-	  animation_speed = 1,
-	  scale = 5
+    animation_speed = 1,
+    scale = 5
       }
     }
+  }
+}
+
 data:extend{ocBB}

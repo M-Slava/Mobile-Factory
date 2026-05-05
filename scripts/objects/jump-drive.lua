@@ -10,9 +10,9 @@ JD = {
 	chargeRate = 0,
 	jumpChargerTable = nil,
 	locationTable = nil, -- [name]{surface, posX, posY, filter}
-    lightID = 0,
-    chargeSpriteID = 0,
-    chargeLightID = 0,
+    light = 0,
+    chargeSprite = nil,
+    chargeLight = nil,
 	updateTick = 60,
 	lastUpdate = 0
 }
@@ -64,11 +64,18 @@ function JD:update()
 
     -- Update the Charge Sprite --
 	local spriteNumber = math.ceil(self.ent.energy/self.ent.prototype.electric_energy_source_prototype.buffer_capacity*16)
-	rendering.destroy(self.chargeSpriteID)
-    rendering.destroy(self.chargeLightID)
+	if (self.chargeSprite) then
+		self.chargeSprite.destroy()
+	end
+	if (self.chargeLight) then
+		self.chargeLight.destroy()
+	end
+
     if spriteNumber ~= 0 then
-		rendering.destroy(self.spriteID or 0)
-		self.spriteID = rendering.draw_sprite{sprite="CubeChargeSprite" .. spriteNumber, x_scale=1/2.25, y_scale=1/2.25, target=self.ent, surface=self.ent.surface, render_layer=130}
+		if (self.sprite) then
+			self.sprite.destroy()
+		end
+		self.sprite = rendering.draw_sprite{sprite="CubeChargeSprite" .. spriteNumber, x_scale=1/2.25, y_scale=1/2.25, target=self.ent, surface=self.ent.surface, render_layer=130}
 	end
 
 	-- Check the jumpChargerTable --

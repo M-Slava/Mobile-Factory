@@ -4,7 +4,7 @@
 local dsE = {}
 dsE.type = "container"
 dsE.name = "DataStorage"
-dsE.icon = "__Mobile_Factory_Graphics__/graphics/matter-serialization/DataStorageI.png"
+dsE.icon = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/DataStorageI.png"
 dsE.icon_size = 64
 dsE.flags = {"placeable-neutral", "player-creation"}
 dsE.minable = {mining_time = 0.2, result = "DataStorage"}
@@ -22,7 +22,7 @@ dsE.picture =
       layers =
       {
         {
-            filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/DataStorageE.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/DataStorageE.png",
             priority = "extra-high",
             width = 400,
             height = 400,
@@ -30,7 +30,7 @@ dsE.picture =
             scale = 1/200*30
         },
         {
-            filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/DataStorageS.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/DataStorageS.png",
             priority = "high",
             width = 400,
             height = 400,
@@ -53,7 +53,7 @@ data:extend{dsE}
 local dsI = {}
 dsI.type = "item"
 dsI.name = "DataStorage"
-dsI.icon = "__Mobile_Factory_Graphics__/graphics/matter-serialization/DataStorageI.png"
+dsI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/DataStorageI.png"
 dsI.icon_size = 64
 dsI.place_result = "DataStorage"
 dsI.subgroup = "DataSerialization"
@@ -70,10 +70,13 @@ dsR.energy_required = 4
 dsR.enabled = false
 dsR.ingredients =
     {
-      {"CrystalizedCircuit", 20},
-      {"MachineFrame3", 5}
+      {type="item", name="CrystalizedCircuit", amount=20},
+      {type="item", name="MachineFrame3", amount=5}
     }
-dsR.result = "DataStorage"
+dsR.results = 
+  {
+    {type="item", name="DataStorage", amount=1}
+  }
 data:extend{dsR}
 
 -- Animation --
@@ -81,7 +84,7 @@ local sdA = {}
 sdA.name = "DataStorageA"
 sdA.type = "animation"
 sdA.frame_count = 120
-sdA.filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/DataStorageAn.png"
+sdA.filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/DataStorageAn.png"
 sdA.size = 200
 sdA.line_length = 10
 sdA.animation_speed = 1/4

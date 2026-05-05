@@ -6,8 +6,8 @@
 local shI = {}
 shI.type = "item"
 shI.name = "mfShieldEquipment"
-shI.icon = "__Mobile_Factory_Graphics__/graphics/effects/shield.png"
-shI.placed_as_equipment_result = "mfShieldEquipment"
+shI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/effects/shield.png"
+shI.place_as_equipment_result = "mfShieldEquipment"
 shI.icon_size = 556
 shI.subgroup = "MobileFactory"
 shI.order = "z"
@@ -21,7 +21,7 @@ shE.type = "energy-shield-equipment"
 shE.energy_per_shield = "1J"
 shE.max_shield_value = 1000
 shE.categories = {"mfEquipments"}
-shE.sprite = {filename="__Mobile_Factory_Graphics__/graphics/effects/shield.png", size=556}
+shE.sprite = {filename="__Mobile_Factory_Graphics_zoms__/graphics/effects/shield.png", size=556}
 shE.shape = {width=3, height=3, type="full"}
 shE.energy_source = 
 {
@@ -41,16 +41,19 @@ shR.energy_required = 5
 shR.enabled = false
 shR.ingredients =
     {
-		{"CrystalizedCircuit", 50}
+		{type="item", name="CrystalizedCircuit", amount=50}
     }
-shR.result = "mfShieldEquipment"
+shR.results = 
+  {
+    {type="item", name="mfShieldEquipment", amount=1}
+  }
 data:extend{shR}
 
 -- Technology --
 local shT = {}
 shT.name = "MFShield"
 shT.type = "technology"
-shT.icon = "__Mobile_Factory_Graphics__/graphics/icons/shield.png"
+shT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/shield.png"
 shT.icon_size = 64
 shT.unit = {
 	count = 5,

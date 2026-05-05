@@ -2,7 +2,7 @@
 local lfT = {}
 lfT.name = "FluidDrain1"
 lfT.type = "technology"
-lfT.icon = "__Mobile_Factory_Graphics__/graphics/icons/FluidLaserE.png"
+lfT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/FluidLaserE.png"
 lfT.icon_size = 256
 lfT.unit = {
 	count=800,

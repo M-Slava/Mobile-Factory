@@ -9,7 +9,7 @@ dtE.minable = {
 }
 dtE.variants.material_background =
 {
-    picture = "__Mobile_Factory_Graphics__/graphics/entity/DimensionalTileE.png",
+    picture = "__Mobile_Factory_Graphics_zoms__/graphics/entity/DimensionalTileE.png",
     count = 8,
     scale = 0.5
 }
@@ -19,7 +19,7 @@ data:extend{dtE}
 local dtI = {}
 dtI.type = "item"
 dtI.name = "DimensionalTile"
-dtI.icon = "__Mobile_Factory_Graphics__/graphics/icons/DimensionalTileI.png"
+dtI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/DimensionalTileI.png"
 dtI.icon_size = 128
 dtI.subgroup = "Tiles"
 dtI.order = "c"
@@ -28,7 +28,7 @@ dtI.place_as_tile =
     {
       result = "DimensionalTile",
       condition_size = 1,
-      condition = { "water-tile" }
+      condition = { layers = {water_tile = true} }
     }
 data:extend{dtI}
 
@@ -40,7 +40,10 @@ dtR.enabled = false
 dtR.energy_required = 1.3
 dtR.ingredients =
     {
-		{"DimensionalOre", 8}
+		{type="item", name="DimensionalOre", amount=8}
     }
-dtR.result = "DimensionalTile"
+dtR.results = 
+  {
+    {type="item", name="DimensionalTile", amount=1}
+  }
 data:extend{dtR}

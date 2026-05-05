@@ -4,7 +4,7 @@
 local edE = {}
 edE.type = "electric-pole"
 edE.name = "EnergyDispenser"
-edE.icon = "__Mobile_Factory_Graphics__/graphics/energy/EnergyDispenserI.png"
+edE.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/EnergyDispenserI.png"
 edE.icon_size = 128
 edE.flags = {"placeable-neutral", "player-creation"}
 edE.minable = {mining_time = 1, result = "EnergyDispenser"}
@@ -12,7 +12,15 @@ edE.track_coverage_during_build_by_moving = true
 edE.collision_box = {{0, 0}, {0, 0}}
 edE.selection_box = {{-1, -1}, {1, 1}}
 edE.selection_priority = 51
-edE.collision_mask = {"item-layer", "object-layer", "player-layer", "water-tile", "layer-37", "not-colliding-with-itself"}
+edE.collision_mask = {
+  layers = {
+    item = true,
+    is_object = true,
+    water_tile = true,
+    layer_37 = true
+  },
+  not_colliding_with_itself = true
+}
 edE.maximum_wire_distance = 0
 edE.supply_area_distance = 64
 edE.draw_copper_wires = false
@@ -30,7 +38,7 @@ edE.pictures =
     layers =
     {
         {
-            filename = "__Mobile_Factory_Graphics__/graphics/energy/EnergyDispenserG.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/energy/EnergyDispenserG.png",
             priority = "high",
             width = 400,
             height = 1000,
@@ -40,7 +48,7 @@ edE.pictures =
             draw_as_light = true
         },
         {
-            filename = "__Mobile_Factory_Graphics__/graphics/energy/EnergyDispenserE.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/energy/EnergyDispenserE.png",
             priority = "high",
             width = 400,
             height = 1000,
@@ -49,7 +57,7 @@ edE.pictures =
             scale = 0.33
         },
         {
-            filename = "__Mobile_Factory_Graphics__/graphics/energy/EnergyDispenserS.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/energy/EnergyDispenserS.png",
             priority = "high",
             width = 1000,
             height = 400,
@@ -67,7 +75,7 @@ local edI = {}
 edI.type = "item"
 edI.name = "EnergyDispenser"
 edI.place_result = "EnergyDispenser"
-edI.icon = "__Mobile_Factory_Graphics__/graphics/energy/EnergyDispenserI.png"
+edI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/EnergyDispenserI.png"
 edI.icon_size = 128
 edI.subgroup = "Energy"
 edI.order = "d"
@@ -82,17 +90,20 @@ edC.energy_required = 5
 edC.enabled = false
 edC.ingredients =
     {
-		{"CrystalizedCircuit", 6},
-		{"MachineFrame3", 5}
+		{type="item", name="CrystalizedCircuit", amount=6},
+		{type="item", name="MachineFrame3", amount=5}
     }
-edC.result = "EnergyDispenser"
+edC.results = 
+  {
+    {type="item", name="EnergyDispenser", amount=1}
+  }
 data:extend{edC}
 
 -- Technologie --
 local edt = {}
 edt.name = "EnergyDispenser"
 edt.type = "technology"
-edt.icon = "__Mobile_Factory_Graphics__/graphics/energy/EnergyDispenserI.png"
+edt.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/EnergyDispenserI.png"
 edt.icon_size = 128
 edt.unit = {
 	count=25,
@@ -110,14 +121,23 @@ data:extend{edt}
 local fedE = {}
 fedE.type = "accumulator"
 fedE.name = "EnergyDispenserAcc"
-fedE.icon = "__Mobile_Factory_Graphics__/graphics/energy/EnergyDispenserI.png"
+fedE.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/EnergyDispenserI.png"
 fedE.icon_size = 128
 fedE.minable = {mining_time = 1, result = "EnergyDispenser"}
 fedE.max_health = 150
 fedE.corpse = "accumulator-remnants"
 fedE.collision_box = {{-2, -2}, {2, 2}}
 fedE.selection_box = {{-2, -2}, {2, 2}}
-fedE.collision_mask = {"item-layer", "object-layer", "player-layer", "water-tile", "layer-37", "not-colliding-with-itself"}
+fedE.collision_mask = {
+  layers = {
+    item = true,
+    is_object = true,
+    water_tile = true,
+    layer_37 = true
+  },
+  not_colliding_with_itself = true
+  --"item-layer", "object-layer", "player-layer", "water-tile", "layer-37", "not-colliding-with-itself"
+}
 fedE.circuit_wire_max_distance = 0
 fedE.energy_source =
 {
@@ -141,7 +161,7 @@ fedE.picture = {
     layers =
     {
       {
-          filename = "__Mobile_Factory_Graphics__/graphics/Alpha.png",
+          filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
           priority = "high",
           width = 132,
           height = 132,

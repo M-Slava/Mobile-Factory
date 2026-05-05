@@ -2,7 +2,7 @@
 local ldT = {}
 ldT.name = "EnergyDrain1"
 ldT.type = "technology"
-ldT.icon = "__Mobile_Factory_Graphics__/graphics/icons/EnergyLaserE.png"
+ldT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/EnergyLaserE.png"
 ldT.icon_size = 256
 ldT.unit = {
 	count=600,
@@ -19,7 +19,7 @@ data:extend{ldT}
 local el1T = {}
 el1T.name = "EnergyLogistic"
 el1T.type = "technology"
-el1T.icon = "__Mobile_Factory_Graphics__/graphics/energy/EnergyCubeMK1I.png"
+el1T.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/EnergyCubeMK1I.png"
 el1T.icon_size = 128
 el1T.unit = {
 	count=1000,
@@ -40,7 +40,7 @@ data:extend{el1T}
 local el2T = {}
 el2T.name = "EnergyLogistic2"
 el2T.type = "technology"
-el2T.icon = "__Mobile_Factory_Graphics__/graphics/energy/EnergyCubeMK2I.png"
+el2T.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/EnergyCubeMK2I.png"
 el2T.icon_size = 128
 el2T.unit = {
 	count=15,
@@ -62,7 +62,7 @@ data:extend{el2T}
 local el3T = {}
 el3T.name = "EnergyLogistic3"
 el3T.type = "technology"
-el3T.icon = "__Mobile_Factory_Graphics__/graphics/energy/EnergyCubeMK3I.png"
+el3T.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/EnergyCubeMK3I.png"
 el3T.icon_size = 128
 el3T.unit = {
 	count=30,
@@ -84,7 +84,7 @@ data:extend{el3T}
 local ql1T = {}
 ql1T.name = "QuatronLogistic"
 ql1T.type = "technology"
-ql1T.icon = "__Mobile_Factory_Graphics__/graphics/energy/QuatronCubeMK1I.png"
+ql1T.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/QuatronCubeMK1I.png"
 ql1T.icon_size = 128
 ql1T.unit = {
 	count=10,
@@ -107,7 +107,7 @@ data:extend{ql1T}
 local ql2T = {}
 ql2T.name = "QuatronLogistic2"
 ql2T.type = "technology"
-ql2T.icon = "__Mobile_Factory_Graphics__/graphics/energy/QuatronCubeMK2I.png"
+ql2T.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/QuatronCubeMK2I.png"
 ql2T.icon_size = 128
 ql2T.unit = {
 	count=15,
@@ -129,7 +129,7 @@ data:extend{ql2T}
 local qlT = {}
 qlT.name = "QuatronLogistic3"
 qlT.type = "technology"
-qlT.icon = "__Mobile_Factory_Graphics__/graphics/energy/QuatronCubeMK3I.png"
+qlT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/QuatronCubeMK3I.png"
 qlT.icon_size = 128
 qlT.unit = {
 	count=30,

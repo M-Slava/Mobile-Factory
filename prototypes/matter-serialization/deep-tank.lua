@@ -4,7 +4,7 @@
 dtE = {}
 dtE.type = "container"
 dtE.name = "DeepTank"
-dtE.icon = "__Mobile_Factory_Graphics__/graphics/matter-serialization/DeepTankI.png"
+dtE.icon = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/DeepTankI.png"
 dtE.icon_size = 128
 dtE.flags = {"placeable-neutral", "player-creation"}
 dtE.minable = {mining_time = 0.8, result = "DeepTank"}
@@ -24,7 +24,7 @@ dtE.picture =
 	  layers =
 	  {
 		{
-			filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/DeepTankE.png",
+			filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/DeepTankE.png",
 			priority = "low",
 			width = 600,
 			height = 600,
@@ -32,7 +32,7 @@ dtE.picture =
 			scale = 1/4
 		},
 		{
-			filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/DeepTankS.png",
+			filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/DeepTankS.png",
 			priority = "very-low",
 			width = 600,
 			height = 600,
@@ -51,7 +51,7 @@ data:extend{dtE}
 local dtI = {}
 dtI.type = "item-with-tags"
 dtI.name = "DeepTank"
-dtI.icon = "__Mobile_Factory_Graphics__/graphics/matter-serialization/DeepTankI.png"
+dtI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/DeepTankI.png"
 dtI.icon_size = 128
 dtI.place_result = "DeepTank"
 dtI.subgroup = "DataSerialization"
@@ -67,17 +67,20 @@ dtR.energy_required = 2
 dtR.enabled = false
 dtR.ingredients =
     {
-      {"CrystalizedCircuit", 8},
-      {"MachineFrame3", 2}
+      {type="item", name="CrystalizedCircuit", amount=8},
+      {type="item", name="MachineFrame3", amount=2}
     }
-dtR.result = "DeepTank"
+dtR.results = 
+  {
+    {type="item", name="DeepTank", amount=1}
+  }
 data:extend{dtR}
 
 -- Technologie --
 local dtT = {}
 dtT.name = "DeepTank"
 dtT.type = "technology"
-dtT.icon = "__Mobile_Factory_Graphics__/graphics/matter-serialization/DeepTankI.png"
+dtT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/DeepTankI.png"
 dtT.icon_size = 128
 dtT.unit = {
 	count=20,

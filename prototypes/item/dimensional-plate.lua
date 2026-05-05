@@ -2,7 +2,7 @@
 local dpI = {}
 dpI.type = "item"
 dpI.name = "DimensionalPlate"
-dpI.icon = "__Mobile_Factory_Graphics__/graphics/icons/DimensionalPlate.png"
+dpI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/DimensionalPlate.png"
 dpI.icon_size = 32
 dpI.subgroup = "Resources"
 dpI.order = "d"
@@ -18,7 +18,10 @@ dpR.category = "DimensionalSmelting"
 dpR.enabled = false
 dpR.ingredients =
     {
-		{"DimensionalOre", 2}
+		{type="item", name="DimensionalOre", amount=2}
     }
-dpR.result = "DimensionalPlate"
+dpR.results = 
+  {
+    {type="item", name="DimensionalPlate", amount=1}
+  }
 data:extend{dpR}

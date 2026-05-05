@@ -1,15 +1,15 @@
-if global.allowMigration == false then return end
-for _, da in pairs(global.dataAssemblerTable or {}) do
+if storage.allowMigration == false then return end
+for _, da in pairs(storage.dataAssemblerTable or {}) do
 	for id, recipe in pairs(da.recipeTable or {}) do
 		local recipePrototype = recipe.recipePrototype
 		recipe.mainProduct = nil
 		recipe.products = {}
 		-- Update products
 		for _, product in ipairs(recipePrototype.products) do
-			if game.item_prototypes[product.name] ~= nil then
-				table.insert(recipe.products, {name=product.name, type=product.type, amount=product.amount, probability = product.probability or 1,sprite="item/" .. product.name, tooltip=game.item_prototypes[product.name].localised_name})
-			elseif game.fluid_prototypes[product.name] ~= nil then
-				table.insert(recipe.products, {name=product.name, type=product.type, amount=product.amount, probability = product.probability or 1, sprite="fluid/" .. product.name, tooltip=game.fluid_prototypes[product.name].localised_name})
+			if prototypes.item[product.name] ~= nil then
+				table.insert(recipe.products, {name=product.name, type=product.type, amount=product.amount, probability = product.probability or 1,sprite="item/" .. product.name, tooltip=prototypes.item[product.name].localised_name})
+			elseif prototypes.fluid[product.name] ~= nil then
+				table.insert(recipe.products, {name=product.name, type=product.type, amount=product.amount, probability = product.probability or 1, sprite="fluid/" .. product.name, tooltip=prototypes.fluid[product.name].localised_name})
 			end
 		end
 		-- Select default main product
@@ -23,10 +23,10 @@ for _, da in pairs(global.dataAssemblerTable or {}) do
 		end
 		-- Add tooltips to ingredients
 		for _, ingredient in ipairs(recipe.ingredients) do
-			if game.item_prototypes[ingredient.name] ~= nil then
-				ingredient.tooltip = game.item_prototypes[ingredient.name].localised_name
-			elseif game.fluid_prototypes[ingredient.name] ~= nil then
-				ingredient.tooltip = game.fluid_prototypes[ingredient.name].localised_name
+			if prototypes.item[ingredient.name] ~= nil then
+				ingredient.tooltip = prototypes.item[ingredient.name].localised_name
+			elseif prototypes.fluid[ingredient.name] ~= nil then
+				ingredient.tooltip = prototypes.fluid[ingredient.name].localised_name
 			else
 				ingredient.tooltip = ""
 			end

@@ -1,6 +1,6 @@
 -- Create all Objects Table --
 function createTableList()
-	global.objTable = {}
+	storage.objTable = {}
 	addObject{tableName="playersTable", tag="MFP", objName="MFPlayer", noPlaced=true, noUpsys=true}
 	addObject{tableName="MFTable", tag="MF", objName="MF", noPlaced=true}
 	addObject{tableName="matterInteractorTable", tag="MI", objName="MatterInteractor"}
@@ -35,11 +35,11 @@ end
 -- {tableName, tag, objName, noUpsys, noOutside, noInside, canInCC, canInCCAnywhere, noPlaced} --
 function addObject(table)
 	-- Check the objTable --
-	if global.objTable == nil then global.objTable = {} end
+	if storage.objTable == nil then storage.objTable = {} end
 	-- Add the Object --
-	global.objTable[table.objName] = table
-	-- Create the Global Table if needed --
-	if table.tableName ~= nil and global[table.tableName] == nil then global[table.tableName] = {} end
+	storage.objTable[table.objName] = table
+	-- Create the Storage Table if needed --
+	if table.tableName ~= nil and storage[table.tableName] == nil then storage[table.tableName] = {} end
 end
 
 -- Transfer Chest1 to Chest2 --
@@ -165,8 +165,8 @@ end
 
 -- Equilize the Quatron between two Accumulators --
 function syncQuatron(accu1, accu2)
-	local obj1 = global.entsTable[accu1.unit_number]
-	local obj2 = global.entsTable[accu2.unit_number]
+	local obj1 = storage.entsTable[accu1.unit_number]
+	local obj2 = storage.entsTable[accu2.unit_number]
 	-- Calcul the total quatron --
 	local totalCharge = EI.energy(obj1) + EI.energy(obj2)
 	if totalCharge <= 0 then return end
@@ -202,24 +202,24 @@ end
 -- Return the Player Mobile Factory --
 function getMF(player)
 	if player == nil then return nil
-	elseif type(player) == "number" then return global.MFTable[game.players[player].name]
-	elseif type(player) == "string" then return global.MFTable[player]
+	elseif type(player) == "number" then return storage.MFTable[game.players[player].name]
+	elseif type(player) == "string" then return storage.MFTable[player]
 	else error("bad argument to getMF()") end
 end
 
 -- Return the Current Selected Mobile Factory --
 function getCurrentMF(player)
 	if player == nil then return nil
-	elseif type(player) == "number" then return global.playersTable[game.players[player].name].currentMF or global.playersTable[game.players[player].name].MF
-	elseif type(player) == "string" then return global.playersTable[player].currentMF or global.playersTable[player].MF
+	elseif type(player) == "number" then return storage.playersTable[game.players[player].name].currentMF or storage.playersTable[game.players[player].name].MF
+	elseif type(player) == "string" then return storage.playersTable[player].currentMF or storage.playersTable[player].MF
 	elseif type(player) == "table" then return player.currentMF or player.MF end
 end
 
 -- Return the MFPlayer Object --
 function getMFPlayer(player)
 	if player == nil then return nil
-	elseif type(player) == "number" then return global.playersTable[game.players[player].name]
-	elseif type(player) == "string" then return global.playersTable[player]
+	elseif type(player) == "number" then return storage.playersTable[game.players[player].name]
+	elseif type(player) == "string" then return storage.playersTable[player]
 	else error("bad argument to getMFPlayer()") end
 end
 
@@ -249,7 +249,7 @@ function findNearestMF(surface, position)
 	end
 	local nearestMFObj = nil
 	local d2 = math.huge
-	for _, MF in pairs(global.MFTable) do
+	for _, MF in pairs(storage.MFTable) do
 		local MFEnt = MF.ent
 		if MFEnt and MFEnt.valid and MFEnt.surface == surface then
 			local MFPos = MFEnt.position
@@ -289,7 +289,7 @@ end
 
 -- Return the Mobile Factory from a LuaSurface --
 function getMFBySurface(surface)
-	for _, MF in pairs(global.MFTable) do
+	for _, MF in pairs(storage.MFTable) do
 		if MF.fS == surface or MF.ccS == surface then
 			return MF
 		end
@@ -298,27 +298,27 @@ end
 
 -- Get player specific variable --
 function getPlayerVariable(playerName, variable)
-	if global.playersTable == nil then global.playersTable = {} end
+	if storage.playersTable == nil then storage.playersTable = {} end
 	local MFPlayer = getMFPlayer(playerName)
-	if MFPlayer == nil then global.playersTable[playerName] = MFP:new(getPlayer(playerName)) end
+	if MFPlayer == nil then storage.playersTable[playerName] = MFP:new(getPlayer(playerName)) end
 	if MFPlayer.varTable == nil then MFPlayer.varTable = {} end
 	return MFPlayer.varTable[variable]
 end
 
 -- Set player specific variable --
 function setPlayerVariable(playerName, variable, value)
-	if global.playersTable == nil then global.playersTable = {} end
+	if storage.playersTable == nil then storage.playersTable = {} end
 	local MFPlayer = getMFPlayer(playerName)
-	if MFPlayer == nil then global.playersTable[playerName] = MFP:new(getPlayer(playerName)) end
+	if MFPlayer == nil then storage.playersTable[playerName] = MFP:new(getPlayer(playerName)) end
 	if MFPlayer.varTable == nil then MFPlayer.varTable = {} end
 	MFPlayer.varTable[variable] = value
 end
 
 -- Get a Data Network ID --
 function getDataNetworkID()
-	if global.dataNetworkID == nil then dataNetworkID = 0 end
-	global.dataNetworkID = (global.dataNetworkID or 0) + 1
-	return global.dataNetworkID
+	if storage.dataNetworkID == nil then dataNetworkID = 0 end
+	storage.dataNetworkID = (storage.dataNetworkID or 0) + 1
+	return storage.dataNetworkID
 end
 
 -- Try to find a lost Mobile Factory --
@@ -342,19 +342,19 @@ function findMF(player, MF)
 	return lastMFFound
 end
 
--- Define the Main Mobile Factory global variable --
+-- Define the Main Mobile Factory storage variable --
 function newMobileFactory(MF)
 	-- Check the Mobile Factory --
 	if MF == nil or MF.valid == false or MF.last_user == nil then return end
 	-- Test if the Mobile Factory doesn't already exist --
-	if global.MFTable[MF.last_user.name] ~= nil and global.MFTable[MF.last_user.name].ent ~= nil and global.MFTable[MF.last_user.name].valid == true then global.MFTable[MF.last_user.name].ent.destroy() end
+	if storage.MFTable[MF.last_user.name] ~= nil and storage.MFTable[MF.last_user.name].ent ~= nil and storage.MFTable[MF.last_user.name].valid == true then storage.MFTable[MF.last_user.name].ent.destroy() end
 	-- ReConstruct the MF Object --
-	if global.MFTable[MF.last_user.name] == nil then
-		global.MFTable[MF.last_user.name] = getMF("")
+	if storage.MFTable[MF.last_user.name] == nil then
+		storage.MFTable[MF.last_user.name] = getMF("")
 	end
-	global.MFTable[MF.last_user.name]:construct(MF)
+	storage.MFTable[MF.last_user.name]:construct(MF)
 	-- Check all Technologies --
-	checkTechnologies(global.MFTable[MF.last_user.name])
+	checkTechnologies(storage.MFTable[MF.last_user.name])
 end
 
 -- If Mobile Factory or his surfaces are broken, try to fix them --
@@ -480,7 +480,7 @@ function checkNeededTiles()
 	}
 
 	for _, tile in pairs(tilesToCheck) do
-		if game.tile_prototypes[tile] == nil then
+		if prototypes.tile[tile] == nil then
 			error("Missing "..tile..". This is likely because you have more than 255 tiles.")
 		end
 	end
@@ -488,21 +488,21 @@ end
 
 -- Create the Resources Products list for the Resources Collector --
 function createProductsList()
-	global.ResourcesProductsTable = {}
-	global.oreTable = {}
-	global.fluidsTable = {}
-	for _, prototype in pairs(game.entity_prototypes) do
+	storage.ResourcesProductsTable = {}
+	storage.oreTable = {}
+	storage.fluidsTable = {}
+	for _, prototype in pairs(prototypes.entity) do
 		if prototype.type == "resource" and prototype.mineable_properties ~= nil and prototype.mineable_properties.products ~= nil then
 			local productsTable = {}
 			if prototype.mineable_properties.products[1] ~= nil and prototype.mineable_properties.products[1].type == "item" then
-				table.insert(global.oreTable, prototype.name)
+				table.insert(storage.oreTable, prototype.name)
 			elseif prototype.mineable_properties.products[1] ~= nil and prototype.mineable_properties.products[1].type == "fluid" then
-				table.insert(global.fluidsTable, prototype.name)
+				table.insert(storage.fluidsTable, prototype.name)
 			end
 			for _, product in pairs(prototype.mineable_properties.products) do
 				table.insert(productsTable, {name=product.name, type=product.type, amount=product.amount, min=product.amount_min, max=product.amount_max, probability=product.probability})
 			end
-			global.ResourcesProductsTable[prototype.name] = productsTable
+			storage.ResourcesProductsTable[prototype.name] = productsTable
 		end
 	end
 	a=a
@@ -513,7 +513,7 @@ end
 function entityToBlueprintTags(entity, fromTable)
 
 	local tags = nil
-	local obj = global.entsTable[entity.unit_number] or global.objectsTable[entity.unit_number]
+	local obj = storage.entsTable[entity.unit_number] or storage.objectsTable[entity.unit_number]
 
 	-- Get the Tags --
 	if obj and obj.settingsToBlueprintTags then

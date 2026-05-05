@@ -4,7 +4,7 @@
 local dS = {}
 dS.type = "electric-pole"
 dS.name = "DimensionalSubstation"
-dS.icon = "__Mobile_Factory_Graphics__/graphics/icons/DimensionalSubstation.png"
+dS.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/DimensionalSubstation.png"
 dS.icon_size = 32
 dS.flags = {"placeable-neutral", "player-creation"}
 dS.minable = {mining_time = 1, result = "DimensionalSubstation"}
@@ -22,7 +22,7 @@ dS.pictures =
       {
 
         {
-            filename = "__Mobile_Factory_Graphics__/graphics/entity/DimensionalSubstation.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/entity/DimensionalSubstation.png",
             priority = "high",
             width = 138,
             height = 270,
@@ -31,7 +31,7 @@ dS.pictures =
             scale = 1
         },
         {
-            filename = "__base__/graphics/entity/substation/hr-substation-shadow.png",
+            filename = "__base__/graphics/entity/substation/substation-shadow.png",
             priority = "high",
             width = 370,
             height = 104,
@@ -123,7 +123,7 @@ local dsI = {}
 dsI.type = "item"
 dsI.name = "DimensionalSubstation"
 dsI.place_result = "DimensionalSubstation"
-dsI.icon = "__Mobile_Factory_Graphics__/graphics/icons/DimensionalSubstation.png"
+dsI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/DimensionalSubstation.png"
 dsI.icon_size = 32
 dsI.subgroup = "Energy"
 dsI.order = "z"

@@ -4,7 +4,7 @@
 local neE = {}
 neE.type = "container"
 neE.name = "NetworkExplorer"
-neE.icon = "__Mobile_Factory_Graphics__/graphics/matter-serialization/NetworkExplorerI.png"
+neE.icon = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/NetworkExplorerI.png"
 neE.icon_size = 64
 neE.flags = {"placeable-neutral", "player-creation"}
 neE.minable = {mining_time = 0.2, result = "NetworkExplorer"}
@@ -22,7 +22,7 @@ neE.picture =
       layers =
       {
         {
-            filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/NetworkExplorerE.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/NetworkExplorerE.png",
             priority = "extra-high",
             width = 600,
             height = 600,
@@ -30,7 +30,7 @@ neE.picture =
             scale = 1/9
         },
         {
-            filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/NetworkExplorerS.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/NetworkExplorerS.png",
             priority = "high",
             width = 600,
             height = 600,
@@ -53,7 +53,7 @@ data:extend{neE}
 local neI = {}
 neI.type = "item"
 neI.name = "NetworkExplorer"
-neI.icon = "__Mobile_Factory_Graphics__/graphics/matter-serialization/NetworkExplorerI.png"
+neI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/NetworkExplorerI.png"
 neI.icon_size = 128
 neI.place_result = "NetworkExplorer"
 neI.subgroup = "DataSerialization"
@@ -70,17 +70,20 @@ neR.energy_required = 4
 neR.enabled = false
 neR.ingredients =
     {
-      {"CrystalizedCircuit", 16},
-      {"MachineFrame3", 6}
+      {type="item", name="CrystalizedCircuit", amount=16},
+      {type="item", name="MachineFrame3", amount=6}
     }
-    neR.result = "NetworkExplorer"
+    neR.results = 
+  {
+    {type="item", name="NetworkExplorer", amount=1}
+  }
 data:extend{neR}
 
 -- Technologie --
 local neT = {}
 neT.name = "NetworkExplorer"
 neT.type = "technology"
-neT.icon = "__Mobile_Factory_Graphics__/graphics/matter-serialization/NetworkExplorerI.png"
+neT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/NetworkExplorerI.png"
 neT.icon_size = 128
 neT.unit = {
 	count=12,
@@ -98,7 +101,7 @@ data:extend{neT}
 local neS1 = {}
 neS1.type = "sprite"
 neS1.name = "NetworkExplorerSprite1"
-neS1.filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/NetworkExplorerSprite1.png"
+neS1.filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/NetworkExplorerSprite1.png"
 neS1.size = 600
 neS1.shift = {0,-0.2}
 neS1.scale = 1/9
@@ -107,7 +110,7 @@ data:extend{neS1}
 local neS2 = {}
 neS2.type = "sprite"
 neS2.name = "NetworkExplorerSprite2"
-neS2.filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/NetworkExplorerSprite2.png"
+neS2.filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/NetworkExplorerSprite2.png"
 neS2.size = 600
 neS2.shift = {0,-0.2}
 neS2.scale = 1/9

@@ -8,82 +8,43 @@ beam1.damage_interval = 20
 beam1.random_target_offset = true
 beam1.action_triggered_automatically = false
 beam1.action = nil
-beam1.head =
+beam1.graphics_set = {
+  beam = {
+    head = 
     {
-      filename = "__base__/graphics/entity/laser-turret/hr-laser-body.png",
-      flags = beam_non_light_flags,
+      filename = "__base__/graphics/entity/laser-turret/laser-body-light.png",
       line_length = 8,
       width = 64,
       height = 12,
       frame_count = 8,
       scale = 0.5,
-      animation_speed = 0.5,
-      blend_mode = laser_beam_blend_mode
-    }
-beam1.tail =
+      animation_speed = 0.5
+    },
+    tail =
     {
-      filename = "__base__/graphics/entity/laser-turret/hr-laser-end.png",
-      flags = beam_non_light_flags,
+      filename = "__base__/graphics/entity/laser-turret/laser-end-light.png",
       width = 110,
       height = 62,
       frame_count = 8,
       shift = util.by_pixel(11.5, 1),
       scale = 0.5,
-      animation_speed = 0.5,
-      blend_mode = laser_beam_blend_mode
-    }
-beam1.body =
+      animation_speed = 0.5
+    },
+    body =
     {
       {
-        filename = "__base__/graphics/entity/laser-turret/hr-laser-body.png",
-        flags = beam_non_light_flags,
-        line_length = 8,
-        width = 64,
-        height = 12,
-        frame_count = 8,
-        scale = 0.5,
-        animation_speed = 0.5,
-        blend_mode = laser_beam_blend_mode
-      }
-    }
-beam1.light_animations =
-    {
-      head =
-      {
-        filename = "__base__/graphics/entity/laser-turret/hr-laser-body-light.png",
+        filename = "__base__/graphics/entity/laser-turret/laser-body-light.png",
         line_length = 8,
         width = 64,
         height = 12,
         frame_count = 8,
         scale = 0.5,
         animation_speed = 0.5
-      },
-      tail =
-      {
-        filename = "__base__/graphics/entity/laser-turret/hr-laser-end-light.png",
-        width = 110,
-        height = 62,
-        frame_count = 8,
-        shift = util.by_pixel(11.5, 1),
-        scale = 0.5,
-        animation_speed = 0.5
-      },
-      body =
-      {
-        {
-          filename = "__base__/graphics/entity/laser-turret/hr-laser-body-light.png",
-          line_length = 8,
-          width = 64,
-          height = 12,
-          frame_count = 8,
-          scale = 0.5,
-          animation_speed = 0.5
-        }
       }
     }
-beam1.ground_light_animations =
-    {
-      head =
+  },
+  ground = {
+    head =
       {
         filename = "__base__/graphics/entity/laser-turret/laser-ground-light-head.png",
         line_length = 1,
@@ -118,7 +79,8 @@ beam1.ground_light_animations =
         animation_speed = 0.5,
         tint = {0.5, 0.05, 0.05}
       }
-    }
+  }
+}
 beam1.working_sound =
     {
       sound =

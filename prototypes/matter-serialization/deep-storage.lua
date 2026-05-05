@@ -4,7 +4,7 @@
 dsE = {}
 dsE.type = "container"
 dsE.name = "DeepStorage"
-dsE.icon = "__Mobile_Factory_Graphics__/graphics/icons/DeepStorageI.png"
+dsE.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/DeepStorageI.png"
 dsE.icon_size = 256
 dsE.flags = {"placeable-neutral", "player-creation"}
 dsE.minable = {mining_time = 0.8, result = "DeepStorage"}
@@ -24,7 +24,7 @@ dsE.picture =
 	  layers =
 	  {
 		{
-			filename = "__Mobile_Factory_Graphics__/graphics/entity/DeepStorageE.png",
+			filename = "__Mobile_Factory_Graphics_zoms__/graphics/entity/DeepStorageE.png",
 			priority = "low",
 			width = 600,
 			height = 600,
@@ -32,7 +32,7 @@ dsE.picture =
 			scale = 1/4
 		},
 		{
-			filename = "__Mobile_Factory_Graphics__/graphics/entity/DeepStorageS.png",
+			filename = "__Mobile_Factory_Graphics_zoms__/graphics/entity/DeepStorageS.png",
 			priority = "very-low",
 			width = 620,
 			height = 608,
@@ -51,7 +51,7 @@ data:extend{dsE}
 local dsI = {}
 dsI.type = "item-with-tags"
 dsI.name = "DeepStorage"
-dsI.icon = "__Mobile_Factory_Graphics__/graphics/icons/DeepStorageI.png"
+dsI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/DeepStorageI.png"
 dsI.icon_size = 256
 dsI.place_result = "DeepStorage"
 dsI.subgroup = "DataSerialization"
@@ -67,17 +67,20 @@ dsR.energy_required = 2
 dsR.enabled = false
 dsR.ingredients =
     {
-      {"CrystalizedCircuit", 8},
-      {"MachineFrame3", 2}
+      {type="item", name="CrystalizedCircuit", amount=8},
+      {type="item", name="MachineFrame3", amount=2}
     }
-dsR.result = "DeepStorage"
+dsR.results = 
+  {
+    {type="item", name="DeepStorage", amount=1}
+  }
 data:extend{dsR}
 
 -- Technologie --
 local dsT = {}
 dsT.name = "DeepStorage"
 dsT.type = "technology"
-dsT.icon = "__Mobile_Factory_Graphics__/graphics/icons/DeepStorageI.png"
+dsT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/DeepStorageI.png"
 dsT.icon_size = 256
 dsT.unit = {
 	count=20,

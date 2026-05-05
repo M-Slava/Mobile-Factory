@@ -6,7 +6,7 @@ MI = {
 	player = "",
 	MF = nil,
 	entID = 0,
-	stateSprite = 0,
+	stateSprite = nil,
 	active = false,
 	consumption = _mfMIQuatronDrainPerUpdate,
 	updateTick = 60,
@@ -51,7 +51,7 @@ end
 -- Destructor --
 function MI:remove()
 	-- Destroy the Sprites --
-	rendering.destroy(self.stateSprite)
+	self.stateSprite.destroy()
 	-- Remove from the Update System --
 	UpSys.removeObj(self)
 	-- Remove from the Network Access Point --
@@ -176,7 +176,7 @@ function MI:getTooltipInfos(GUITable, mainFrame, justCreated)
 		GAPI.addSwitch(GUITable, "M.I.ModeSwitch" , parametersFrame, {"gui-description.Input"}, {"gui-description.Output"}, "", "", state, false, {ID=self.ent.unit_number})
 
 		-- Prevent to store Item with Tags --
-		if self.selectedMode == "input" and filter.elem_value ~= nil and game.item_prototypes[filter.elem_value].type == "item-with-tags" then
+		if self.selectedMode == "input" and filter.elem_value ~= nil and prototypes.item[filter.elem_value].type == "item-with-tags" then
 			game.print("Inputing an item-with-tags ([item="..filter.elem_value.."]) erases tags (dangerous!). Clearing Matter Interactor values.")
 			filter.elem_value = nil
 			self.selectedFilter = nil
@@ -204,7 +204,7 @@ function MI:getTooltipInfos(GUITable, mainFrame, justCreated)
 				end
 
 				if item then
-					invs[k+1] = {"", "[img=item/"..item.."] ", game.item_prototypes[item].localised_name, " - ", deepStorage.ID}
+					invs[k+1] = {"", "[img=item/"..item.."] ", prototypes.item[item].localised_name, " - ", deepStorage.ID}
 				else
 					invs[k+1] = {"", "", {"gui-description.Empty"}, " - ", deepStorage.ID}
 				end
@@ -308,11 +308,15 @@ function MI:setActive(set)
     self.active = set
     if set == true then
         -- Create the Active Sprite --
-        rendering.destroy(self.stateSprite)
+        if self.stateSprite then
+            self.stateSprite.destroy()
+        end
         self.stateSprite = rendering.draw_sprite{sprite="MatterInteractorSprite2", target=self.ent, surface=self.ent.surface, render_layer=131}
     else
         -- Create the Inactive Sprite --
-        rendering.destroy(self.stateSprite)
+        if self.stateSprite then
+            self.stateSprite.destroy()
+        end
         self.stateSprite = rendering.draw_sprite{sprite="MatterInteractorSprite1", target=self.ent, surface=self.ent.surface, render_layer=131}
     end
 end
@@ -392,7 +396,7 @@ end
 
 -- Check stored data, and remove invalid record
 function MI:validate()
-	if game.item_prototypes[self.selectedFilter] == nil then
+	if prototypes.item[self.selectedFilter] == nil then
 		self.selectedFilter = nil
 	end
 end
@@ -403,7 +407,7 @@ function MI.interaction(event, player)
 	-- Open Inventory --
 	if string.match(event.element.name, "M.I.OpenInvButton") then
 		local objId = event.element.tags.ID
-		local obj = global.matterInteractorTable[objId]
+		local obj = storage.matterInteractorTable[objId]
 		local ent = (obj and obj.ent) or nil
 		if ent ~= nil and ent.valid == true then
 			player.opened = ent
@@ -414,11 +418,11 @@ function MI.interaction(event, player)
 	-- Change the Filter --
 	if string.match(event.element.name, "M.I.Filter") then
 		local objId = event.element.tags.ID
-		if global.matterInteractorTable[objId] == nil then return end
+		if storage.matterInteractorTable[objId] == nil then return end
 		if event.element.elem_value ~= nil then
-			global.matterInteractorTable[objId].selectedFilter = event.element.elem_value
+			storage.matterInteractorTable[objId].selectedFilter = event.element.elem_value
 		else
-			global.matterInteractorTable[objId].selectedFilter = nil
+			storage.matterInteractorTable[objId].selectedFilter = nil
 		end
 		GUI.updateAllGUIs(true)
 		return
@@ -427,7 +431,7 @@ function MI.interaction(event, player)
 	-- Change the Mode --
 	if string.match(event.element.name, "M.I.ModeSwitch") then
 		local objId = event.element.tags.ID
-		local obj = global.matterInteractorTable[objId]
+		local obj = storage.matterInteractorTable[objId]
 		if obj == nil then return end
 		obj:changeMode(event.element.switch_state)
 		return
@@ -436,7 +440,7 @@ function MI.interaction(event, player)
 	-- Change the Target --
 	if string.match(event.element.name, "M.I.TargetDD") then
 		local objId = event.element.tags.ID
-		local obj = global.matterInteractorTable[objId]
+		local obj = storage.matterInteractorTable[objId]
 		if obj == nil then return end
 		obj:changeInventory(tonumber(event.element.items[event.element.selected_index][5]))
 		return

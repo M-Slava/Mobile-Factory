@@ -4,7 +4,7 @@
 local msT = {}
 msT.name = "MatterSerialization"
 msT.type = "technology"
-msT.icon = "__Mobile_Factory_Graphics__/graphics/matter-serialization/MatterSerializationI.png"
+msT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/MatterSerializationI.png"
 msT.icon_size = 64
 msT.unit = {
 	count=15,
@@ -28,7 +28,7 @@ data:extend{msT}
 local idT = {}
 idT.name = "TechItemDrain"
 idT.type = "technology"
-idT.icon = "__Mobile_Factory_Graphics__/graphics/icons/LogisticLaserE.png"
+idT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/icons/LogisticLaserE.png"
 idT.icon_size = 256
 idT.unit = {
 	count=5,

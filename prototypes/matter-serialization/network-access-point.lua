@@ -4,7 +4,7 @@ local napE = {}
 napE.flags = {"placeable-neutral", "player-creation", "not-rotatable"}
 napE.type = "constant-combinator"
 napE.name = "NetworkAccessPoint"
-napE.icon = "__Mobile_Factory_Graphics__/graphics/matter-serialization/NetworkAccessPointI.png"
+napE.icon = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/NetworkAccessPointI.png"
 napE.icon_size = 64
 napE.minable = {mining_time = 0.8, result = "NetworkAccessPoint"}
 napE.max_health = 300
@@ -21,7 +21,7 @@ napE.sprites =
     sheets =
     {
         {
-            filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/NetworkAccessPointE.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/NetworkAccessPointE.png",
             width = 400,
             height = 400,
             shift = {0,-0.2},
@@ -29,7 +29,7 @@ napE.sprites =
             frames = 1
         },
         {
-            filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/NetworkAccessPointS.png",
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/NetworkAccessPointS.png",
             width = 400,
             height = 400,
             shift = {1.8,0.4},
@@ -64,7 +64,7 @@ data:extend{napE}
 local napI = {}
 napI.type = "item"
 napI.name = "NetworkAccessPoint"
-napI.icon = "__Mobile_Factory_Graphics__/graphics/matter-serialization/NetworkAccessPointI.png"
+napI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/NetworkAccessPointI.png"
 napI.icon_size = 64
 napI.place_result = "NetworkAccessPoint"
 napI.subgroup = "DataSerialization"
@@ -80,10 +80,13 @@ napR.energy_required = 6
 napR.enabled = false
 napR.ingredients =
     {
-      {"CrystalizedCircuit", 18},
-      {"MachineFrame3", 6}
+      {type="item", name="CrystalizedCircuit", amount=18},
+      {type="item", name="MachineFrame3", amount=6}
     }
-    napR.result = "NetworkAccessPoint"
+    napR.results = 
+  {
+    {type="item", name="NetworkAccessPoint", amount=1}
+  }
 data:extend{napR}
 
 -- Animation --
@@ -91,7 +94,7 @@ local napA = {}
 napA.name = "NetworkAccessPointA"
 napA.type = "animation"
 napA.frame_count = 60
-napA.filename = "__Mobile_Factory_Graphics__/graphics/matter-serialization/NetworkAccessPointA.png"
+napA.filename = "__Mobile_Factory_Graphics_zoms__/graphics/matter-serialization/NetworkAccessPointA.png"
 napA.size = 500
 napA.line_length = 10
 napA.animation_speed = 1/6

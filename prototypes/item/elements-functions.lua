@@ -5,9 +5,9 @@ function createElement(name, atNumber, type, color,fuelValue)
 	eI = {}
 	eI.name = name
 	eI.type = type
-	eI.icon = "__Mobile_Factory_Graphics__/graphics/elements/" .. name .. ".png"
+	eI.icon = "__Mobile_Factory_Graphics_zoms__/graphics/elements/" .. name .. ".png"
 	eI.icon_size = 64
-	eI.order = tonumber(atNumber)
+	eI.order = tostring(atNumber)
 	if atNumber > 0 then
 		eI.subgroup = "Elements"
 	else
@@ -32,7 +32,7 @@ function createRecipe(name, ingredients, results,  energy)
 	eR = {}
 	eR.name = name
 	eR.type = "recipe"
-	eR.icon = "__Mobile_Factory_Graphics__/graphics/e-technology/" .. name .. ".png"
+	eR.icon = "__Mobile_Factory_Graphics_zoms__/graphics/e-technology/" .. name .. ".png"
 	eR.icon_size = 64
 	eR.category = "Elements"
 	eR.subgroup = "Elements"
@@ -59,7 +59,7 @@ function createTechnology(name, unit, prerequisites, unlock)
 	eT = {}
 	eT.name = name
 	eT.type = "technology"
-	eT.icon = "__Mobile_Factory_Graphics__/graphics/e-technology/" .. name .. ".png"
+	eT.icon = "__Mobile_Factory_Graphics_zoms__/graphics/e-technology/" .. name .. ".png"
 	eT.icon_size = 64
 	eT.prerequisites = prerequisites
 	eT.unit = {

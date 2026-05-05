@@ -14,111 +14,12 @@ ylE.frame_count = 16
 ylE.direction_count = 1
 ylE.shift = {-0.03125, 0}
 
-ylE.ending =
+ylE.graphics_set =
     {
-        filename = "__base__/graphics/entity/beam/hr-tileable-beam-END.png",
-        flags = beam_flags or beam_non_light_flags,
-        line_length = 4,
-        width = 91,
-        height = 93,
-        frame_count = 16,
-        direction_count = 1,
-        shift = {-0.078125, -0.046875},
-        tint = beam_tint,
-        scale = 0.5
-    }
-ylE.head =
-    {
-      filename = "__base__/graphics/entity/beam/beam-head.png",
-      flags = beam_flags or beam_non_light_flags,
-      line_length = 16,
-      width = 45 - 7,
-      height = 39,
-      frame_count = 16,
-      shift = util.by_pixel(-7/2, 0),
-      tint = beam_tint,
-      blend_mode = blend_mode or beam_blend_mode
-    }
-ylE.tail =
-    {
-      filename = "__base__/graphics/entity/beam/beam-tail.png",
-      flags = beam_flags or beam_non_light_flags,
-      line_length = 16,
-      width = 45 - 6,
-      height = 39,
-      frame_count = 16,
-      shift = util.by_pixel(6/2, 0),
-      tint = beam_tint,
-      blend_mode = blend_mode or beam_blend_mode
-    }
-ylE.body =
-    {
-      {
-        filename = "__base__/graphics/entity/beam/beam-body-1.png",
-        flags = beam_flags or beam_non_light_flags,
-        line_length = 16,
-        width = 32,
-        height = 39,
-        frame_count = 16,
-        tint = beam_tint,
-        blend_mode = blend_mode or beam_blend_mode
-      },
-      {
-        filename = "__base__/graphics/entity/beam/beam-body-2.png",
-        flags = beam_flags or beam_non_light_flags,
-        line_length = 16,
-        width = 32,
-        height = 39,
-        frame_count = 16,
-		tint = beam_tint,
-        blend_mode = blend_mode or beam_blend_mode
-      },
-      {
-        filename = "__base__/graphics/entity/beam/beam-body-3.png",
-        flags = beam_flags or beam_non_light_flags,
-        line_length = 16,
-        width = 32,
-        height = 39,
-        frame_count = 16,
-		tint = beam_tint,
-        blend_mode = blend_mode or beam_blend_mode
-      },
-      {
-        filename = "__base__/graphics/entity/beam/beam-body-4.png",
-        flags = beam_flags or beam_non_light_flags,
-        line_length = 16,
-        width = 32,
-        height = 39,
-        frame_count = 16,
-		tint = beam_tint,
-        blend_mode = blend_mode or beam_blend_mode
-      },
-      {
-        filename = "__base__/graphics/entity/beam/beam-body-5.png",
-        flags = beam_flags or beam_non_light_flags,
-        line_length = 16,
-        width = 32,
-        height = 39,
-        frame_count = 16,
-		tint = beam_tint,
-        blend_mode = blend_mode or beam_blend_mode
-      },
-      {
-        filename = "__base__/graphics/entity/beam/beam-body-6.png",
-        flags = beam_flags or beam_non_light_flags,
-        line_length = 16,
-        width = 32,
-        height = 39,
-        frame_count = 16,
-		tint = beam_tint,
-        blend_mode = blend_mode or beam_blend_mode
-      }
-    }
-ylE.light_animations =
-    {
+      beam = {
       start =
       {
-        filename = "__base__/graphics/entity/beam/hr-tileable-beam-START-light.png",
+        filename = "__base__/graphics/entity/beam/tileable-beam-START.png",
         line_length = 4,
         width = 94,
         height = 66,
@@ -131,7 +32,7 @@ ylE.light_animations =
 
       ending =
       {
-        filename = "__base__/graphics/entity/beam/hr-tileable-beam-END-light.png",
+        filename = "__base__/graphics/entity/beam/tileable-beam-END.png",
         line_length = 4,
         width = 91,
         height = 93,
@@ -144,7 +45,7 @@ ylE.light_animations =
 
       head =
       {
-        filename = "__base__/graphics/entity/beam/beam-head-light.png",
+        filename = "__base__/graphics/entity/beam/beam-head.png",
         line_length = 16,
         width = 45 - 7,
         height = 39,
@@ -155,7 +56,7 @@ ylE.light_animations =
 
       tail =
       {
-        filename = "__base__/graphics/entity/beam/beam-tail-light.png",
+        filename = "__base__/graphics/entity/beam/beam-tail.png",
         line_length = 16,
         width = 45 - 6,
         height = 39,
@@ -167,7 +68,7 @@ ylE.light_animations =
       body =
       {
         {
-          filename = "__base__/graphics/entity/beam/beam-body-1-light.png",
+          filename = "__base__/graphics/entity/beam/beam-body-1.png",
           line_length = 16,
           width = 32,
           height = 39,
@@ -175,7 +76,7 @@ ylE.light_animations =
           tint = light_tint
         },
         {
-          filename = "__base__/graphics/entity/beam/beam-body-2-light.png",
+          filename = "__base__/graphics/entity/beam/beam-body-2.png",
           line_length = 16,
           width = 32,
           height = 39,
@@ -183,7 +84,7 @@ ylE.light_animations =
           tint = light_tint
         },
         {
-          filename = "__base__/graphics/entity/beam/beam-body-3-light.png",
+          filename = "__base__/graphics/entity/beam/beam-body-3.png",
           line_length = 16,
           width = 32,
           height = 39,
@@ -191,7 +92,7 @@ ylE.light_animations =
           tint = light_tint
         },
         {
-          filename = "__base__/graphics/entity/beam/beam-body-4-light.png",
+          filename = "__base__/graphics/entity/beam/beam-body-4.png",
           line_length = 16,
           width = 32,
           height = 39,
@@ -199,7 +100,7 @@ ylE.light_animations =
           tint = light_tint
         },
         {
-          filename = "__base__/graphics/entity/beam/beam-body-5-light.png",
+          filename = "__base__/graphics/entity/beam/beam-body-5.png",
           line_length = 16,
           width = 32,
           height = 39,
@@ -207,7 +108,7 @@ ylE.light_animations =
           tint = light_tint
         },
         {
-          filename = "__base__/graphics/entity/beam/beam-body-6-light.png",
+          filename = "__base__/graphics/entity/beam/beam-body-6.png",
           line_length = 16,
           width = 32,
           height = 39,
@@ -215,6 +116,7 @@ ylE.light_animations =
           tint = light_tint
         }
       }
+    }
     }
 ylE.working_sound =
     {

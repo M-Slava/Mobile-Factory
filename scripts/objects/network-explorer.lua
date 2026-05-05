@@ -45,7 +45,9 @@ end
 -- Destructor --
 function NE:remove()
 	-- Destroy the Sprites --
-	rendering.destroy(self.stateSprite)
+	if (self.stateSprite) then
+		self.stateSprite.destroy()
+	end
 	-- Remove from the Update System --
 	UpSys.removeObj(self)
 	-- Remove from the Network Access Point --
@@ -326,7 +328,7 @@ function NE:createPlayerInventory(GUITable, MFPlayer, inventoryScrollPane, searc
 		if count == nil or count == 0 then goto continue end
 
 		-- Stop if this is an Item with Tags--
-        if game.item_prototypes[name].type == "item-with-tags" then goto continue end
+        if prototypes.item[name].type == "item-with-tags" then goto continue end
 
 		-- Check the Search Text --
 		if GUITable.vars.tmpLocal ~= nil and Util.getLocItemName(name)[1] ~= nil then
@@ -349,11 +351,15 @@ function NE:setActive(set)
     self.active = set
     if set == true then
         -- Create the Active Sprite --
-        rendering.destroy(self.stateSprite)
+        if (self.stateSprite) then
+            self.stateSprite.destroy()
+        end
         self.stateSprite = rendering.draw_sprite{sprite="NetworkExplorerSprite2", target=self.ent, surface=self.ent.surface, render_layer=131}
     else
         -- Create the Inactive Sprite --
-        rendering.destroy(self.stateSprite)
+        if (self.stateSprite) then
+            self.stateSprite.destroy()
+        end
         self.stateSprite = rendering.draw_sprite{sprite="NetworkExplorerSprite1", target=self.ent, surface=self.ent.surface, render_layer=131}
     end
 end
@@ -366,7 +372,7 @@ function NE.transferItemsFromDS(DS, inv, count)
 	local item = DS.inventoryItem
 	if item == nil then return end
 	local half = (count or 1) < 1 and true or false
-	if count == nil or count <= 0 then count = game.item_prototypes[item].stack_size end
+	if count == nil or count <= 0 then count = prototypes.item[item].stack_size end
 
 	-- Try to transfer Items --
 	local amount = math.min(DS.inventoryCount, count)
@@ -389,7 +395,7 @@ function NE.transferItemsFromDNInv(NE, inv, item, count)
 	local DNInv = NE.dataNetwork.invObj
 	if item == nil then return end
 	local half = (count or 1) < 1 and true or false
-	if count == nil or count <= 0 then count = game.item_prototypes[item].stack_size end
+	if count == nil or count <= 0 then count = prototypes.item[item].stack_size end
 
 	-- Try to transfer Items --
 	local amount = math.min(DNInv:hasItem(item), count)
@@ -413,7 +419,7 @@ function NE.transferItemsFromPInv(PInv, NE, item, count)
 	local DNInv = NE.dataNetwork.invObj
 	if item == nil then return end
 	local half = (count or 1) < 1 and true or false
-	if count == nil or count <= 0 then count = game.item_prototypes[item].stack_size end
+	if count == nil or count <= 0 then count = prototypes.item[item].stack_size end
 
 	-- Try to transfer Items --
 	local amount = math.min(PInv.get_item_count(item), count)
@@ -463,21 +469,21 @@ function NE.interaction(event, playerIndex)
 	-- If it's a Deep Storage --
 	if string.match(event.element.name, "N.E.DSR") then
 		local objId = event.element.tags.ID
-		local obj = global.deepStorageTable[objId]
+		local obj = storage.deepStorageTable[objId]
 		NE.transferItemsFromDS(obj, getMFPlayer(playerIndex).ent.get_main_inventory(), count)
 		return
 	end
 	-- If it's a Data Network Inventory --
 	if string.match(event.element.name, "N.E.Inv") then
 		local objId = event.element.tags.ID
-		local obj = global.networkExplorerTable[objId]
+		local obj = storage.networkExplorerTable[objId]
 		NE.transferItemsFromDNInv(obj, getMFPlayer(playerIndex).ent.get_main_inventory(), event.element.tags.name, count)
 		return
 	end
 	-- If it's a player Inventory --
 	if string.match(event.element.name, "N.E.PInv") then
 		local objId = event.element.tags.ID
-		local obj = global.networkExplorerTable[objId]
+		local obj = storage.networkExplorerTable[objId]
 		NE.transferItemsFromPInv(getMFPlayer(playerIndex).ent.get_main_inventory(), obj, event.element.tags.name, count)
 		return
 	end
