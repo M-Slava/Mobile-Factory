@@ -1471,21 +1471,51 @@ function MF:deploy()
     self.deployedEnts = {}
     -- Read all Slots --
     for k, slot in pairs(self.slots) do
-        -- Create the Entities --
-        local outEnt = self.ent.surface.create_entity {
-            name = slot.entity,
-            position = slotToPos(k, self.ent.position.x, self.ent.position.y),
-            direction = slotToDirection(k, slot.entity),
-            force = self.ent.force,
-            player = self.playerIndex
-        }
-        local inEnt = self.fS.create_entity {
-            name = slot.entity,
-            position = slotToPos(k, 0, 0),
-            direction = slotToDirection(k, slot.entity),
-            force = self.ent.force,
-            player = self.playerIndex
-        }
+        local inEnt = nil
+        local outEnt = nil
+        if (string.match(slot.entity, "Pump")) then
+            outEnt = self.ent.surface.create_entity {
+                name = slot.entity,
+                position = slotToPos(k, self.ent.position.x, self.ent.position.y),
+                direction = slotToDirection(k, slot.entity),
+                force = self.ent.force,
+                player = self.playerIndex
+            }
+            
+            local entityName = nil
+            if (string.match(slot.entity, "output")) then
+                entityName = slot.entity:gsub("output", "input")
+            else
+                entityName = slot.entity:gsub("input", "output")
+            end
+
+            inEnt = self.fS.create_entity {
+                name = entityName,
+                position = slotToPos(k, 0, 0),
+                direction = slotToDirection(k, slot.entity),
+                force = self.ent.force,
+                player = self.playerIndex
+            }
+
+            outEnt.fluidbox.add_linked_connection(0, inEnt, 0)
+        else
+            -- Create the Entities --
+            outEnt = self.ent.surface.create_entity {
+                name = slot.entity,
+                position = slotToPos(k, self.ent.position.x, self.ent.position.y),
+                direction = slotToDirection(k, slot.entity),
+                force = self.ent.force,
+                player = self.playerIndex
+            }
+            inEnt = self.fS.create_entity {
+                name = slot.entity,
+                position = slotToPos(k, 0, 0),
+                direction = slotToDirection(k, slot.entity),
+                force = self.ent.force,
+                player = self.playerIndex
+            }
+        end
+
         -- Check if the Entities was correctly deployed --
         if outEnt ~= nil and outEnt.valid == true and inEnt ~= nil and inEnt.valid == true then
             self.deployedEnts[k] = {
@@ -1517,10 +1547,6 @@ function MF:deploy()
                 ocWC.connect_to(icWC, false)
                 orWC.connect_to(irWC, false)
                 ogWC.connect_to(igWC, false)
-            end
-
-            if string.match(slot.entity, "Pipe") then
-                inEnt.fluidbox.add_linked_connection(1, outEnt, 1)
             end
         end
     end

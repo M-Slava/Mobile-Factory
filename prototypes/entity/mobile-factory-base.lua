@@ -14,6 +14,7 @@ mf.collision_mask = {
     layers = {
 		car = true,
 		train = true,
+        water_tile = true,
 		is_object = true,
         layer_52 = true
     },

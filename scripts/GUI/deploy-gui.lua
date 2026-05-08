@@ -217,19 +217,35 @@ function GUI.MFDPOpenSlotGUI(DPGUITable, MFPlayer, currentMF, slotNumber)
     GAPI.addLabel(GUITable, "", entsFlow, {"gui-description.Pipes"}, nil, nil, false, nil, _mfLabelType.yellowTitle)
     local inputPipesTable = GAPI.addTable(GUITable, "", entsFlow, 6)
 
-    -- Add all Dimensinal Pipes --
-    local button7 = GAPI.addButton(GUITable, "DP.GUI.EntButton7", inputPipesTable, "entity/DimensionalPipe1", "entity/DimensionalPipe1", { "", Util.getLocEntityName("DimensionalPipe1")}, buttonSize, false, true, nil, "MF_Button_Blue_GrayWhenDisabled", {slot=slotNumber, entity="DimensionalPipe1", way="input"})
-    local button8 = GAPI.addButton(GUITable, "DP.GUI.EntButton8", inputPipesTable, "entity/DimensionalPipe2", "entity/DimensionalPipe2", { "", Util.getLocEntityName("DimensionalPipe2")}, buttonSize, false, true, nil, "MF_Button_Blue_GrayWhenDisabled", {slot=slotNumber, entity="DimensionalPipe2", way="input"})
-    local button9 = GAPI.addButton(GUITable, "DP.GUI.EntButton9", inputPipesTable, "entity/DimensionalPipe3", "entity/DimensionalPipe3", { "", Util.getLocEntityName("DimensionalPipe3")}, buttonSize, false, true, nil, "MF_Button_Blue_GrayWhenDisabled", {slot=slotNumber, entity="DimensionalPipe3", way="input"})
+    -- Add all Dimensinal Pipes Input --
+    local button7 = GAPI.addButton(GUITable, "DP.GUI.EntButton7", inputPipesTable, "entity/DimensionalPump1-input", "entity/DimensionalPump1-input", { "", Util.getLocEntityName("DimensionalPump1-input"), " [color=yellow]", {"gui-description.Input"}, "[/color]"}, buttonSize, false, true, nil, "MF_Button_Blue_GrayWhenDisabled", {slot=slotNumber, entity="DimensionalPump1-input", way="input"})
+    local button8 = GAPI.addButton(GUITable, "DP.GUI.EntButton8", inputPipesTable, "entity/DimensionalPump2-input", "entity/DimensionalPump2-input", { "", Util.getLocEntityName("DimensionalPump2-input"), " [color=yellow]", {"gui-description.Input"}, "[/color]"}, buttonSize, false, true, nil, "MF_Button_Blue_GrayWhenDisabled", {slot=slotNumber, entity="DimensionalPump2-input", way="input"})
+    local button9 = GAPI.addButton(GUITable, "DP.GUI.EntButton9", inputPipesTable, "entity/DimensionalPump3-input", "entity/DimensionalPump3-input", { "", Util.getLocEntityName("DimensionalPump3-input"), " [color=yellow]", {"gui-description.Input"}, "[/color]"}, buttonSize, false, true, nil, "MF_Button_Blue_GrayWhenDisabled", {slot=slotNumber, entity="DimensionalPump3-input", way="input"})
 
     -- Disable needed Buttons --
     if Util.technologyUnlocked("DimensionalPipe2", getForce(currentMF)) == false then
         button8.enabled = false
-        button8.tooltip =  { "", Util.getLocEntityName("DimensionalPipe2"), " [color=yellow]", {"gui-description.Input"}, "[/color]", "\n[color=red]", {"gui-description.SlotGUINotUnlocked"}, "[/color]"}
+        button8.tooltip =  { "", Util.getLocEntityName("DimensionalPump2-input"), " [color=yellow]", {"gui-description.Input"}, "[/color]", "\n[color=red]", {"gui-description.SlotGUINotUnlocked"}, "[/color]"}
     end
     if Util.technologyUnlocked("DimensionalPipe3", getForce(currentMF)) == false then
         button9.enabled = false
-        button9.tooltip = { "", Util.getLocEntityName("DimensionalPipe3"), " [color=yellow]", {"gui-description.Input"}, "[/color]", "\n[color=red]", {"gui-description.SlotGUINotUnlocked"}, "[/color]"}
+        button9.tooltip = { "", Util.getLocEntityName("DimensionalPump3-input"), " [color=yellow]", {"gui-description.Input"}, "[/color]", "\n[color=red]", {"gui-description.SlotGUINotUnlocked"}, "[/color]"}
+    end
+
+    -- Add all Dimensinal Pipes Output --
+    local button10 = GAPI.addButton(GUITable, "DP.GUI.EntButton10", inputPipesTable, "entity/DimensionalPump1-output", "entity/DimensionalPump1-output", { "", Util.getLocEntityName("DimensionalPump1-output"), " [color=yellow]", {"gui-description.Output"}, "[/color]"}, buttonSize, false, true, nil, "MF_Button_Blue_GrayWhenDisabled", {slot=slotNumber, entity="DimensionalPump1-output", way="output"})
+    local button11 = GAPI.addButton(GUITable, "DP.GUI.EntButton11", inputPipesTable, "entity/DimensionalPump2-output", "entity/DimensionalPump2-output", { "", Util.getLocEntityName("DimensionalPump2-output"), " [color=yellow]", {"gui-description.Output"}, "[/color]"}, buttonSize, false, true, nil, "MF_Button_Blue_GrayWhenDisabled", {slot=slotNumber, entity="DimensionalPump2-output", way="output"})
+    local button12 = GAPI.addButton(GUITable, "DP.GUI.EntButton12", inputPipesTable, "entity/DimensionalPump3-output", "entity/DimensionalPump3-output", { "", Util.getLocEntityName("DimensionalPump3-output"), " [color=yellow]", {"gui-description.Output"}, "[/color]"}, buttonSize, false, true, nil, "MF_Button_Blue_GrayWhenDisabled", {slot=slotNumber, entity="DimensionalPump3-output", way="output"})
+    button10.style.left_margin = 8
+
+    -- Disable needed Buttons --
+    if Util.technologyUnlocked("DimensionalPipe2", getForce(currentMF)) == false then
+        button11.enabled = false
+        button11.tooltip =  { "", Util.getLocEntityName("DimensionalPump2-output"), " [color=yellow]", {"gui-description.Output"}, "[/color]", "\n[color=red]", {"gui-description.SlotGUINotUnlocked"}, "[/color]"}
+    end
+    if Util.technologyUnlocked("DimensionalPipe3", getForce(currentMF)) == false then
+        button12.enabled = false
+        button12.tooltip = { "", Util.getLocEntityName("DimensionalPump3-output"), " [color=yellow]", {"gui-description.Output"}, "[/color]", "\n[color=red]", {"gui-description.SlotGUINotUnlocked"}, "[/color]"}
     end
 
     --------------------------------------- Add the Dimensional Pole ---------------------------------------

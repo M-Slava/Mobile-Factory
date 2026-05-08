@@ -21,10 +21,10 @@ local function tintPictures(pictures, tint)
 	--like Industrial Revolution 2 version 2.1.2
 	if not pictures then return end
 	local directions = {
-		"up",
-		"right",
-		"down",
-		"left",
+		"north",
+		"east",
+		"south",
+		"west",
 	}
 	for _, direction in pairs(directions) do
 		local pictureDirection = pictures[direction]
@@ -38,32 +38,79 @@ end
 
 ---------------------------------------------------------- DIMENSIONAL PIPE ----------------------------------------------------------
 
--- Tier 1 --
+-- Pumps --
 local tint1 = {1,1,0.4}
-local dpE1 = table.deepcopy(data.raw["pipe-to-ground"]["pipe-to-ground"])
-dpE1.name = "DimensionalPipe1"
-dpE1.icons = {{icon=dpE1.icon, tint=tint1}}
-dpE1.minable = {mining_time = 0.5}
-dpE1.flags = {}
-dpE1.fast_replaceable_group = nil
-dpE1.fluid_box.pipe_connections[2] = {connection_type = "linked", linked_connection_id = 1}
-tintPipeCovers(dpE1.fluid_box.pipe_covers, tint1)
-tintPictures(dpE1.pictures, tint1)
-data:extend{dpE1}
+local pumpingSpeed = data.raw["pump"]["pump"].pumping_speed
+local pipe2ground = data.raw["pipe-to-ground"]["pipe-to-ground"]
+
+local pump = {
+	type = "pump",
+	name = "DimensionalPump",
+	localised_name = {"entity-name.DimensionalPipe1"},
+	icon = pipe2ground.icon,
+	icon_size = pipe2ground.icon_size,
+	animations = {
+		north = pipe2ground.pictures.north,
+		east = pipe2ground.pictures.east,
+		south = pipe2ground.pictures.south,
+		west = pipe2ground.pictures.west
+	},
+	max_health = 50,
+	flags = {"not-blueprintable"},
+	minable = {mining_time = 0.5},
+	fluid_box = {
+		volume = pumpingSpeed,
+		pipe_connections = {
+			{position = {0,0}, direction = defines.direction.north, flow_direction = "input", connection_type = "normal"},
+			{position = {0,0}, direction = defines.direction.south, flow_direction = "output", connection_type = "linked", linked_connection_id = 0}
+		},
+		pipe_covers = table.deepcopy(pipe2ground.fluid_box.pipe_covers)
+	},
+	energy_source = {type="void"},
+	pumping_speed = pumpingSpeed,
+	energy_usage = "1W",
+	selection_box = pipe2ground.selection_box,
+	collision_box = pipe2ground.collision_box,
+	collision_mask = pipe2ground.collision_mask,
+	squeak_behaviour = false,
+}
+
+-- Tier 1 --
+local pumpInIn1 = table.deepcopy(pump)
+pumpInIn1.name = "DimensionalPump1-input"
+pumpInIn1.icons = {{icon=pump.icon, tint=tint1}}
+pumpInIn1.localised_name = {"entity-name.DimensionalPump1"}
+tintPictures(pumpInIn1.animations, tint1)
+tintPipeCovers(pumpInIn1.fluid_box.pipe_covers, tint1)
+
+local pumpInOut1 = table.deepcopy(pumpInIn1)
+pumpInOut1.name = "DimensionalPump1-output"
+pumpInOut1.fluid_box.pipe_connections[1].flow_direction = "output"
+pumpInOut1.fluid_box.pipe_connections[2].flow_direction = "input"
+
+data:extend{pumpInIn1, pumpInOut1}
 
 -- Tier 2 --
 local tint2 = {1,0.4,0.4}
-local dpE2 = table.deepcopy(dpE1)
-dpE2.name = "DimensionalPipe2"
-dpE2.icons = {{icon=dpE1.icon, tint=tint2}}
-tintPipeCovers(dpE2.fluid_box.pipe_covers, tint2)
-tintPictures(dpE2.pictures, tint2)
-data:extend{dpE2}
+local pumpInIn2 = table.deepcopy(pump)
+pumpInIn2.name = "DimensionalPump2-input"
+pumpInIn2.icons = {{icon=pump.icon, tint=tint2}}
+pumpInIn2.localised_name = {"entity-name.DimensionalPump2"}
+pumpInIn2.pumping_speed = pumpingSpeed * 2
+tintPictures(pumpInIn2.animations, tint2)
+tintPipeCovers(pumpInIn2.fluid_box.pipe_covers, tint2)
+
+local pumpInOut2 = table.deepcopy(pumpInIn2)
+pumpInOut2.name = "DimensionalPump2-output"
+pumpInOut2.fluid_box.pipe_connections[1].flow_direction = "output"
+pumpInOut2.fluid_box.pipe_connections[2].flow_direction = "input"
+
+data:extend{pumpInIn2, pumpInOut2}
 
 local dpT2 = {}
 dpT2.name = "DimensionalPipe2"
 dpT2.type = "technology"
-dpT2.icons = dpE2.icons
+dpT2.icons = pumpInIn2.icons
 dpT2.icon_size = data.raw["pipe-to-ground"]["pipe-to-ground"].icon_size
 dpT2.unit = {
 	count=1200,
@@ -81,18 +128,25 @@ data:extend{dpT2}
 
 -- Tier 3 --
 local tint3 = {0.4,0.6,1}
-local dpE3 = table.deepcopy(dpE2)
-dpE3.name = "DimensionalPipe3"
-dpE3.icons = {{icon=dpE1.icon, tint=tint3}}
-dpE3.fluid_box.base_area = 50
-tintPipeCovers(dpE3.fluid_box.pipe_covers, tint3)
-tintPictures(dpE3.pictures, tint3)
-data:extend{dpE3}
+local pumpInIn3 = table.deepcopy(pump)
+pumpInIn3.name = "DimensionalPump3-input"
+pumpInIn3.icons = {{icon=pump.icon, tint=tint3}}
+pumpInIn3.localised_name = {"entity-name.DimensionalPump3"}
+pumpInIn3.pumping_speed = pumpingSpeed * 4
+tintPictures(pumpInIn3.animations, tint3)
+tintPipeCovers(pumpInIn3.fluid_box.pipe_covers, tint3)
+
+local pumpInOut3 = table.deepcopy(pumpInIn3)
+pumpInOut3.name = "DimensionalPump3-output"
+pumpInOut3.fluid_box.pipe_connections[1].flow_direction = "output"
+pumpInOut3.fluid_box.pipe_connections[2].flow_direction = "input"
+
+data:extend{pumpInIn3, pumpInOut3}
 
 local dpT3 = {}
 dpT3.name = "DimensionalPipe3"
 dpT3.type = "technology"
-dpT3.icons = dpE3.icons
+dpT3.icons = pumpInIn3.icons
 dpT3.icon_size = data.raw["pipe-to-ground"]["pipe-to-ground"].icon_size
 dpT3.unit = {
 	count=10,

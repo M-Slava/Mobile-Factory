@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.12.4
+Date: 05/07/2026
+  Bugfixes:
+    - Fixed Dimensional Fluid Pipes reaching pipeline max extents
+    - Fixed EnergyCube energy transfer graphics
+    - Fixed missing JumpDrive graphics
+---------------------------------------------------------------------------------------------------
 Version: 0.12.2
 Date: 05/05/2026
   Bugfixes:
