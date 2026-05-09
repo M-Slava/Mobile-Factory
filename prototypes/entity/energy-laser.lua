@@ -75,8 +75,9 @@ el1E.energy_usage = "1J"
 el1E.fluid_boxes = {{
     volume = 1,
     pipe_connections = {{
-        position = {0, -0.3},
-        direction = defines.direction.south
+        position = {0, 0.3},
+        direction = defines.direction.north,
+        flow_direction = "output"
     }},
     production_type = "output"
 }}
@@ -386,8 +387,9 @@ ql1E.energy_usage = "1J"
 ql1E.fluid_boxes = {{
     volume = 1,
     pipe_connections = {{
-        position = {0, -0.3},
-        direction = defines.direction.south
+        position = {0, 0.3},
+        direction = defines.direction.north,
+        flow_direction = "output"
     }},
     production_type = "output"
 }}

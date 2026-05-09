@@ -100,7 +100,13 @@ function RC:update()
                 return
             elseif prototypes.entity[self.resourceName] ~= nil then
                 -- If this is a Resource, check if the Position is valid --
-                if self.ent.surface.can_place_entity{name=self.resourceName, position=self.ent.position} then
+                local resourceEnt = self.ent.surface.find_entity(self.resourceName, self.ent.position)
+                if resourceEnt ~= nil and resourceEnt.valid == true then
+                    -- Use the existing entity --
+                    resourceEnt.amount = resourceEnt.amount + self.resourceAmount
+                    self.ent.destroy()
+                    return
+                elseif self.ent.surface.can_place_entity{name=self.resourceName, position=self.ent.position} then
                     -- Create the Entity --
                     self.ent.surface.create_entity{name=self.resourceName, position=self.ent.position, amount=self.resourceAmount}
                     self.ent.destroy()

@@ -6,7 +6,7 @@ QR = {
 	player = "",
 	MF = nil,
 	entID = 0,
-	sprite = 0,
+	sprite = nil,
 	updateTick = 60,
 	lastUpdate = 0,
 	energyCharge = 0,
@@ -148,7 +148,7 @@ function QR:burnFluid()
 
 	-- Remove the Fluid --
 	local removed = self.ent.remove_fluid{name=fluidName, amount=fluidToRemove}
-	self.ent.force.fluid_production_statistics.on_flow(fluidName, fluidToRemove * -1)
+	self.ent.force.get_fluid_production_statistics(self.ent.surface).on_flow(fluidName, fluidToRemove * -1)
 
 	-- Add the Quatron Energy to the Reactor --
 	EI.addEnergy(self, removed, level)

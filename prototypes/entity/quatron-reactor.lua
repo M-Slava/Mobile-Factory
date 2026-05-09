@@ -29,8 +29,8 @@ qrE.fluid_box =
     production_type = "input",
     pipe_connections =
     {
-        {position={-1,0.5}, direction=defines.direction.west},
-        {position={1,0.5}, direction=defines.direction.east}
+        {position={-1.5,0.5}, direction=defines.direction.west},
+        {position={1.5,0.5}, direction=defines.direction.east}
     }
 }
 qrE.horizontal_animation =

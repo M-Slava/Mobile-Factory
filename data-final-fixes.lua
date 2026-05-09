@@ -47,12 +47,6 @@ elseif settings.startup["MF-lab-science-packs"].value == "dimensional only" then
 	-- Do Nothing --
 end
 
--- Space Exploration is breaking all Mobiles Factories Collision Mask, fixing that here --
-if mods["space-exploration"] then
-	log("Fixing Space Exploration Collition Mask")
-	--data.raw["simple-entity-with-owner"].MFDeploy.collision_mask = {"player-layer", "train-layer", "consider-tile-transitions", "layer-52", "not-colliding-with-itself", "layer-15"}
-end
-
 -- Increate the Stack Size of all Resources --
 --for _, resource in pairs(data.raw.resource) do
 --	if resource.minable ~= nil then
@@ -71,6 +65,12 @@ end
 --		end
 --	end
 --end
+
+-- These mods make changes to collision masks that break Mobile Factory, so we need to fix them here.
+if mods["space-exploration"] or mods["alien-biomes"] or mods["combat-mechanics-overhaul"] then
+	log("Fixing collision mask changes caused by Earendel mods")
+	data.raw.car.MobileFactory.collision_mask.layers.vehicle = true
+end
 
 -- Copy Mobile Factory collision mask to Deployment Entity --
 local MobileFactory = data.raw.car.MobileFactory

@@ -1,5 +1,4 @@
 -- ORE CLEANER BEAMS --
-
 -- Collect Beam --
 ocB = {}
 ocB.name = "OCBeam"
@@ -11,43 +10,38 @@ ocB.action_triggered_automatically = false
 ocB.width = 2
 ocB.direction_count = 1
 ocB.graphics_set = {
-  beam = {
-    head =
-    {
-      filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
-      width = 1,
-      height = 1,
-	  line_length = 10,
-      frame_count = 10,
-	  animation_speed = 1/15,
-	  scale = 2
-    },
-    tail =
-    {
-      filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
-      width = 1,
-      height = 1,
-	  line_length = 10,
-      frame_count = 10,
-	  animation_speed = 1/15,
-	  scale = 2
-    },
-    body = {
-      {
-      filename = "__Mobile_Factory_Graphics_zoms__/graphics/beams/OCbeam.png",
-      width = 10,
-      height = 10,
-	  line_length = 10,
-      frame_count = 10,
-	  animation_speed = 1/15,
-	  scale = 2
-      }
+    beam = {
+        head = {
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
+            width = 1,
+            height = 1,
+            line_length = 10,
+            frame_count = 10,
+            animation_speed = 1 / 15,
+            scale = 2
+        },
+        tail = {
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
+            width = 1,
+            height = 1,
+            line_length = 10,
+            frame_count = 10,
+            animation_speed = 1 / 15,
+            scale = 2
+        },
+        body = {{
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/beams/OCbeam.png",
+            width = 10,
+            height = 10,
+            line_length = 10,
+            frame_count = 10,
+            animation_speed = 1 / 15,
+            scale = 2
+        }}
     }
-  }
 }
 
 data:extend{ocB}
-
 
 -- Send big Beam --
 ocBB = {}
@@ -60,40 +54,35 @@ ocBB.action_triggered_automatically = false
 ocBB.width = 5
 ocBB.direction_count = 1
 ocBB.graphics_set = {
-  beam = {
-    head =
-    {
-      filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
-      width = 1,
-      height = 1,
-    line_length = 16,
-      frame_count = 16,
-    animation_speed = 1,
-    scale = 2
-    },
-    tail =
-    {
-      filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
-      width = 1,
-      height = 1,
-    line_length = 16,
-      frame_count = 16,
-    animation_speed = 1,
-    scale = 2
-    },
-    body =
-    {
-      {
-      filename = "__Mobile_Factory_Graphics_zoms__/graphics/beams/OCBigBeam.png",
-      width = 8,
-      height = 12,
-    line_length = 16,
-      frame_count = 16,
-    animation_speed = 1,
-    scale = 5
-      }
+    beam = {
+        head = {
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
+            width = 1,
+            height = 1,
+            line_length = 16,
+            frame_count = 16,
+            animation_speed = 1,
+            scale = 2
+        },
+        tail = {
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/Alpha.png",
+            width = 1,
+            height = 1,
+            line_length = 16,
+            frame_count = 16,
+            animation_speed = 1,
+            scale = 2
+        },
+        body = {{
+            filename = "__Mobile_Factory_Graphics_zoms__/graphics/beams/OCBigBeam.png",
+            width = 8,
+            height = 12,
+            line_length = 16,
+            frame_count = 16,
+            animation_speed = 1,
+            scale = 5
+        }}
     }
-  }
 }
 
 data:extend{ocBB}

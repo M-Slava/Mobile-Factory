@@ -1,4 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.12.5
+Date: 05/09/2026
+  Changes:
+    - Filled Resource Catchers placed on a resource will now add to that resource if it is the same
+    - Improve compatibility with multiple Earendel mods
+  Bugfixes:
+    - Fixed misplaced charge sprite on Quatron and energy cube
+    - Fixed Misplaced sprites on Deep Tank and Deep Storage
+    - Fixed multiple sprite fields being assigned numbers
+    - Fix fluid and item production statistics
+    - Fix Beam animations
+---------------------------------------------------------------------------------------------------
 Version: 0.12.4
 Date: 05/07/2026
   Bugfixes:

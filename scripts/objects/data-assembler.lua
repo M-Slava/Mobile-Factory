@@ -615,11 +615,11 @@ function DA:updateRecipe(recipe, id)
 			if product.probability == 1 or product.probability > math.random() then
 				if product.type == "item" then
 					self.dataNetwork:addItems(product.name, product.amount)
-					self.ent.force.item_production_statistics.on_flow(product.name, product.amount)
+					self.ent.force.get_item_production_statistics(self.ent.surface).on_flow(product.name, product.amount)
 				end
 				if product.type == "fluid" then
 					self.dataNetwork:addFluid(product.name, product.amount, 15)
-					self.ent.force.fluid_production_statistics.on_flow(product.name, product.amount)
+					self.ent.force.get_fluid_production_statistics(self.ent.surface).on_flow(product.name, product.amount)
 				end
 			end
 		end

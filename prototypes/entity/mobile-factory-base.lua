@@ -12,10 +12,10 @@ mf.inventory_size = 10
 mf.max_health = 2500
 mf.collision_mask = {
     layers = {
-		car = true,
-		train = true,
-        water_tile = true,
-		is_object = true,
+        player = true,
+        car = true,
+        train = true,
+        is_object = true,
         layer_52 = true
     },
     consider_tile_transitions = true,
