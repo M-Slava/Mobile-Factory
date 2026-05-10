@@ -348,12 +348,12 @@ function MF:update(event)
     if mfCall(MF.updateShield, self, event) then
         player.print({"gui-description.UpdateMF_UpdateShieldFailed", self.name})
     end
+
     -- Update Pollution --
-    if event.tick % _eventTick1200 == 0 then
-        if mfCall(MF.updatePollution, self) == true then
-            player.print({"gui-description.UpdateMF_UpdatePollutionFailed", self.name})
-        end
+    if mfCall(MF.updatePollution, self) == true then
+        player.print({"gui-description.UpdateMF_UpdatePollutionFailed", self.name})
     end
+    
     -- Update Teleportation Box --
     if event.tick % _eventTick5 == 0 then
         if mfCall(MF.factoryTeleportBox, self) == true then
@@ -873,13 +873,44 @@ function MF:updatePollution()
         return
     end
     -- Get the total amount of Pollution --
-    local totalPollution = self.fS.get_total_pollution()
-    if totalPollution ~= nil then
+    local totalPollution = self:get_voided_pollution()
+    if totalPollution > 0 then
         -- Create Pollution outside the Factory --
-        self.ent.surface.pollute(self.ent.position, totalPollution)
-        -- Clear the Factory Pollution --
-        self.fS.clear_pollution()
+        self.ent.surface.pollute(self.ent.position, totalPollution, self.ent)
     end
+end
+
+function MF:get_voided_pollution()
+    if self.fS == nil or self.ent == nil then
+        return 0
+    end
+    if self.ent.valid == false then
+        return 0
+    end
+    if self.ent.surface == nil then
+        return 0
+    end
+
+    local totalPollution = 0
+    for chunk in self.fS.get_chunks() do
+        if (self.fS.is_chunk_generated(chunk)) then
+            local chunkPollution = self.fS.get_pollution({chunk.x * 32, chunk.y * 32})
+            if (chunkPollution > 0) then
+                local anyVoid = self.fS.count_tiles_filtered {
+                    name = "VoidTile",
+                    area = {{chunk.x * 32, chunk.y * 32}, {chunk.x * 32 + 31, chunk.y * 32 + 31}},
+                    limit = 1
+                }
+                if (anyVoid > 0) then
+                    totalPollution = totalPollution + chunkPollution
+                    self.fS.pollute({chunk.x * 32, chunk.y * 32}, -chunkPollution, self.ent)
+                end
+            end
+        end
+
+    end
+
+    return totalPollution
 end
 
 -- Update teleportation box --
@@ -1481,7 +1512,7 @@ function MF:deploy()
                 force = self.ent.force,
                 player = self.playerIndex
             }
-            
+
             local entityName = nil
             if (string.match(slot.entity, "output")) then
                 entityName = slot.entity:gsub("output", "input")

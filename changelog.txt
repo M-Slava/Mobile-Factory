@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.12.6
+Date: 05/09/2026
+  Changes:
+    - Pollution now only exits the Mobile Factory through void tiles
+  Bugfixes:
+    - Fixed Mobile Factory Quatron Laser
+---------------------------------------------------------------------------------------------------
 Version: 0.12.5
 Date: 05/09/2026
   Changes:

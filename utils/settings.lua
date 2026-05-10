@@ -152,8 +152,7 @@ _mfQuatronLaserTargets =
 	"QuatronCubeMK2",
 	"QuatronCubeMK3",
 	"NetworkAccessPoint",
-	"OreCleaner",
-	"FluidExtractor"
+	"ResourcesCollector"
 }
 
 -- Entity name to TAG Table --
