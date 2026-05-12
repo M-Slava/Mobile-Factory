@@ -46,25 +46,25 @@ function removeMFEnergy(name, amount)
 end
 
 -- Check if the Data Network has this Item --
-function hasItems(name, item)
+function hasItem(name, item, quality)
     if storage.MFTable[name] ~= nil then
-        return storage.MFTable[name].dataNetwork:hasItem(item)
+        return storage.MFTable[name].dataNetwork:hasItem(item, quality)
     end
     return 0
 end
 
 -- Add Items to the Data Network --
-function addItems(name, item, amount)
+function addItems(name, item, amount, quality)
     if storage.MFTable[name] ~= nil then
-        return storage.MFTable[name].dataNetwork:addItems(item, amount)
+        return storage.MFTable[name].dataNetwork:addItems(item, amount, quality)
     end
     return 0
 end
 
 -- Remove Items from the Data Network --
-function takeItems(name, item, amount)
+function takeItems(name, item, amount, quality)
     if storage.MFTable[name] ~= nil then
-        return storage.MFTable[name].dataNetwork:getItem(item, amount)
+        return storage.MFTable[name].dataNetwork:getItem(item, amount, quality)
     end
     return 0
 end
@@ -89,7 +89,7 @@ remote.add_interface("MFCom", {
     getMFEnt=getMFEnt,
     getMFEnergy=getMFEnergy,
     removeMFEnergy=removeMFEnergy,
-    hasItems=hasItems,
+    hasItem=hasItem,
     addItems=addItems,
     takeItems=takeItems,
     blacklistDACategory=blacklistDACategory

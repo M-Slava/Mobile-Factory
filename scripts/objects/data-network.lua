@@ -189,14 +189,14 @@ function DN:getCloserNAP(obj)
 end
 
 -- Return how many Items the Data Network has --
-function DN:hasItem(item)
+function DN:hasItem(item, quality)
 	local amount = 0
 	-- Check the Deep Storages --
 	for _, deepStorage in pairs(self.DSRTable) do
-		amount = amount + deepStorage:hasItem(item)
+		amount = amount + deepStorage:hasItem(item, quality)
 	end
 	-- Check the Amount --
-	amount = amount + self.invObj:hasItem(item)
+	amount = amount + self.invObj:hasItem(item, quality)
 	-- Return the Amount --
 	return amount
 end
@@ -213,17 +213,17 @@ function DN:hasFluid(fluid)
 end
 
 -- Get Items from the Data Network --
-function DN:getItem(item, amount)
+function DN:getItem(item, amount, quality)
 	-- Set the Amount of Item to retrieve left --
 	local amountLeft = amount
 	-- Check the Deep Storages --
 	for _, deepStorage in pairs(self.DSRTable) do
-		local amountGot = deepStorage:getItem(item, amountLeft)
+		local amountGot = deepStorage:getItem(item, amountLeft, quality)
 		amountLeft = amountLeft - amountGot
 		if amountLeft <= 0 then return amount end
 	end
 	-- Check the Data Center --
-	amountLeft = amountLeft - self.invObj:getItem(item, amountLeft)
+	amountLeft = amountLeft - self.invObj:getItem(item, amountLeft, quality)
 	-- Return the amount removed --
 	return amount - amountLeft
 end
@@ -271,11 +271,8 @@ function DN:canAcceptFluid(fluid, amount)
 end
 
 -- Send Items to the Data Network --
-function DN:addItems(item, amount)
-	self:addItems(item, amount, "normal")
-end
-
 function DN:addItems(item, amount, quality)
+	if (quality == nil) then quality = "normal" end
 	-- Set the Amount of Item to send left --
 	local amountLeft = amount
 	-- Try to send the Items to a Deep Storage --
