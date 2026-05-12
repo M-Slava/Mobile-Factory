@@ -474,7 +474,10 @@ end
 
 -- Check stored data, and remove invalid record
 function MI:validate()
-    if prototypes.item[self.selectedFilter] == nil then
+    if type(self.selectedFilter) == "string" then
+        self.selectedFilter = {name = self.selectedFilter, quality = "normal"}
+    end
+    if self.selectedFilter ~= nil and prototypes.item[self.selectedFilter.name] == nil then
         self.selectedFilter = nil
     end
 end

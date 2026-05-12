@@ -329,12 +329,12 @@ function DSR:validate()
     end
 
     -- Remove the Item Filter if it doesn't exist anymore --
-    if self.filter ~= nil and prototypes.item[self.filter] == nil then
-        self.filter = nil
-    end
-
     if self.filter ~= nil and type(self.filter) == "string" then
         self.filter = {name=self.filter, quality="normal"}
+    end
+
+    if self.filter ~= nil and prototypes.item[self.filter.name] == nil then
+        self.filter = nil
     end
 end
 
