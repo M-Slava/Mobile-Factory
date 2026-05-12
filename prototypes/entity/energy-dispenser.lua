@@ -9,8 +9,8 @@ edE.icon_size = 128
 edE.flags = {"placeable-neutral", "player-creation"}
 edE.minable = {mining_time = 1, result = "EnergyDispenser"}
 edE.track_coverage_during_build_by_moving = true
-edE.collision_box = {{0, 0}, {0, 0}}
-edE.selection_box = {{-1, -1}, {1, 1}}
+edE.collision_box = {{-2, -2}, {2, 2}}
+edE.selection_box = {{-2, -2}, {2, 2}}
 edE.selection_priority = 51
 edE.collision_mask = {
   layers = {
@@ -123,11 +123,8 @@ fedE.type = "accumulator"
 fedE.name = "EnergyDispenserAcc"
 fedE.icon = "__Mobile_Factory_Graphics_zoms__/graphics/energy/EnergyDispenserI.png"
 fedE.icon_size = 128
-fedE.minable = {mining_time = 1, result = "EnergyDispenser"}
 fedE.max_health = 150
 fedE.corpse = "accumulator-remnants"
-fedE.collision_box = {{-2, -2}, {2, 2}}
-fedE.selection_box = {{-2, -2}, {2, 2}}
 fedE.collision_mask = {
   layers = {
     item = true,

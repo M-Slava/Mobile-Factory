@@ -38,6 +38,7 @@ require("prototypes/item/hydrocoal.lua")
 require("prototypes/item/elements.lua")
 require("prototypes/item/quatron.lua")
 require("prototypes/item/shield.lua")
+require("prototypes/item/internal-battery.lua")
 require("prototypes/tile/lab-tile.lua")
 require("prototypes/tile/void-tile.lua")
 require("prototypes/tile/dimensional-tile.lua")
@@ -289,8 +290,8 @@ data:extend{
 		type="equipment-grid",
 		equipment_categories=equipments,
 		name="MFEquipmentGridGT",
-		height=4,
-		width=4
+		height=8,
+		width=8
 	}
 }
 

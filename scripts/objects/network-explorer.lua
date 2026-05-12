@@ -226,10 +226,13 @@ function NE:getLocals(GUITable, MFPlayer)
 	GUITable.vars.tmpLocal = {}
 	-- Get Items Local --
 	for name, _ in pairs(self.dataNetwork.invObj.inventory) do
+		if (type(name) == "string") then
+			name = string.gsub(name, "_.*", "")
+		end
 		MFPlayer.ent.request_translation(Util.getLocItemName(name))
 	end
 	-- Get Fluid Local --
-	for name, _ in pairs(MFPlayer.ent.get_main_inventory().get_contents()) do
+	for _, name in pairs(MFPlayer.ent.get_main_inventory().get_contents()) do
 		MFPlayer.ent.request_translation(Util.getLocItemName(name))
 	end
 	-- Get Deep Storages Items Local --
@@ -278,7 +281,7 @@ function NE:createDNInventory(GUITable, inventoryScrollPane, searchText)
 	-- Look for all Deep Storages --
 	for _, DSR in pairs(MF.dataNetwork.DSRTable) do
 		-- Check the Deep Storage --
-		if DSR.ent == nil or DSR.ent.valid == false or DSR.inventoryItem == nil or DSR.inventoryCount == nil or DSR.inventoryCount == 0 then goto continue end
+		if DSR.ent == nil or DSR.ent.valid == false or DSR.inventoryItem == nil or DSR.inventoryCount == nil or DSR.inventoryCount == 0 or DSR.inventoryQuality == nil then goto continue end
 
 		-- Check the Search Text --
 		if GUITable.vars.tmpLocal ~= nil and Util.getLocItemName(DSR.inventoryItem)[1] ~= nil then
@@ -288,7 +291,7 @@ function NE:createDNInventory(GUITable, inventoryScrollPane, searchText)
 
 		-- Create the Button --
 		local buttonText = {"", "[color=green]", Util.getLocItemName(DSR.inventoryItem), "[/color]\n[color=yellow]", Util.toRNumber(DSR.inventoryCount), "[/color]"}
-		local button = GAPI.addButton(GUITable, "N.E.DSR" .. DSR.ent.unit_number, tableList, "item/" .. DSR.inventoryItem, "item/" .. DSR.inventoryItem, buttonText, 37, false, true, DSR.inventoryCount, "shortcut_bar_button_green", {ID=DSR.ent.unit_number})
+		local button = GAPI.addButton(GUITable, "N.E.DSR" .. DSR.ent.unit_number, tableList, "item/" .. DSR.inventoryItem, "item/" .. DSR.inventoryItem, buttonText, 37, false, true, DSR.inventoryCount, "shortcut_bar_button_green", {ID=DSR.ent.unit_number}, DSR.inventoryQuality)
 
 		::continue::
 	end
@@ -298,6 +301,11 @@ function NE:createDNInventory(GUITable, inventoryScrollPane, searchText)
 		
 		-- Check the Item --
 		if count == nil or count == 0 then goto continue end
+		local quality = "normal"
+		if (type(name) == "string") then
+			quality = string.gsub(name, ".*_", "")
+			name = string.gsub(name, "_.*", "")
+		end
 
 		-- Check the Search Text --
 		if GUITable.vars.tmpLocal ~= nil and Util.getLocItemName(name)[1] ~= nil then
@@ -307,7 +315,7 @@ function NE:createDNInventory(GUITable, inventoryScrollPane, searchText)
 
 		-- Create the Button --
 		local buttonText = {"", "[color=blue]", Util.getLocItemName(name), "[/color]\n[color=yellow]", Util.toRNumber(count), "[/color]"}
-		local button = GAPI.addButton(GUITable, "N.E.Inv" .. name, tableList, "item/" .. name, "item/" .. name, buttonText, 37, false, true, count, "shortcut_bar_button_blue", {ID=self.entID, name=name})
+		local button = GAPI.addButton(GUITable, "N.E.Inv" .. name .. "_" .. quality, tableList, "item/" .. name, "item/" .. name, buttonText, 37, false, true, count, "shortcut_bar_button_blue", {ID=self.entID, name=name, quality=quality}, quality)
 		
 		::continue::
 
@@ -322,8 +330,11 @@ function NE:createPlayerInventory(GUITable, MFPlayer, inventoryScrollPane, searc
 	local tableList = GAPI.addTable(GUITable, "", inventoryScrollPane, 8)
 
 	-- Look for all Player Inventory Items --
-	for name, count in pairs(MFPlayer.ent.get_main_inventory().get_contents()) do
-		
+	for _, item in pairs(MFPlayer.ent.get_main_inventory().get_contents()) do
+		local name = item.name
+		local count = item.count
+		local quality = item.quality
+
 		-- Check the Item --
 		if count == nil or count == 0 then goto continue end
 
@@ -338,7 +349,7 @@ function NE:createPlayerInventory(GUITable, MFPlayer, inventoryScrollPane, searc
 
 		-- Create the Button --
 		local buttonText = {"", "[color=blue]", Util.getLocItemName(name), "[/color]\n[color=yellow]", Util.toRNumber(count), "[/color]"}
-		GAPI.addButton(GUITable, "N.E.PInv" .. name, tableList, "item/" .. name, "item/" .. name, buttonText, 37, false, true, count, "shortcut_bar_button_blue", {ID=self.entID, name=name})
+		GAPI.addButton(GUITable, "N.E.PInv" .. name .. "_" .. quality, tableList, "item/" .. name, "item/" .. name, buttonText, 37, false, true, count, "shortcut_bar_button_blue", {ID=self.entID, name=name, quality=quality}, quality)
 		
 		::continue::
 
@@ -380,15 +391,15 @@ function NE.transferItemsFromDS(DS, inv, count)
 
 	-- Send the Items to the Player Inventory --
 	if amount <= 0 then return end
-	local inserted = inv.insert({name=item, count=amount})
+	local inserted = inv.insert({name=item, count=amount, quality=DS.inventoryQuality})
 
 	-- Remove the Items from the Deep Storage --
-	DS:getItem(item, inserted)
+	DS:getItem(item, inserted, DS.inventoryQuality)
 
 end
 
 -- Transfer Items from Data Network Inventory --
-function NE.transferItemsFromDNInv(NE, inv, item, count)
+function NE.transferItemsFromDNInv(NE, inv, item, count, quality)
 
 	-- Check all values --
 	if NE == nil or inv == nil then return end
@@ -398,21 +409,21 @@ function NE.transferItemsFromDNInv(NE, inv, item, count)
 	if count == nil or count <= 0 then count = prototypes.item[item].stack_size end
 
 	-- Try to transfer Items --
-	local amount = math.min(DNInv:hasItem(item), count)
+	local amount = math.min(DNInv:hasItem(item, quality), count)
 	if half == true and amount >= 2 then amount = math.floor(amount/2) end
 	if amount <= 0 then amount = 1 end
 
 	-- Send the Items to the Player Inventory --
 	if amount <= 0 then return end
-	local inserted = inv.insert({name=item, count=amount})
+	local inserted = inv.insert({name=item, count=amount, quality=quality})
 
 	-- Remove the Items from the Deep Storage --
-	DNInv:getItem(item, inserted)
+	DNInv:getItem(item, inserted, quality)
 
 end
 
 -- Transfer Items from the Player Inventory --
-function NE.transferItemsFromPInv(PInv, NE, item, count)
+function NE.transferItemsFromPInv(PInv, NE, item, count, quality)
 
 	-- Check all values --
 	if PInv == nil or NE == nil then return end
@@ -420,9 +431,10 @@ function NE.transferItemsFromPInv(PInv, NE, item, count)
 	if item == nil then return end
 	local half = (count or 1) < 1 and true or false
 	if count == nil or count <= 0 then count = prototypes.item[item].stack_size end
+	if quality == nil then quality = "normal" end
 
 	-- Try to transfer Items --
-	local amount = math.min(PInv.get_item_count(item), count)
+	local amount = math.min(PInv.get_item_count({name=item, quality=quality}), count)
 	if half == true then amount = math.floor(amount/2) end
 	if amount <= 0 then amount = 1 end
 
@@ -431,20 +443,20 @@ function NE.transferItemsFromPInv(PInv, NE, item, count)
 	-- Try to send the Items to a Deep Storage --
 	for _, deepStorage in pairs(NE.dataNetwork.DSRTable) do
 		local availableSpace = deepStorage:availableSpace()
-		if availableSpace > 0 and deepStorage:canAccept(item, availableSpace) then
-			amount = amount - deepStorage:addItem(item, math.min(availableSpace, amount))
+		if availableSpace > 0 and deepStorage:canAccept(item, availableSpace, quality) then
+			amount = amount - deepStorage:addItem(item, math.min(availableSpace, amount), quality)
 		end
 	end
 
 	-- Try to send the Items to the Data Network inventory --
 	if amount > 0 then
-		amount = amount - DNInv:addItem(item, amount)
+		amount = amount - DNInv:addItem(item, amount, quality)
 	end
 
 	local inserted = amountOriginal - amount
 	-- Remove the Item from the Player Inventory --
 	if inserted > 0 then
-		PInv.remove({name=item, count=inserted})
+		PInv.remove({name=item, count=inserted, quality=quality})
 	end
 
 end
@@ -477,14 +489,14 @@ function NE.interaction(event, playerIndex)
 	if string.match(event.element.name, "N.E.Inv") then
 		local objId = event.element.tags.ID
 		local obj = storage.networkExplorerTable[objId]
-		NE.transferItemsFromDNInv(obj, getMFPlayer(playerIndex).ent.get_main_inventory(), event.element.tags.name, count)
+		NE.transferItemsFromDNInv(obj, getMFPlayer(playerIndex).ent.get_main_inventory(), event.element.tags.name, count, event.element.tags.quality)
 		return
 	end
 	-- If it's a player Inventory --
 	if string.match(event.element.name, "N.E.PInv") then
 		local objId = event.element.tags.ID
 		local obj = storage.networkExplorerTable[objId]
-		NE.transferItemsFromPInv(getMFPlayer(playerIndex).ent.get_main_inventory(), obj, event.element.tags.name, count)
+		NE.transferItemsFromPInv(getMFPlayer(playerIndex).ent.get_main_inventory(), obj, event.element.tags.name, count, event.element.tags.quality)
 		return
 	end
 end

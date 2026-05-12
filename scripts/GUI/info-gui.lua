@@ -316,7 +316,12 @@ function GUI.updateDeepStorageFrame(GUITable)
 		if DSR.ent == nil or DSR.ent.valid == false then return end
 
 		-- Create the Storage Variables --
-		local sprite = DSR.filter or DSR.inventoryItem
+		local sprite = DSR.filter or {name=DSR.inventoryItem, quality=DSR.inventoryQuality}
+
+		if (type(sprite) == "string") then
+			sprite = {name=sprite, quality="normal"}
+		end
+		
 		local name = Util.getLocItemName(DSR.inventoryItem) or Util.getLocItemName(DSR.filter) or {"", {"gui-description.DeepStorage"}, " ", DSR.ID}
 		local amount = DSR.inventoryCount or 0
 		local max = DSR.max
@@ -326,7 +331,7 @@ function GUI.updateDeepStorageFrame(GUITable)
 
 		-- Create the Button --
 		local buttonText = {"", {"gui-description.FilterSelect"}, "\n", {"gui-description.Filter"}, ": [color=green]", (Util.getLocItemName(DSR.filter) or {"gui-description.None"}), "[/color]" }
-		local button = GAPI.addFilter(GUITable, "Inf.GUI.DSRFilter", frame, buttonText, true, "item", 50, {ID=DSR.ent.unit_number})
+		local button = GAPI.addFilter(GUITable, "Inf.GUI.DSRFilter", frame, buttonText, true, "item-with-quality", 50, {ID=DSR.ent.unit_number})
 		button.elem_value = sprite
 
 		-- Create the table flow --
@@ -387,25 +392,36 @@ function GUI.updateInventoryFrame(GUITable)
 
 		-- Create the Button --
 		local buttonText = {"", "[color=green]", Util.getLocItemName(DSR.inventoryItem), "[/color]\n[color=yellow]", Util.toRNumber(DSR.inventoryCount), "[/color]"}
-		GAPI.addButton(GUITable, "", tableList, "item/" .. DSR.inventoryItem, "item/" .. DSR.inventoryItem, buttonText, 37, false, true, DSR.inventoryCount, "MF_Fake_Button_Green")
+		
+		GAPI.addButton(GUITable, "", tableList, "item/" .. DSR.inventoryItem, "item/" .. DSR.inventoryItem, buttonText, 37, false, true, DSR.inventoryCount, "MF_Fake_Button_Green", nil, DSR.inventoryQuality)
 
 		::continue::
 	end
+	
+	local newInventory = {}
+	for k, v in pairs(MF.II.inventory) do
+		if (type(k) == "table") then
+			newInventory[k.name .. "_" .. k.quality] = v
+		else
+			newInventory[k] = v
+		end
+	end
+	MF.II.inventory = newInventory
 
 	-- Look for all Data Network Inventory Items --
-	for name, count in pairs(MF.II.inventory) do
-		
+	for item, count in pairs(MF.II.inventory) do
 		-- Check the Item --
 		if count == nil or count == 0 then goto continue end
+		local name = string.gsub(item, "_.*", "")
+		local quality = string.gsub(item, ".*_", "")
 
 		-- Create the Button --
 		local buttonText = {"", "[color=blue]", Util.getLocItemName(name), "[/color]\n[color=yellow]", Util.toRNumber(count), "[/color]"}
-		GAPI.addButton(GUITable, "", tableList, "item/" .. name, "item/" .. name, buttonText, 37, false, true, count, "MF_Fake_Button_Blue")
+		GAPI.addButton(GUITable, "", tableList, "item/" .. name, "item/" .. name, buttonText, 37, false, true, count, "MF_Fake_Button_Blue", nil, quality)
 
 		::continue::
 
 	end
-
 end
 
 -- If the Player interacted with the GUI --

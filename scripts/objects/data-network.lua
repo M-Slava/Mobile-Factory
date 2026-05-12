@@ -244,9 +244,13 @@ end
 
 -- Check if the Data Network can accept a Item --
 function DN:canAcceptItem(item, amount)
+	self:canAcceptItem(item, amount, "normal")
+end
+
+function DN:canAcceptItem(item, amount, quality)
 	-- Check the Deep Storages --
 	for _, deepStorage in pairs(self.DSRTable) do
-		if deepStorage:canAccept(item, amount) then
+		if deepStorage:canAccept(item, amount, quality) then
 			return true
 		end
 	end
@@ -268,19 +272,23 @@ end
 
 -- Send Items to the Data Network --
 function DN:addItems(item, amount)
+	self:addItems(item, amount, "normal")
+end
+
+function DN:addItems(item, amount, quality)
 	-- Set the Amount of Item to send left --
 	local amountLeft = amount
 	-- Try to send the Items to a Deep Storage --
 	for _, deepStorage in pairs(self.DSRTable) do
 		local availableSpace = deepStorage:availableSpace()
-		if availableSpace > 0 and deepStorage:canAccept(item, availableSpace) then
-			local inserted = deepStorage:addItem(item, math.min(availableSpace, amountLeft))
+		if availableSpace > 0 and deepStorage:canAccept(item, availableSpace, quality) then
+			local inserted = deepStorage:addItem(item, math.min(availableSpace, amountLeft), quality)
 			amountLeft = amount - inserted
 		end
 	end
 	-- Check the Data Center --
 	if amountLeft > 0 then
-		amountLeft = amountLeft - self.invObj:addItem(item, amountLeft)
+		amountLeft = amountLeft - self.invObj:addItem(item, amountLeft, quality)
 	end
 	-- Return the amount added --
 	return amount - amountLeft

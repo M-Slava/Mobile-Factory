@@ -678,10 +678,10 @@ function DA:getIngredients(recipe, justCheck)
 		for _, ingredient in pairs(recipe.ingredients) do
 			if ingredient.type == "item" then
 				self.dataNetwork:getItem(ingredient.name, ingredient.amount)
-				self.ent.force.item_production_statistics.on_flow(ingredient.name, ingredient.amount * -1)
+				self.ent.force.get_item_production_statistics(self.ent.surface).on_flow(ingredient.name, ingredient.amount * -1)
 			elseif ingredient.type == "fluid" then
 				self.dataNetwork:getFluid(ingredient.name, ingredient.amount)
-				self.ent.force.fluid_production_statistics.on_flow(ingredient.name, ingredient.amount * -1)
+				self.ent.force.get_fluid_production_statistics(self.ent.surface).on_flow(ingredient.name, ingredient.amount * -1)
 			end
 		end
 	end

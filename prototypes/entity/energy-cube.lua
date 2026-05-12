@@ -583,10 +583,10 @@ iecE.circuit_wire_connection_point = {
 }
 iecE.energy_source = {
     type = "electric",
-    buffer_capacity = "3GJ",
+    buffer_capacity = "500MJ",
     usage_priority = "tertiary",
-    input_flow_limit = "500MW",
-    output_flow_limit = "500MW",
+    input_flow_limit = "50MW",
+    output_flow_limit = "50MW",
     render_no_power_icon = false,
     render_no_network_icon = false
 }

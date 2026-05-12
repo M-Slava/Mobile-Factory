@@ -18,12 +18,12 @@ function GUI.createRecipeGUI(player)
 	GAPI.addCloseButton(GUITable)
 	
 	local RSGroupTable = GAPI.addTable(GUITable, "RSGroupTable", mainFrame, 6)
-	RSGroupTable.style = "filter_group_table"
+	RSGroupTable.style = "table"
 
 	local RSScrollPane = GAPI.addScrollPane(GUITable, "RSScrollPane", mainFrame, 445)
 	RSScrollPane.style.minimal_height = 445
 	local RSRecipeFrame = GAPI.addFrame(GUITable, "RSRecipeFrame", RSScrollPane, "vertical", true)
-	RSRecipeFrame.style = "filter_scroll_pane_background_frame"
+	RSRecipeFrame.style = "filter_frame"
 
 	-- Split Recipes by groups --
 	local recipeTable = {}
@@ -68,7 +68,7 @@ function GUI.createRecipeGUI(player)
 	-- Draw Categories --
 	for idx, group in ipairs(groupsArray) do
 		local tab = GAPI.addButton(GUITable, "Rec.GUI.CategoryButton" .. idx, RSGroupTable, "item-group/" .. group.obj.name, "item-group/" .. group.obj.name, group.obj.localised_name, nil, true, true, nil, nil, {category=idx})
-		tab.style = "filter_group_button_tab_selectable"
+		tab.style = "filter_group_button_tab_slightly_larger"
 		if idx == 1 then tab.enabled = false end
 
 	end
@@ -116,7 +116,7 @@ function GUI.updateMFRecipeGUI(GUITable, force)
 					if locName ~= nil and string.match(string.lower(locName), filter) == nil then goto continue end
 			end
 			local button = GAPI.addFilter(GUITable, "Rec.GUI.RecipeButton," .. name, RSRecipeTable, nil, true, "recipe", nil, {name=name})
-			button.style = "recipe_slot_button"
+			button.style = "slot_button"
 			button.elem_value = name
 			button.locked = true
 			::continue::

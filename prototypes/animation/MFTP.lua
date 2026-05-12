@@ -10,5 +10,4 @@ tspA.height = 90
 tspA.line_length = 10
 tspA.animation_speed = 1
 tspA.scale = 1
-tspA.flags = {"terrain"}
 data:extend{tspA}

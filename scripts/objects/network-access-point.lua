@@ -97,7 +97,7 @@ function NAP:update()
     end
 
     -- Render the Animation --
-    if EI.energy(self) <= 0 and self.noQuatronSprite.valid == false then
+    if EI.energy(self) <= 0 and (self.noQuatronSprite == nil or self.noQuatronSprite.valid == false) then
         self.noQuatronSprite = rendering.draw_sprite {
             sprite = "QuatronIconDisabled",
             render_layer = 131,
@@ -120,9 +120,9 @@ function NAP:update()
             self.noQuatronSprite.destroy()
         end
     end
-
+    
     -- Render the Area --
-    if self.showArea == true and self.areaRender.valid == false then
+    if self.showArea == true and (self.areaRender == nil or self.areaRender.valid == false) then
         self.areaRender = rendering.draw_rectangle {
             color = _mfGreen,
             width = 5,
@@ -242,7 +242,13 @@ end
 -- Create all Signals --
 function NAP:createDNSignals()
     -- Create the Inventory Signal --
-    self.ent.get_control_behavior().parameters = nil
+    local behav = self.ent.get_control_behavior()
+    local dnG = "DataNetwork"
+    local section = behav.get_section(1)
+    if section == nil then
+        section = behav.add_section(dnG)
+    end
+
     local i = 1
     for name, count in pairs(self.dataNetwork.invObj.inventory) do
         -- Create and send the Signal --
@@ -253,7 +259,7 @@ function NAP:createDNSignals()
             },
             count = count
         }
-        self.ent.get_control_behavior().set_signal(i, signal)
+        section.set_slot(i, signal)
         -- Increament the Slot --
         i = i + 1
         -- Stop if there are to much Items --
@@ -273,7 +279,7 @@ function NAP:createDNSignals()
                 },
                 count = math.min(ds.inventoryCount, 2e9)
             }
-            self.ent.get_control_behavior().set_signal(i, signal)
+            section.set_slot(i, signal)
             -- Increament the Slot --
             i = i + 1
             -- Stop if there are to much Items --
@@ -294,7 +300,7 @@ function NAP:createDNSignals()
                 },
                 count = dtk.inventoryCount
             }
-            self.ent.get_control_behavior().set_signal(i, signal)
+            section.set_slot(i, signal)
             -- Increament the Slot --
             i = i + 1
             -- Stop if there are to much Items --

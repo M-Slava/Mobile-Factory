@@ -96,5 +96,4 @@ wdrA.height = 400
 wdrA.line_length = 10
 wdrA.animation_speed = 1/6
 wdrA.scale = 1/10 * 3.0
-wdrA.flags = {"terrain"}
 data:extend{wdrA}

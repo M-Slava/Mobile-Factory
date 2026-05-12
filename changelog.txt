@@ -1,4 +1,19 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.13.0
+Date: 05/11/26
+  Major Changes:
+    - Changed MF Shield to operate off of Equipment Grid energy, it now charges at 100HP/s
+    - Added Internal Battery Equipment that synchronizes with MF Internal Energy Cube
+    - Decreased Energy capacity of MF Internal Energy Cube
+    - Decreased Energy transfer rate of MF Internal Energy Cube
+    - Added Energy drain to MF Module Equipment
+  Changes:
+    - Spread pollution update across multiple game ticks
+  Bugfixes:
+    - Fix Data Network Errors
+    - Fix Data Network ignoring Quality
+    - Fix Data Assembler
+---------------------------------------------------------------------------------------------------
 Version: 0.12.7
 Date: 05/09/2026
   Bugfixes:

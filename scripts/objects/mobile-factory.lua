@@ -353,7 +353,7 @@ function MF:update(event)
     if mfCall(MF.updatePollution, self) == true then
         player.print({"gui-description.UpdateMF_UpdatePollutionFailed", self.name})
     end
-    
+
     -- Update Teleportation Box --
     if event.tick % _eventTick5 == 0 then
         if mfCall(MF.factoryTeleportBox, self) == true then
@@ -822,7 +822,7 @@ function MF:updateShield(event)
     -- Get the current tick --
     local tick = event.tick
     -- Create the visual --
-    if self:shield() > 0 then
+    if self:shield() > 0 and self:shield() < self:maxShield() then
         -- Calcule the shield tint --
         local tint = self:shield() / self:maxShield()
         -- Calcule the shield size --
@@ -851,9 +851,9 @@ function MF:updateShield(event)
                 -- Check if the Shield can be charged --
                 if chargeAmount > 0 and chargeAmount * _mfShieldComsuption <= EI.energy(self.internalEnergyObj) then
                     -- Charge the Shield --
-                    equipment.shield = equipment.shield + chargeAmount
+                    -- equipment.shield = equipment.shield + chargeAmount
                     -- Remove the energy --
-                    EI.removeEnergy(self.internalEnergyObj, chargeAmount * _mfShieldComsuption)
+                    -- EI.removeEnergy(self.internalEnergyObj, chargeAmount * _mfShieldComsuption)
                 end
             end
         end
@@ -892,22 +892,30 @@ function MF:get_voided_pollution()
     end
 
     local totalPollution = 0
-    for chunk in self.fS.get_chunks() do
-        if (self.fS.is_chunk_generated(chunk)) then
-            local chunkPollution = self.fS.get_pollution({chunk.x * 32, chunk.y * 32})
-            if (chunkPollution > 0) then
-                local anyVoid = self.fS.count_tiles_filtered {
-                    name = "VoidTile",
-                    area = {{chunk.x * 32, chunk.y * 32}, {chunk.x * 32 + 31, chunk.y * 32 + 31}},
-                    limit = 1
-                }
-                if (anyVoid > 0) then
-                    totalPollution = totalPollution + chunkPollution
-                    self.fS.pollute({chunk.x * 32, chunk.y * 32}, -chunkPollution, self.ent)
-                end
+    self.chunks = self.chunks
+    if (game.tick % 600 == 0 or self.chunks == nil) then
+        self.chunks = {}
+        local i = 0
+        for chunk in self.fS.get_chunks() do
+            if (self.fS.is_chunk_generated(chunk) and self.fS.count_tiles_filtered {
+                name = "VoidTile",
+                area = {{chunk.x * 32, chunk.y * 32}, {chunk.x * 32 + 31, chunk.y * 32 + 31}},
+                limit = 1
+            } > 0) then
+                i = i + 1
+                self.chunks[i] = chunk
             end
         end
+    end
 
+    for k, chunk in ipairs(self.chunks) do
+        if (k % 4 == game.tick % 4) then
+            local chunkPollution = self.fS.get_pollution({chunk.x * 32, chunk.y * 32})
+            if (chunkPollution > 0) then
+                totalPollution = totalPollution + chunkPollution
+                self.fS.pollute({chunk.x * 32, chunk.y * 32}, -chunkPollution, self.ent)
+            end
+        end
     end
 
     return totalPollution
@@ -970,13 +978,13 @@ function MF:scanModules()
     self.laserNumberMultiplier = 0
     -- Look for Modules --
     for _, equipment in pairs(self.ent.grid.equipment) do
-        if equipment.name == "EnergyPowerModule" then
+        if equipment.name == "EnergyPowerModule" and equipment.energy > equipment.max_energy * 0.5 then
             self.laserRadiusMultiplier = self.laserRadiusMultiplier + 1
         end
-        if equipment.name == "EnergyEfficiencyModule" then
+        if equipment.name == "EnergyEfficiencyModule" and equipment.energy > equipment.max_energy * 0.5 then
             self.laserDrainMultiplier = self.laserDrainMultiplier + 1
         end
-        if equipment.name == "EnergyFocusModule" then
+        if equipment.name == "EnergyFocusModule" and equipment.energy > equipment.max_energy * 0.5 then
             self.laserNumberMultiplier = self.laserNumberMultiplier + 1
         end
     end

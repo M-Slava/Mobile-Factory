@@ -8,6 +8,7 @@ DSR = {
     updateTick = 80,
     lastUpdate = 0,
     inventoryItem = nil,
+    inventoryQuality = nil,
     inventoryCount = 0,
     ID = 0,
     filter = nil,
@@ -64,14 +65,23 @@ end
 
 -- Copy Settings --
 function DSR:copySettings(obj)
-    self.filter = obj.filter
+    if (type(obj.filter) == "string") then
+        self.filter = {name=obj.filter, quality="normal"}
+    else
+        self.filter = obj.filter
+    end
 end
 
 -- Item Tags to Content --
 function DSR:itemTagsToContent(tags)
     self.inventoryItem = tags.inventoryItem or nil
+    self.inventoryQuality = tags.inventoryQuality or "normal"
     self.inventoryCount = tags.inventoryCount or 0
-    self.filter = tags.filter or nil
+    if (tags.filter ~= nil and type(tags.filter) == "string") then
+        self.filter = {name=tags.filter, quality="normal"}
+    else
+        self.filter = tags.filter or nil
+    end
 end
 
 -- Content to Item Tags --
@@ -79,6 +89,7 @@ function DSR:contentToItemTags(tags)
     if self.inventoryItem ~= nil or self.filter ~= nil then
         tags.set_tag("Infos", {
             inventoryItem = self.inventoryItem,
+            inventoryQuality = self.inventoryQuality,
             inventoryCount = self.inventoryCount,
             filter = self.filter
         })
@@ -103,14 +114,36 @@ function DSR:update()
     if self.inventoryItem == nil and self.filter == nil then
         return true
     end
-    local sprite = "item/" .. (self.inventoryItem or self.filter)
+    local sprite = "item/" .. (self.inventoryItem or self.filter.name)
     rendering.draw_sprite {
         sprite = sprite,
-        target = {entity = self.ent, offset = {0, -0.35}}, 
+        target = {
+            entity = self.ent,
+            offset = {0, -0.35}
+        },
         surface = self.ent.surface,
         time_to_live = self.updateTick + 1,
         render_layer = 131
     }
+
+    local quality = (self.filter and self.filter.quality) or self.inventoryQuality
+    if (quality ~= nil) then
+        local qualityProto = prototypes.quality[quality]
+        if qualityProto.level > 0 then
+            rendering.draw_sprite {
+                sprite = "quality." .. quality,
+                target = {
+                    entity = self.ent,
+                    offset = {-0.3, 0}
+                },
+                x_scale = 0.3,
+                y_scale = 0.3,
+                surface = self.ent.surface,
+                time_to_live = self.updateTick + 1,
+                render_layer = 150
+            }
+        end
+    end
 end
 
 -- Tooltip Infos --
@@ -152,7 +185,7 @@ function DSR:getTooltipInfos(GUITable, mainFrame, justCreated)
         -- Create the Filter Selection --
         GAPI.addLabel(GUITable, "", settingsFrame, {"", {"gui-description.FilterSelect"}, ":"}, nil,
             {"gui-description.TargetedStorage"}, false, nil, _mfLabelType.yellowTitle)
-        local filter = GAPI.addFilter(GUITable, "D.S.R.Filter", settingsFrame, nil, true, "item", 40, {
+        local filter = GAPI.addFilter(GUITable, "D.S.R.Filter", settingsFrame, nil, true, "item-with-quality", 40, {
             ID = self.ent.unit_number
         })
         GUITable.vars.filter = filter
@@ -200,29 +233,43 @@ function DSR:getTooltipInfos(GUITable, mainFrame, justCreated)
     GAPI.addLabel(GUITable, "", inventoryTable, {"gui-description.DSDTFilter", filterName}, _mfOrange)
 
     -- Update the Filter --
-    GUITable.vars.filter.elem_value = self.filter
+    if (type(self.filter) == "string") then
+        GUITable.vars.filter.elem_value = {
+            name = self.filter,
+            quality = "normal"
+        }
+    else
+        GUITable.vars.filter.elem_value = self.filter
+    end
 
 end
 
 -- Return the number of item present inside the Inventory --
-function DSR:hasItem(name)
-    if self.inventoryItem ~= nil and self.inventoryItem == name then
+function DSR:hasItem(name, quality)
+    if (quality == nil) then quality = "normal" end
+    if self.inventoryItem ~= nil and self.inventoryItem == name and self.inventoryQuality == quality then
         return self.inventoryCount
     end
     return 0
 end
 
 -- Return if the Item can be accepted --
-function DSR:canAccept(name, count)
+function DSR:canAccept(name, count, quality)
+    if (quality == nil) then quality = "normal" end
     if self.filter == nil then
         return false
     end
-    if self.filter ~= nil and self.filter ~= name then
+    if self.filter ~= nil and (self.filter.name ~= name or self.filter.quality ~= quality) then
         return false
     end
     if self.inventoryItem ~= nil and self.inventoryItem ~= name then
         return false
     end
+
+    if self.inventoryQuality ~= nil and self.inventoryQuality ~= quality then
+        return false
+    end
+
     if self.max ~= nil and self.max < self.inventoryCount + count then
         return false
     end
@@ -235,10 +282,12 @@ function DSR:availableSpace()
 end
 
 -- Add Items --
-function DSR:addItem(name, count)
-    if self:canAccept(name, count) == true then
+function DSR:addItem(name, count, quality)
+    if (quality == nil) then quality = "normal" end
+    if self:canAccept(name, count, quality) == true then
         local inserted = math.min(count, self:availableSpace())
         self.inventoryItem = name
+        self.inventoryQuality = quality
         self.inventoryCount = self.inventoryCount + inserted
         return inserted
     end
@@ -246,8 +295,9 @@ function DSR:addItem(name, count)
 end
 
 -- Remove Items --
-function DSR:getItem(name, count)
-    if self.inventoryItem ~= nil and self.inventoryItem == name then
+function DSR:getItem(name, count, quality)
+    if (quality == nil) then quality = "normal" end
+    if self.inventoryItem ~= nil and self.inventoryItem == name and self.inventoryQuality == quality then
         local removed = math.min(count, self.inventoryCount)
         self.inventoryCount = self.inventoryCount - removed
         if self.inventoryCount == 0 then
@@ -281,6 +331,10 @@ function DSR:validate()
     -- Remove the Item Filter if it doesn't exist anymore --
     if self.filter ~= nil and prototypes.item[self.filter] == nil then
         self.filter = nil
+    end
+
+    if self.filter ~= nil and type(self.filter) == "string" then
+        self.filter = {name=self.filter, quality="normal"}
     end
 end
 

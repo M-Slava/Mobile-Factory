@@ -20,7 +20,7 @@ fi
 echo "Packaging $NAME $VERSION..."
 mkdir -p $DIR/Build/$NAME\_$VERSION
 for file in $DIR/*; do
-    if [[ $file != *package.sh* && $file != *Build* && $file != *README.md* ]]; then
+    if [[ $file != *package.sh* && $file != $DIR/Build* && $file != *README.md* ]]; then
         cp -R $file $DIR/Build/$NAME\_$VERSION/
 
     fi

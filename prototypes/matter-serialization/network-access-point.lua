@@ -99,5 +99,4 @@ napA.size = 500
 napA.line_length = 10
 napA.animation_speed = 1/6
 napA.scale = 1/8 * 3.2
-napA.flags = {"terrain"}
 data:extend{napA}

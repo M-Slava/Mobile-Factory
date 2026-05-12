@@ -89,5 +89,4 @@ sdA.size = 200
 sdA.line_length = 10
 sdA.animation_speed = 1/4
 sdA.scale = 1/5
-sdA.flags = {"terrain"}
 data:extend{sdA}

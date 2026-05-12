@@ -77,5 +77,4 @@ ncAn.line_length = 12
 ncAn.animation_speed = 1 / 4
 ncAn.scale = 1 / 2
 ncAn.shift = {0, -0.3}
-ncAn.flags = {"terrain"}
 data:extend{ncAn}

@@ -53,8 +53,10 @@ function INV:remCap()
 end
 
 -- Return the number of requested Item --
-function INV:hasItem(item)
-	return self.inventory[item] or 0
+function INV:hasItem(item, quality)
+	if (quality == nil) then quality = "normal" end
+	local itemWithQuality = item .. "_" .. quality
+	return self.inventory[itemWithQuality] or 0
 end
 
 -- Return if the Item can be accepted --
@@ -67,8 +69,8 @@ function INV:canAccept(number)
 end
 
 -- Request to add an Item and return the amount added --
-function INV:addItem(item, amount)
-
+function INV:addItem(item, amount, quality)
+	if (quality == nil) then quality = "normal" end
 	-- Check if the Item can be accepted --
 	if self:canAccept() == false then return 0 end
 
@@ -77,11 +79,12 @@ function INV:addItem(item, amount)
 	
 	-- Check if the amount is > 0 --
 	if capableAmount > 0 then
+		local itemWithQuality = item .. "_" .. quality
 		-- Insert the Item --
-		if self.inventory[item] ~= nil then
-			self.inventory[item] = self.inventory[item] + capableAmount
+		if self.inventory[itemWithQuality] ~= nil then
+			self.inventory[itemWithQuality] = self.inventory[itemWithQuality] + capableAmount
 		else
-			self.inventory[item] = capableAmount
+			self.inventory[itemWithQuality] = capableAmount
 		end
 		-- Set the new Capacity --
 		self.usedCapacity = self.usedCapacity + capableAmount
@@ -93,20 +96,21 @@ function INV:addItem(item, amount)
 end
 
 -- Request to remove an Item and return the amount removed --
-function INV:getItem(item, amount)
-	
+function INV:getItem(item, amount, quality)
+	if (quality == nil) then quality = "normal" end
+	local itemWithQuality = item .. "_" .. quality
 	-- Check if the Item is inside the Inventory --
-	if self.inventory[item] ~= nil then
+	if self.inventory[itemWithQuality] ~= nil then
 	
 		-- Calcule the amount removed --
-		local itemAmount = math.min(amount, self.inventory[item])
+		local itemAmount = math.min(amount, self.inventory[itemWithQuality])
 		
 		-- Remove the Item amount --
-		self.inventory[item] = self.inventory[item] - itemAmount
+		self.inventory[itemWithQuality] = self.inventory[itemWithQuality] - itemAmount
 		
 		-- Remove the Item if it doesn't exist anymore inside the Inventory --
-		if self.inventory[item] <= 0 then
-			self.inventory[item] = nil
+		if self.inventory[itemWithQuality] <= 0 then
+			self.inventory[itemWithQuality] = nil
 		end
 		
 		-- Set the new Capacity --
@@ -139,6 +143,7 @@ function INV:getTooltipInfos(GUIObj, gui)
 
 	-- Look for all Items --
 	for name, count in pairs(self.inventory) do
+		name = string.gsub(name, "_.*", "")
 		-- Create the Button --
 		Util.itemToFrame(name, count, GUIObj, table)
 	end

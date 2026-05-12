@@ -20,10 +20,11 @@ pmE.shape = {width=2, height=2, type="full"}
 pmE.energy_source =
 {
 	type="electric",
-	usage_priority="tertiary",
-	input_flow_limit="0J",
-	output_flow_limit="0J",
-	buffer_capacity="0J"
+	usage_priority="secondary-input",
+	input_flow_limit="2MW",
+	output_flow_limit="0W",
+	buffer_capacity="3MW",
+	drain="1MW"
 }
 data:extend{pmE}
 
@@ -66,10 +67,11 @@ emE.shape = {width=2, height=2, type="full"}
 emE.energy_source =
 {
 	type="electric",
-	usage_priority="tertiary",
-	input_flow_limit="0J",
-	output_flow_limit="0J",
-	buffer_capacity="0J"
+	usage_priority="secondary-input",
+	input_flow_limit="2MW",
+	output_flow_limit="0W",
+	buffer_capacity="3MW",
+	drain="1MW"
 }
 data:extend{emE}
 
@@ -113,10 +115,11 @@ fmE.shape = {width=2, height=2, type="full"}
 fmE.energy_source =
 {
 	type="electric",
-	usage_priority="tertiary",
-	input_flow_limit="0J",
-	output_flow_limit="0J",
-	buffer_capacity="0J"
+	usage_priority="secondary-input",
+	input_flow_limit="2MW",
+	output_flow_limit="0W",
+	buffer_capacity="3MW",
+	drain="1MW"
 }
 data:extend{fmE}
 
