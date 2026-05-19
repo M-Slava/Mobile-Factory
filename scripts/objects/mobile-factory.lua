@@ -248,7 +248,7 @@ function MF:getTooltipInfos(GUITable, mainFrame, justCreated)
                         itemText = {"", " (", prototypes.fluid[deepTank.inventoryFluid].localised_name, " - ",
                                     deepTank.player, ")"}
                     end
-                    invs[k + 1] = {"", {"gui-description.DT"}, " ", tostring(deepTank.ID), itemText}
+                    table.insert(invs, {"", {"gui-description.DT"}, " ", tostring(deepTank.ID), itemText})
                     if self.selectedInv and self.selectedInv.entID == deepTank.entID then
                         selectedIndex = i
                     end

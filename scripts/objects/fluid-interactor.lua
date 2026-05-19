@@ -203,9 +203,9 @@ function FI:getTooltipInfos(GUITable, mainFrame, justCreated)
 				end
 
 				if fluid then
-					invs[k+1] = {"", "[img=fluid/"..fluid.."] ", prototypes.fluid[fluid].localised_name, " - ", deepTank.ID}
+					table.insert(invs, {"", "[img=fluid/"..fluid.."] ", prototypes.fluid[fluid].localised_name, " - ", deepTank.ID})
 				else
-					invs[k+1] = {"", "", {"gui-description.Empty"}, "", " - ", deepTank.ID}
+					table.insert(invs, {"", "", {"gui-description.Empty"}, "", " - ", deepTank.ID})
 				end
 
 				if self.selectedInv and type(self.selectedInv) == "table" and self.selectedInv.entID == deepTank.entID then
