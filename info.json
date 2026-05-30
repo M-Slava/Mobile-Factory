@@ -1,6 +1,6 @@
 {
 	"name": "Mobile_Factory_zoms",
-	"version": "0.14.3",
+	"version": "0.14.4",
 	"title": "Mobile Factory",
 	"author": "Mugiwaxar",
 	"dependencies": ["base >= 2.0", "Mobile_Factory_Graphics_zoms >= 0.6.0", "MF_Base_zoms >= 0.6.0"],
