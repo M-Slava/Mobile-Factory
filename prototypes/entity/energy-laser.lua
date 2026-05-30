@@ -199,6 +199,10 @@ el2R.energy_required = 5
 el2R.enabled = false
 el2R.ingredients = {{
     type = "item",
+    name = "EnergyLaser1",
+    amount = 1
+}, {
+    type = "item",
     name = "MachineFrame3",
     amount = 8
 }, {
@@ -294,6 +298,10 @@ el3R.name = "EnergyLaser3"
 el3R.energy_required = 5
 el3R.enabled = false
 el3R.ingredients = {{
+    type = "item",
+    name = "EnergyLaser2",
+    amount = 1
+}, {
     type = "item",
     name = "MachineFrame3",
     amount = 8
@@ -511,6 +519,10 @@ ql2R.energy_required = 5
 ql2R.enabled = false
 ql2R.ingredients = {{
     type = "item",
+    name = "QuatronLaser1",
+    amount = 1
+}, {
+    type = "item",
     name = "MachineFrame3",
     amount = 8
 }, {
@@ -606,6 +618,10 @@ ql3R.name = "QuatronLaser3"
 ql3R.energy_required = 5
 ql3R.enabled = false
 ql3R.ingredients = {{
+    type = "item",
+    name = "QuatronLaser2",
+    amount = 1
+}, {
     type = "item",
     name = "MachineFrame3",
     amount = 8
