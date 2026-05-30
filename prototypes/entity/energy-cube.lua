@@ -179,6 +179,10 @@ ec2R.energy_required = 10
 ec2R.enabled = false
 ec2R.ingredients = {{
     type = "item",
+    name = "EnergyCubeMK1",
+    amount = 1
+}, {
+    type = "item",
     name = "CrystalizedCircuit",
     amount = 4
 }, {
@@ -257,6 +261,10 @@ ec3R.name = "EnergyCubeMK3"
 ec3R.energy_required = 10
 ec3R.enabled = false
 ec3R.ingredients = {{
+    type = "item",
+    name = "EnergyCubeMK2",
+    amount = 1
+}, {
     type = "item",
     name = "EnergyCore",
     amount = 1
@@ -459,6 +467,10 @@ qc2R.energy_required = 5
 qc2R.enabled = false
 qc2R.ingredients = {{
     type = "item",
+    name = "QuatronCubeMK1",
+    amount = 1
+}, {
+    type = "item",
     name = "CrystalizedCircuit",
     amount = 4
 }, {
@@ -539,6 +551,10 @@ qc3R.name = "QuatronCubeMK3"
 qc3R.energy_required = 5
 qc3R.enabled = false
 qc3R.ingredients = {{
+    type = "item",
+    name = "QuatronCubeMK2",
+    amount = 1
+}, {
     type = "item",
     name = "EnergyCore",
     amount = 1
@@ -637,6 +653,14 @@ iecR.ingredients = {{
     amount = 4
 }, {
     type = "item",
+    name = "EnergyCubeMK2",
+    amount = 2
+}, {
+    type = "item",
+    name = "EnergyCubeMK3",
+    amount = 1
+}, {
+    type = "item",
     name = "DimensionalCircuit",
     amount = 15
 }, {
@@ -719,6 +743,14 @@ iqcR.ingredients = {{
     type = "item",
     name = "QuatronCubeMK1",
     amount = 4
+}, {
+    type = "item",
+    name = "QuatronCubeMK2",
+    amount = 2
+}, {
+    type = "item",
+    name = "QuatronCubeMK3",
+    amount = 1
 }, {
     type = "item",
     name = "DimensionalCircuit",
