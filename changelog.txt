@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version 0.14.4
+Date: 30/05/26
+  Changes:
+    - The recipe has been changed to make it more complicated quatron and energy Laser MK2 and MK3
+    - The recipe has been changed to make it more complicated quatron and energy cube MK2 and MK3
+    - The recipe has been changed to make it more complicated internal Energy and Quatron Cube
+---------------------------------------------------------------------------------------------------
 Version 0.14.3
 Date: 05/23/26
   Changes:
